@@ -1,0 +1,41 @@
+.title-area span {
+    background: rgb(0,255,248);
+    background: linear-gradient(152deg, rgba(0,255,248,1) 0%, rgba(162,0,255,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.title-area p {
+    font-size: 2rem;
+}
+
+.title-area h1 {
+    font-size: 6rem;
+}
+
+.article-area h1 {
+    font-size: 4rem;
+}
+
+.article-area p {
+    font-size: 2rem;
+}
+
+.article-area p span {
+    font-weight: lighter;
+    color: rgb(255, 119, 0);
+}
+
+.article-area img {
+    transition: 1.5s;
+}
+
+.article-mc-start {
+    height: 8rem;
+    background: linear-gradient(358deg, #212529 55%, #fff 45%);
+}
+
+.article-mc-end {
+    height: 8rem;
+    background: linear-gradient(358deg, #fff 55%, #212529 45%);
+}

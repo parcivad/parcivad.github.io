@@ -1,0 +1,10 @@
+/*
+   Resize the Header for comfort on mobile devices
+ */
+.header-area {
+    height: 2.7rem;
+}
+
+.header-area .header-brand {
+    height: 2.2rem;;
+}

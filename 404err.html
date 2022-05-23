@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!--Required Meta-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="Parcivad 404">
+    <meta name="description"
+          content="404 page not found">
+    <title>Parcivad | :C</title>
+    <!--Favicon-->
+    <link href="img/favicon_io/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+    <link href="img/favicon_io/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
+    <link href="img/favicon_io/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16">
+    <link href="img/favicon_io/site.webmanifest" rel="manifest">
+    <!--Bootstrap CSS-->
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <!--Java Script-->
+    <script src="js/bootstrap.js"></script>
+</head>
+<body>
+
+<!-- Header Area module load via js -->
+<header id="header"></header>
+
+<!-- Content of the page -->
+<main>
+    <!--Introduction-->
+    <div class="container px-4 md-3 align-items-center text-center" style="padding-top: 2rem;">
+        <h1>
+            404 <span>Error</span>
+        </h1>
+        <p>
+            Can't find what you are looking for!
+        </p>
+        <img src="img/404/han-solo.gif">
+        <img src="img/404/chewbacca.gif">
+        <div class="w-100"></div>
+        <img src="img/404/boom.gif">
+    </div>
+</main>
+
+<!-- Footer Area module load via js -->
+<footer id="footer"></footer>
+
+<script src="js/jquery-3.6.0.min.js"></script>
+<script>
+    $(function () {
+        $("#header").load("modules/header.html");
+        $("#footer").load("modules/footer.html");
+    });
+</script>
+
+</body>
+</html>

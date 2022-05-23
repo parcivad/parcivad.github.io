@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Required Meta-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Parcivad | Start</title>
+    <!--Favicon Icons-->
+    <link href="img/favicon_io/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+    <link href="img/favicon_io/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
+    <link href="img/favicon_io/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16">
+    <link href="img/favicon_io/site.webmanifest" rel="manifest">
+
+    <!--Description Meta tags-->
+    <meta name="title" content="Parcivads Website">
+    <meta name="description"
+          content="Parcivad.de is a website to use tools from parcivad">
+
+    <!--Bootstrap CSS-->
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="css/_home.css" rel="stylesheet" type="text/css">
+    <!--Java Script-->
+    <script src="js/bootstrap.js"></script>
+</head>
+<body>
+
+<!-- Header Area module load via js -->
+<header id="header"></header>
+
+<!-- Content of the page -->
+<main>
+    <!--Introduction-->
+    <div class="container px-4 md-3 title-area" style="padding-top: 2rem;">
+        <div class="row align-items-lg-center">
+            <div class="col-7 mx-auto col-md-4 order-md-2 col-lg-5">
+                <img alt="parcivad avatar looking" src="img/home/parcivad-looking.svg">
+            </div>
+            <div class="col-md-9 order-md-1 col-lg-7 text-center text-md-start">
+                <h1>
+                    Parcivad launched in the <span>Web</span>
+                </h1>
+                <p>
+                    Bib bub Bap! This is the site of Timur Stegmann, aka Parcivad. Here you can find new information,
+                    data or tools about ongoing or coming projects. For a more code and programming based look around
+                    please change to my github Account.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!--Minecraft Article-->
+    <div class="container-fluid article-mc-start"></div>
+    <div class="container-fluid bg-dark">
+        <div class="container px-4 md-3 article-area text-light bg-dark">
+            <div class="row align-items-lg-center">
+                <div class="col-7 mx-auto col-md-5 order-1 col-lg-5">
+                    <img class="d-block" style="height: 40rem;" alt="minecraft obi block" src="img/home/tower.svg">
+                </div>
+                <div class="col-md-9 order-2 col-lg-7 align-items-center text-md-start">
+                    <h1 class="title-de">
+                        Minecraft Server Data
+                    </h1>
+                    <p>
+                        soon there will be data delivered from the minecraft server <span>(callable via api)</span>.
+                        You will be able to see online/afk times of players. Most Chunks loaded and maybe a 3D world
+                        perspective.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid article-mc-end"></div>
+</main>
+
+<!-- Footer Area module load via js -->
+<footer id="footer"></footer>
+
+<script src="js/jquery-3.6.0.min.js"></script>
+<script>
+    $(function () {
+        $("#header").load("modules/header.html");
+        $("#footer").load("modules/footer.html");
+    });
+</script>
+
+</body>
+</html>
