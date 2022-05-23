@@ -1,6 +1,10 @@
 .title-area span {
     background: rgb(0,255,248);
-    background: linear-gradient(152deg, rgba(0,255,248,1) 0%, rgba(162,0,255,1) 100%);
+    background: linear-gradient(
+            152deg,
+            rgba(0,255,248,1) 0%,
+            rgba(162,0,255,1) 100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
