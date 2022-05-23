@@ -1,16 +1,13 @@
-.title-area span {
-    background: rgb(0,255,248);
-    background: linear-gradient(152deg, rgba(0,255,248,1) 0%, rgba(162,0,255,1) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
 .title-area p {
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .title-area h1 {
-    font-size: 6rem;
+    font-size: 4rem;
+}
+
+.title-area h1 span {
+    color: rgb(35, 198, 198);
 }
 
 .article-area h1 {
@@ -21,9 +18,6 @@
     font-size: 2rem;
 }
 
-.article-area h1 span {
-    color: rgb(35, 198, 198);
-}
 
 .article-area img {
     transition: 1.5s;
@@ -37,4 +31,19 @@
 .article-mc-end {
     height: 8rem;
     background: linear-gradient(358deg, #fff 55%, #212529 45%);
+}
+
+.green-check {
+    color: #2dd53c;
+    margin-right: 3px;
+}
+
+.orange-check {
+    color: #ff7f50;
+    margin-right: 2px;
+}
+
+.red-check {
+    color: #e02900;
+    margin-right: 2px;
 }
