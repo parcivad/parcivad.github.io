@@ -1,3 +1,10 @@
+:root {
+    --title-size-small: 3rem;
+    --title-text-size-small: 1.25rem;
+    --article-title-size: 2rem;
+    --article-text-size: 1rem
+}
+
 .title-area span {
     background: rgb(0,255,248);
     background: linear-gradient(
@@ -10,7 +17,7 @@
 }
 
 .title-area p {
-    font-size: 2rem;
+    font-size: 1.75rem;
 }
 
 .title-area h1 {
@@ -18,11 +25,11 @@
 }
 
 .article-area h1 {
-    font-size: 4rem;
+    font-size: 3rem;
 }
 
 .article-area p {
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .article-area h1 span {
@@ -41,4 +48,22 @@
 .article-mc-end {
     height: 8rem;
     background: linear-gradient(358deg, #fff 55%, #212529 45%);
+}
+
+@media only screen and (max-width: 600px) {
+    .title-area h1 {
+        font-size: var(--title-size-small);
+    }
+
+    .title-area p {
+        font-size: var(--title-text-size-small);
+    }
+
+    .article-area h1 {
+        font-size: var(--article-title-size);
+    }
+
+    .article-area p {
+        font-size: var(--article-text-size);
+    }
 }

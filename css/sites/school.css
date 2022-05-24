@@ -1,3 +1,8 @@
+:root {
+    --title-size-small: 3rem;
+    --title-text-size-small: 1.25rem;
+}
+
 .title-area p {
     font-size: 1.5rem;
 }
@@ -8,29 +13,6 @@
 
 .title-area h1 span {
     color: rgb(35, 198, 198);
-}
-
-.article-area h1 {
-    font-size: 4rem;
-}
-
-.article-area p {
-    font-size: 2rem;
-}
-
-
-.article-area img {
-    transition: 1.5s;
-}
-
-.article-mc-start {
-    height: 8rem;
-    background: linear-gradient(358deg, #212529 55%, #fff 45%);
-}
-
-.article-mc-end {
-    height: 8rem;
-    background: linear-gradient(358deg, #fff 55%, #212529 45%);
 }
 
 .green-check {
@@ -46,4 +28,14 @@
 .red-check {
     color: #e02900;
     margin-right: 2px;
+}
+
+@media only screen and (max-width: 600px) {
+    .title-area h1 {
+        font-size: var(--title-size-small);
+    }
+
+    .title-area p {
+        font-size: var(--title-text-size-small);
+    }
 }
