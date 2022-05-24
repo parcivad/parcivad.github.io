@@ -42,12 +42,12 @@
 
 .article-mc-start {
     height: 8rem;
-    background: linear-gradient(358deg, #212529 55%, #fff 45%);
+    background: linear-gradient(358deg, #212529 45%, #fff 49%);
 }
 
 .article-mc-end {
     height: 8rem;
-    background: linear-gradient(358deg, #fff 55%, #212529 45%);
+    background: linear-gradient(358deg, #fff 45%, #212529 49%);
 }
 
 @media only screen and (max-width: 600px) {
