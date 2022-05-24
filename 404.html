@@ -49,8 +49,14 @@
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script>
     $(function () {
-        $("#header").load("/modules/header.html");
-        $("#footer").load("/modules/footer.html");
+        // header
+        fetch('/modules/header.html')
+            .then(response=> response.text())
+            .then(text=> document.getElementById('header').innerHTML = text);
+        // header
+        fetch('/modules/footer.html')
+            .then(response=> response.text())
+            .then(text=> document.getElementById('footer').innerHTML = text);
     });
 </script>
 
