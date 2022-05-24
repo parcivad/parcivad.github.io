@@ -8,3 +8,7 @@
 .header-area .header-brand {
     height: 2.2rem;;
 }
+
+.clicked {
+    color: #ff4141;
+}
