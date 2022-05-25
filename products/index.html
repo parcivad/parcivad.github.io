@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <!--Required Meta-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:image" content="/img/favicon_io/apple-touch-icon.png"/>
+    <title>Parcivad | Start</title>
+    <!--Favicon Icons-->
+    <link href="/img/favicon_io/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+    <link href="/img/favicon_io/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
+    <link href="/img/favicon_io/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16">
+    <link href="/img/favicon_io/site.webmanifest" rel="manifest">
+
+    <!--Description Meta tags-->
+    <meta name="title" content="Parcivads Website">
+    <meta name="description"
+          content="Parcivad.de is a website to use tools from parcivad">
+
+    <!--Bootstrap CSS-->
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/css/sites/products.css" rel="stylesheet" type="text/css">
+    <!--Java Script-->
+    <script src="/js/bootstrap.js"></script>
+</head>
+<body>
+
+<!-- Header Area module load via js -->
+<header class="sticky-top" id="header"></header>
+
+<!-- Content of the page -->
+<main>
+    <div class="container px-4 md-3 title-area">
+        <div class="row row-cols-lg-2 align-items-lg-center">
+            <div class="col-6 order-lg-2 col-lg-5 justify-content-center">
+                <img class="d-block" width="430" alt="gif of opening desk" src="/img/products/coding_desk.gif">
+            </div>
+            <div class="order-lg-1 col-lg-7 align-text-top">
+                <h1 class="title-de">
+                    Parcivad Products, Plugins and APIs
+                </h1>
+                <p>
+                    Hier kannst du eine Liste von Produkten, Plugins oder APIs finden. Diese stehen entweder öffentlich
+                    zur Verfügung oder können über eine Spende freigeschaltet werden. Die Plugins kommen aus den Bereichen
+                    PHP, Javascript, Java oder Phython. Falls du bestimmte Plugins hier nicht findest solltest du nochmal
+                    bei Github nachschauen. Bei APIs ist neben der Dokumentation auch eine Kennzeichnung zu finden
+                    ob diese öffentlich nutzbar sind.
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer Area module load via js -->
+<footer id="footer"></footer>
+
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script>
+    $(function () {
+        $("#header").load("/modules/header.html");
+        $("#footer").load("/modules/footer.html");
+    });
+</script>
+
+</body>
+</html>
