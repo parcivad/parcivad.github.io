@@ -52,11 +52,11 @@
 }
 .article-mc-start {
     height: 8rem;
-    background: linear-gradient(358deg, #212529 45%, #fff 49%);
+    background: linear-gradient(2deg, #212529 45%, #fff 49%);
 }
 .article-mc-end {
     height: 8rem;
-    background: linear-gradient(358deg, #fff 45%, #212529 49%);
+    background: linear-gradient(2deg, #fff 45%, #212529 49%);
 }
 .article-plugins-start {
     height: 8rem;
