@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:image" content="/img/favicon_io/apple-touch-icon.png"/>
-    <title>Parcivad | Start</title>
+    <title>Parcivad | Products</title>
     <!--Favicon Icons-->
     <link href="/img/favicon_io/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
     <link href="/img/favicon_io/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
@@ -30,12 +30,12 @@
 
 <!-- Content of the page -->
 <main>
-    <div class="container px-4 md-3 title-area">
+    <div class="container px-4 md-3 title-area border-lg-start border-bottom" style="padding-top: 1rem;">
         <div class="row row-cols-lg-2 align-items-lg-center">
-            <div class="col-6 order-lg-2 col-lg-5 justify-content-center">
-                <img class="d-block" width="430" alt="gif of opening desk" src="/img/products/coding_desk.gif">
+            <div class="col-12 col-lg-5 order-lg-2 text-center">
+                <img width="390" alt="gif of opening desk" src="/img/products/coding_desk.gif">
             </div>
-            <div class="order-lg-1 col-lg-7 align-text-top">
+            <div class="col-lg-7 order-lg-1 align-text-top">
                 <h1 class="title-de">
                     Parcivad Products, Plugins and APIs
                 </h1>
@@ -49,6 +49,18 @@
             </div>
         </div>
     </div>
+    <!-- Product Cards -->
+    <div class="container article-area" style="margin-top: 0.5rem">
+        <div class="col-12">
+            <h1>List</h1>
+            <div id="spinner" class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+        <div id="cardholder" class="row row-cols-md-3 row-cols-xl-5 p-2 justify-content-center"></div>
+    </div>
 </main>
 
 <!-- Footer Area module load via js -->
@@ -56,9 +68,50 @@
 
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script>
-    $(function () {
+    $(async function () {
         $("#header").load("/modules/header.html");
         $("#footer").load("/modules/footer.html");
+
+        // send repoimg list request to github RESTApi
+        const response = await fetch('https://api.github.com/users/parcivad/repos', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+        // decode to object
+        const repos = await response.json();
+        // loop through each repo and add it as product
+        repos.forEach(repo => {
+            console.log(repo);
+            // show no forked repos
+            if (repo.fork) return;
+            // ignored repos
+            if ( repo.name === "parcivad" || repo.name === "img" || repo.name === "ips-scene-manager") return;
+            // format last update time
+            let lastUpdated = new Date(repo.updated_at);
+            // create card
+            let alternativeImg = '"/img/products/repoimg/none.svg"';
+            let htmlElement = '<div class="card mx-1 mt-2">\n' +
+                '                <div class="text-center pt-2">\n' +
+                '                    <img src="/img/products/repoimg/'+ repo.name +'.svg" alt="img loading failed">'+
+                '                </div>\n' +
+                '                <div class="card-body">\n' +
+                '                    <h5 class="card-title">'+ repo.name +'</h5>\n' +
+                '                    <p class="card-text">\n' +
+                '                        '+ repo.description +' ' +
+                '                    </p>\n' +' ' +
+                '                    <a class="custom-link" href="'+ repo.html_url +'">' +
+                '                        [view on Github]' +
+                '                    </a>' +
+                '                    <p class="card-subtitle">last updated on '+ (lastUpdated.getUTCDate()+1) +'.'+ (lastUpdated.getUTCMonth()+1) + '.' + lastUpdated.getFullYear() +'</p>\n' +
+                '                </div>\n' +
+                '            </div>'
+            // add to cardholder
+            $("#cardholder").append(htmlElement);
+        });
+        // remove spinner
+        $("#spinner").remove();
     });
 </script>
 

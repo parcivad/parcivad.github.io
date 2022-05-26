@@ -1,8 +1,8 @@
 :root {
     --title-size-small: 2rem;
-    --title-text-size-small: 1.5rem;
-    --article-title-size: 2rem;
-    --article-text-size: 1rem
+    --title-text-size-small: 1rem;
+    --article-title-size: 1.25rem;
+    --article-text-size: 0.75rem
 }
 
 @media only screen and (max-width: 600px) {
@@ -29,46 +29,27 @@
 .title-area p {
     font-size: 1.25rem;
 }
-.title-area span {
-    background: rgb(0,255,248);
-    background: linear-gradient(
-            152deg,
-            rgba(0,255,248,1) 0%,
-            rgba(162,0,255,1) 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
 
 .article-area h1 {
-    font-size: 3rem;
-}
-
-.article-area p {
     font-size: 1.5rem;
 }
-.article-area img {
-    transition: 1.5s;
-}
-.article-mc-start {
-    height: 8rem;
-    background: linear-gradient(2deg, #212529 45%, #fff 49%);
-}
-.article-mc-end {
-    height: 8rem;
-    background: linear-gradient(2deg, #fff 45%, #212529 49%);
-}
-.article-plugins-start {
-    height: 8rem;
-    background: linear-gradient(358deg, #212529 45%, #fff 49%);
-}
-.article-plugins-end {
-    height: 8rem;
-    background: linear-gradient(0deg, #fff 45%, #212529 49%);
+.article-area p {
+    font-size: 1rem;
 }
 
 .custom-link {
     cursor: cell;
     outline: none;
     color: currentColor;
+}
+
+.card {
+    transition: ease-in 1s;
+}
+.card:hover {
+    border-color: var(--bs-dark);
+    transition: ease-out 1s;
+}
+.card-subtitle {
+    color: gray;
 }
