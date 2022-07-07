@@ -4,11 +4,21 @@
 .header-area {
     height: 2.7rem;
 }
-
 .header-area .header-brand {
     height: 2.2rem;;
 }
 
-.clicked {
-    color: #ff4141;
+/* Brand CSS style */
+.brand a {
+    text-decoration: none;
+    cursor: none;
+}
+
+
+.discordGlow {
+    fill: #fff;
+}
+
+.discordGlow:hover {
+    fill: #4957F0;
 }

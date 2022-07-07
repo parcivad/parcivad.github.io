@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:image" content="/img/favicon_io/apple-touch-icon.png"/>
-    <meta name="theme-color" content="#212529">
+    <meta name="theme-color" content="#0E0F10">
     <title>Parcivad | Start</title>
     <!--Favicon Icons-->
     <link href="/img/favicon_io/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
@@ -20,138 +20,84 @@
 
     <!--Bootstrap CSS-->
     <link href="/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="/css/sites/home.css" rel="stylesheet" type="text/css">
+    <link href="/css/sites/general.css" rel="stylesheet" type="text/css">
     <!--Java Script-->
     <script src="/js/bootstrap.js"></script>
 </head>
 <body>
 
 <!-- Header Area module load via js -->
-<header class="sticky-top" id="header"></header>
+<header class=sticky-top id="header"></header>
 
 <!-- Content of the page -->
 <main>
-    <!--Introduction-->
-    <div class="container px-4 md-3 title-area" style="padding-top: 1rem;">
-        <div class="row align-items-lg-center">
-            <div class="col-7 mx-auto col-md-4 order-lg-2 col-lg-5">
-                <img alt="parcivad avatar looking" src="/img/home/parcivad-looking.svg">
+    <div class="container-fluid introduction align-items-center">
+        <div class="container text-center" style="margin-bottom: 10rem">
+            <div style="margin: 0 auto; width: 170px; height: 170px" id="carouselTwitchEmotes" class="carousel slide" data-bs-ride="carousel">
+                <div id="carouselContent" class="carousel-inner forceCarouselImage">
+                    <div class="carousel-item active" data-bs-interval="15000">
+                        <img src="/img/home/twitchEmotes/kppa.png" class="d-block w-100" alt="">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <img src="/img/home/twitchEmotes/4head.png" class="d-block w-100" alt="">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <img src="/img/home/twitchEmotes/cmonbruh.png" class="d-block w-100" alt="">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <img src="/img/home/twitchEmotes/feelsbadman.png" class="d-block w-100" alt="">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <img src="/img/home/twitchEmotes/mr.png" class="d-block w-100" alt="">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <img src="/img/home/twitchEmotes/LUL.png" class="d-block w-100" alt="">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <img src="/img/home/twitchEmotes/omegalul.png" class="d-block w-100" alt="">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <img src="/img/home/twitchEmotes/trihard.png" class="d-block w-100" alt="">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <img src="/img/home/twitchEmotes/pogchamp.png" class="d-block w-100" alt="">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <img src="/img/home/twitchEmotes/jebaited.png" class="d-block w-100" alt="">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <img src="/img/home/twitchEmotes/hahaa.png" class="d-block w-100" alt="">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <img src="/img/home/twitchEmotes/feelsgoodman.png" class="d-block w-100" alt="">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <img src="/img/home/twitchEmotes/gachigasm.png" class="d-block w-100" alt="">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <img src="/img/home/twitchEmotes/gachigasm.png" class="d-block w-100" alt="">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <img src="/img/home/twitchEmotes/jebaited.png" class="d-block w-100" alt="">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="4000">
+                        <img src="/img/home/twitchEmotes/LUL.png" class="d-block w-100" alt="">
+                    </div>
+                </div>
             </div>
-            <div class="col-md-9 order-lg-1 col-lg-7 text-center text-md-start">
+            <div>
                 <h1>
-                    Parcivad launched in the <span>Web</span>
+                    Take a cookie and look around
                 </h1>
-                <p>
-                    Diese Seite gehört Parcivad. Hier kannst du Information über neue Projekte,
-                    Produkte oder andere Tools und Daten  finden. Falls du dich mehr für die Programmierung
-                    interessiert kannst du dich auf meinem
-                    <a class="custom-link" href="https://github.com/parcivad">Github</a>
-                    Konto umsehen.
-                </p>
+                <h3>
+                    This site offers useful tools and functions you can use
+                </h3>
+                <button id="randomSiteTrigger" class="btn btn-outline-dark">
+                    Discover random function
+                </button>
             </div>
         </div>
     </div>
-
-
-    <!--Products Article-->
-    <div class="container-fluid" style="margin-top: 12px">
-        <div class="container px-4 md-3 article-area">
-            <div class="row align-items-lg-center">
-                <div class="col-7 col-md-5 col-lg-5 text-center">
-                    <img width="300" alt="searching on laptop" src="/img/home/laptop-searching.gif">
-                </div>
-                <div class="col-md-9 col-lg-7 align-items-center text-md-start">
-                    <h2 class="title-de">
-                        Products, Plugins and APIs
-                    </h2>
-                    <p>
-                        Falls du an meinen Plugins oder APIs interessiert bist kannst du dich auf der
-                        <a class="custom-link" href="/products/">Parcivad Products</a>
-                        Seite umschauen.
-                    </p>
-                    <p>
-                        Dort findest du eine Auflistung an bereits existierenden Plugins.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Minecraft Article-->
-    <div class="container-fluid article-mc-start"></div>
-    <div class="container-fluid bg-dark">
-        <div class="container px-4 md-3 article-area text-light bg-dark">
-            <div class="row align-items-lg-center">
-                <div class="col-7 mx-auto col-md-5 order-1 col-lg-5">
-                    <img class="d-block" style="height: 40rem;" alt="minecraft tower" src="/img/home/tower.svg">
-                </div>
-                <div class="col-md-9 order-2 col-lg-7 align-items-center text-md-start">
-                    <h1 class="title-de">
-                        Minecraft Server
-                    </h1>
-                    <p>
-                        Der Minecraft Server steht auf Anfrage für jeden offen. Das Projekt hinter dem Server hat kein
-                        konkretes Ziel.
-                    </p>
-                    <p>
-                        Im Moment wird an neuen Features und Funktionen gearbeitet. Bei Vorschlägen und Ideen kannst
-                        du dich gerne auf meinem Discord Server melden.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid article-mc-end"></div>
-    <!--Latin Vocabulary List Article-->
-    <div class="container-fluid" style="margin-top: 12px">
-        <div class="container px-4 md-3 article-area">
-            <div class="row align-items-lg-center">
-                <div class="col-7 mx-auto col-md-5 col-lg-5 text-start">
-                    <img class="" width="100%" alt="animated book gif" src="/img/home/book.gif">
-                </div>
-                <div class="col-md-9  col-lg-7 align-items-center text-md-start">
-                    <h1 class="title-de">
-                        Latin <span style="color: rgb(35, 198, 198);">Vocabulary</span>
-                    </h1>
-                    <p>
-                        Die Latein Vokablen für die Tests können jetzt unter dem Reiter
-                        <a class="custom-link" href="/school/">School</a>
-                        eingesehen werden.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Tools Article-->
-    <div class="container-fluid article-plugins-start"></div>
-    <div class="container-fluid bg-dark">
-        <div class="container px-4 md-3 article-area text-light bg-dark">
-            <div class="row align-items-lg-center">
-                <div class="col-7 mx-auto col-md-5 order-1 col-lg-5 text-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="60%" fill="currentColor" class="bi bi-qr-code-scan" viewBox="0 0 16 16">
-                        <path d="M0 .5A.5.5 0 0 1 .5 0h3a.5.5 0 0 1 0 1H1v2.5a.5.5 0 0 1-1 0v-3Zm12 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V1h-2.5a.5.5 0 0 1-.5-.5ZM.5 12a.5.5 0 0 1 .5.5V15h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5Zm15 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H15v-2.5a.5.5 0 0 1 .5-.5ZM4 4h1v1H4V4Z"/>
-                        <path d="M7 2H2v5h5V2ZM3 3h3v3H3V3Zm2 8H4v1h1v-1Z"/>
-                        <path d="M7 9H2v5h5V9Zm-4 1h3v3H3v-3Zm8-6h1v1h-1V4Z"/>
-                        <path d="M9 2h5v5H9V2Zm1 1v3h3V3h-3ZM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8H8Zm2 2H9V9h1v1Zm4 2h-1v1h-2v1h3v-2Zm-4 2v-1H8v1h2Z"/>
-                        <path d="M12 9h2V8h-2v1Z"/>
-                    </svg>
-                </div>
-                <div class="col-md-9 order-2 col-lg-7 align-items-center text-md-start">
-                    <h1 class="title-de">
-                        Parcivad <span style="color: #562af6;">Tools & Social</span>
-                    </h1>
-                    <p>
-                        Gerade arbeite ich noch an praktischen
-                        <a class="custom-link" href="/tools/">Tools</a> und
-                        <a class="custom-link" href="/social/">Social</a> Funktionen.
-                    </p>
-                    <p>
-                        Bei Vorschlägen kannst du dich gerne auf meinem Discord Server melden.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid article-plugins-end"></div>
 </main>
 
 <!-- Footer Area module load via js -->
@@ -159,6 +105,5 @@
 
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/loader.js"></script>
-
 </body>
 </html>
