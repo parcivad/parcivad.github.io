@@ -44,11 +44,10 @@
     <div class="container table-responsive" style="padding-top: 3rem">
         <div class="col-5">
             <div class="input-group mb-3">
-                <select class="form-select" id="inputGroupSelect01">
-                    <option selected>Choose...</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <select class="form-select" id="schoolSelect">
+                    <option selected>Schule wähle...</option>
+                    <option value="68789lrgym">Löwenrot-Gymnasium</option>
+                    <option value="69190gywa">Walldorf-Gymnasium</option>
                 </select>
             </div>
         </div>
@@ -95,5 +94,18 @@
 
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/loader.js"></script>
+<script>
+    $("#schoolSelect").change(function () {
+        // get request school id
+        let id = $("#schoolSelect option:selected").val();
+        // perform request on DATO
+        $.get(
+            `https://schulinternes.de/dato40/ifr-kl-termine.php?schule=${id}`,
+            function(data) {
+                alert('page content: ' + data);
+            }
+        );
+    });
+</script>
 </body>
 </html>

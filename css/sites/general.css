@@ -39,18 +39,14 @@ body {
 h1 {
     font-size: 4rem;
 }
-.title-area p {
-    font-size: 1.75rem;
+
+.roundHover {
+    transition: 500ms ease-in-out;
 }
-.title-area span {
-    background: rgb(0,255,248);
-    background: linear-gradient(
-            152deg,
-            rgba(0,255,248,1) 0%,
-            rgba(162,0,255,1) 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+
+.roundHover:hover {
+    border-radius: 30px;
+    transition: 500ms ease-in-out;
 }
 
 .custom-link {
