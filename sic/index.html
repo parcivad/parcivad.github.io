@@ -36,12 +36,30 @@
         <div class="row row-cols-2">
             <div class="col-8">
                 <h1>School Information Collection</h1>
-                <p>This site offers useful tools and function you can use</p>
+                <p>Für zusammengefasste Informationen, wähle bitte deine Schule und Klasse aus.</p>
             </div>
             <div class="col-4 text-end schoolLogo">
                 <img src="https://loewenrot-gymnasium.de/wp-content/uploads/2019/10/logo_LR.jpg">
             </div>
-            <div class="col-6">
+            <!-- Selected View -->
+            <div class="selectedView hidden" id="selectedItems">
+                <a>
+                    Schule:
+                    <span id="selectedSchool" onclick='$("#selectUi").removeClass("hidden"); $("#selectedItems").addClass("hidden");'>
+                        Löwenrot-Gymnasium
+                    </span>
+                </a>
+                <a style="padding-left: 6px">
+                    Klasse:
+                    <span id="selectedClass" onclick='$("#selectUi").removeClass("hidden"); $("#selectedItems").addClass("hidden");'>
+                        10a
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!-- Select UI - Hidden by default! -->
+        <div class="row row-cols-3" id="selectUi">
+            <div class="col-5">
                 <h5>Schule</h5>
                 <div class="input-group mb-3">
                     <select class="form-select" id="schoolSelect">
@@ -51,7 +69,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-5">
                 <h5>Klasse</h5>
                 <div class="input-group mb-3">
                     <select class="form-select" id="classSelect">
@@ -65,13 +83,21 @@
                     </select>
                 </div>
             </div>
+            <a onclick='$("#selectUi").addClass("hidden"); $("#selectedItems").removeClass("hidden");'
+               class="col-2 align-self-start text-start custom-link">
+                Hide
+            </a>
         </div>
     </div>
-    <div class="container">
+    <!-- Timetable, Newsletter, Formula and People -->
+    <div class="container pt-4 pt-xl-3">
         <div class="row row-cols-2">
             <div class="col-12 col-xl-5">
-                <h4>Klassenarbeitsplan</h4>
-                <div class="table-responsive bg-light timetable">
+                <div class="row row-cols-2">
+                    <h4>Klassenarbeitsplan</h4>
+                    <a class="custom-link text-end align-self-center">Export zum Kalendar</a>
+                </div>
+                <div class="table-responsive timetable">
                     <table class="table table-hover">
                         <thead>
                         <tr class="bg-danger text-light">
@@ -150,7 +176,10 @@
                 </div>
             </div>
             <div class="col-12 col-xl-7 pt-5 pt-xl-0">
-                <h4>Vertretungsplan</h4>
+                <div class="row row-cols-2">
+                    <h4>Vertretungsplan</h4>
+                    <a class="custom-link text-end align-self-center">Morgen</a>
+                </div>
                 <div class="table-responsive bg-light timetable">
                     <table class="table table-hover">
                         <thead>
@@ -217,7 +246,7 @@
                 </div>
             </div>
         </div>
-        <div style="padding-top: 2rem">
+        <div class="pt-5 pt-xl-4">
             <h3>
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-newspaper" viewBox="0 0 16 19">
                     <path d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5v-11zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.5.497.5H12z"/>
@@ -283,6 +312,24 @@
                 </div>
             </div>
         </div>
+        <div class="pt-5 pt-xl-4">
+            <div class="col-6">
+                <h4>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-person-badge-fill" viewBox="0 0 17 20">
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5 2.755C12.146 12.825 10.623 12 8 12s-4.146.826-5 1.755V14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.245z"/>
+                    </svg>
+                    Kollegium
+                </h4>
+                <div>
+                    <div>
+                        <input>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 19">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 
@@ -292,16 +339,60 @@
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/loader.js"></script>
 <script>
+
+    /*
+    $(function () {
+        const queryString = window.location.searchParams;
+        alert(queryString)
+    })*/
+    function createCORSRequest(method, url){
+        var xhr = new XMLHttpRequest();
+        if ("withCredentials" in xhr){
+            xhr.open(method, url, true);
+        } else if (typeof XDomainRequest != "undefined"){
+            xhr = new XDomainRequest();
+            xhr.open(method, url);
+        } else {
+            xhr = null;
+        }
+        return xhr;
+    }
+
+    $(function () {
+
+        fetch("http://schulinternes.de/dato40/ifr-kl-termine.php?schule=68789lrgym&klasse=10ac", {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'text/html',
+                "Accept-Encoding": "gzip, deflate, br",
+                "Connection": "keep-alive"
+            },
+            redirect: 'follow' // manual, *follow, error
+        })
+            .then(function (response) {
+                // when done return with text
+                console.debug(response.json());
+                return response.text();
+            })
+            .then(function (html) {
+
+                // Convert the HTML string into a document object
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(html, 'text/html');
+
+                console.debug(doc);
+
+            }).catch(function (err) {
+            // There was an error
+            console.warn('Something went wrong.', err);
+        });
+        
+    })
+
     $("#schoolSelect").change(function () {
         // get request school id
         let id = $("#schoolSelect option:selected").val();
-        // perform request on DATO
-        $.get(
-            `https://schulinternes.de/dato40/ifr-kl-termine.php?schule=${id}`,
-            function(data) {
-                alert('page content: ' + data);
-            }
-        );
     });
 </script>
 </body>
