@@ -72,15 +72,7 @@
             <div class="col-5">
                 <h5>Klasse</h5>
                 <div class="input-group mb-3">
-                    <select class="form-select" id="classSelect">
-                        <option selected>Klasse wählen...</option>
-                        <option value="5a">5a</option>
-                        <option value="5a">6a</option>
-                        <option value="5a">7a</option>
-                        <option value="5a">8a</option>
-                        <option value="5a">9a</option>
-                        <option value="5a">10a</option>
-                    </select>
+                    <select class="form-select" id="classSelect"></select>
                 </div>
             </div>
             <a onclick='$("#selectUi").addClass("hidden"); $("#selectedItems").removeClass("hidden");'
@@ -339,60 +331,45 @@
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/loader.js"></script>
 <script>
+    /*====== active group items ======*/
+    $("#schoolSelect").change(async function () {
 
-    /*
-    $(function () {
-        const queryString = window.location.searchParams;
-        alert(queryString)
-    })*/
-    function createCORSRequest(method, url){
-        var xhr = new XMLHttpRequest();
-        if ("withCredentials" in xhr){
-            xhr.open(method, url, true);
-        } else if (typeof XDomainRequest != "undefined"){
-            xhr = new XDomainRequest();
-            xhr.open(method, url);
-        } else {
-            xhr = null;
-        }
-        return xhr;
-    }
+        // get school id
+        let id = $("#schoolSelect option:selected").val();
 
-    $(function () {
-
-        fetch("http://schulinternes.de/dato40/ifr-kl-termine.php?schule=68789lrgym&klasse=10ac", {
-            method: 'GET', // *GET, POST, PUT, DELETE, etc.
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'text/html',
-                "Accept-Encoding": "gzip, deflate, br",
-                "Connection": "keep-alive"
-            },
-            redirect: 'follow' // manual, *follow, error
-        })
+        // reset list
+        $("#classSelect option").remove();
+        // current proxy and target Url
+        let proxyUrl = "https://cors-anywhere.herokuapp.com/",
+            targetUrl = `http://schulinternes.de/dato40/ifr-kl-termine.php?schule=${id}`;
+        // make request
+        fetch(proxyUrl + targetUrl)
             .then(function (response) {
                 // when done return with text
-                console.debug(response.json());
                 return response.text();
             })
-            .then(function (html) {
+            .then(function (html) {//
+                // search for classes
+                let classes = html.toString().split("<option value='");
+                classes = classes.slice(1, classes.length);
 
-                // Convert the HTML string into a document object
-                let parser = new DOMParser();
-                let doc = parser.parseFromString(html, 'text/html');
+                for (let i=0; i<classes.length; i++) {
+                    // format class
+                    classes[i] = classes[i].split("'")[0];
+                    $("#classSelect").append(`<option value="${classes[i]}">${classes[i]}</option>`)
+                }
 
-                console.debug(doc);
+                return classes;
 
             }).catch(function (err) {
             // There was an error
             console.warn('Something went wrong.', err);
         });
-        
-    })
+    });
 
+    /*====== background process ======*/
     $("#schoolSelect").change(function () {
-        // get request school id
-        let id = $("#schoolSelect option:selected").val();
+        $("#selectedSchool").text($("#schoolSelect option:selected").innerText);
     });
 </script>
 </body>
