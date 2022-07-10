@@ -33,58 +33,255 @@
 <main>
     <!-- Introduction of SIC -->
     <div class="container" style="padding-top: 2rem">
-        <h1>
-            School Information Collection
-        </h1>
-        <p>
-            This site offers useful tools and function you can use
-        </p>
-    </div>
-
-    <div class="container table-responsive" style="padding-top: 3rem">
-        <div class="col-5">
-            <div class="input-group mb-3">
-                <select class="form-select" id="schoolSelect">
-                    <option selected>Schule wähle...</option>
-                    <option value="68789lrgym">Löwenrot-Gymnasium</option>
-                    <option value="69190gywa">Walldorf-Gymnasium</option>
-                </select>
+        <div class="row row-cols-2">
+            <div class="col-8">
+                <h1>School Information Collection</h1>
+                <p>This site offers useful tools and function you can use</p>
+            </div>
+            <div class="col-4 text-end schoolLogo">
+                <img src="https://loewenrot-gymnasium.de/wp-content/uploads/2019/10/logo_LR.jpg">
+            </div>
+            <div class="col-6">
+                <h5>Schule</h5>
+                <div class="input-group mb-3">
+                    <select class="form-select" id="schoolSelect">
+                        <option selected>Schule wählen...</option>
+                        <option value="68789lrgym">Löwenrot-Gymnasium</option>
+                        <option value="69190gywa">Walldorf-Gymnasium</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-6">
+                <h5>Klasse</h5>
+                <div class="input-group mb-3">
+                    <select class="form-select" id="classSelect">
+                        <option selected>Klasse wählen...</option>
+                        <option value="5a">5a</option>
+                        <option value="5a">6a</option>
+                        <option value="5a">7a</option>
+                        <option value="5a">8a</option>
+                        <option value="5a">9a</option>
+                        <option value="5a">10a</option>
+                    </select>
+                </div>
             </div>
         </div>
-        <div class="table-responsive">
-            <table class="table table-hover" style="padding: 0">
-                <thead>
-                <tr>
-                    <th style="width: 10%" scope="col">Datum</th>
-                    <th style="width: 10%" scope="col">Lehrer</th>
-                    <th style="width: 10%" scope="col">Typ</th>
-                    <th style="width: 20%" scope="col">Fach</th>
-                    <th style="width: 50%" scope="col">Kommentar</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">08.07.2022</th>
-                    <td>THU</td>
-                    <td>KA</td>
-                    <td>Englisch</td>
-                    <td>Klassenarbeit</td>
-                </tr>
-                <tr>
-                    <th scope="row">11.07.2022</th>
-                    <td>STO</td>
-                    <td>XXX</td>
-                    <td>Info</td>
-                    <td>USA-Austausch</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                    <td>jöt</td>
-                </tr>
-                </tbody>
-            </table>
+    </div>
+    <div class="container">
+        <div class="row row-cols-2">
+            <div class="col-12 col-xl-5">
+                <h4>Klassenarbeitsplan</h4>
+                <div class="table-responsive bg-light timetable">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr class="bg-danger text-light">
+                            <th style="width: 35px; border-radius: 10px 0 0 0;" scope="col">Datum</th>
+                            <th style="width: 30px" scope="col">Lehrer</th>
+                            <th style="width: 40px" scope="col">Fach</th>
+                            <th style="width: 100px; border-radius: 0 10px 0 0;" scope="col">Kommentar</th>
+                        </tr>
+                        </thead>
+                        <tbody class="bg-light">
+                        <tr>
+                            <th scope="row">08.07.2022</th>
+                            <td>THU</td>
+                            <td>Englisch</td>
+                            <td>Klassenarbeit</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">11.07.2022</th>
+                            <td>STO</td>
+                            <td>Info</td>
+                            <td>USA-Austausch</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">11.07.2022</th>
+                            <td>STO</td>
+                            <td>Info</td>
+                            <td>USA-Austausch</td>
+                        </tr><tr>
+                            <th scope="row">11.07.2022</th>
+                            <td>STO</td>
+                            <td>Info</td>
+                            <td>USA-Austausch</td>
+                        </tr><tr>
+                            <th scope="row">11.07.2022</th>
+                            <td>STO</td>
+                            <td>Info</td>
+                            <td>USA-Austausch</td>
+                        </tr><tr>
+                            <th scope="row">11.07.2022</th>
+                            <td>STO</td>
+                            <td>Info</td>
+                            <td>USA-Austausch</td>
+                        </tr><tr>
+                            <th scope="row">11.07.2022</th>
+                            <td>STO</td>
+                            <td>Info</td>
+                            <td>USA-Austausch</td>
+                        </tr><tr>
+                            <th scope="row">11.07.2022</th>
+                            <td>STO</td>
+                            <td>Info</td>
+                            <td>USA-Austausch</td>
+                        </tr><tr>
+                            <th scope="row">11.07.2022</th>
+                            <td>STO</td>
+                            <td>Info</td>
+                            <td>USA-Austausch</td>
+                        </tr><tr>
+                            <th scope="row">11.07.2022</th>
+                            <td>STO</td>
+                            <td>Info</td>
+                            <td>USA-Austausch</td>
+                        </tr><tr>
+                            <th scope="row">11.07.2022</th>
+                            <td>STO</td>
+                            <td>Info</td>
+                            <td>USA-Austausch</td>
+                        </tr><tr>
+                            <th scope="row">11.07.2022</th>
+                            <td>STO</td>
+                            <td>Info</td>
+                            <td>USA-Austausch</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-12 col-xl-7 pt-5 pt-xl-0">
+                <h4>Vertretungsplan</h4>
+                <div class="table-responsive bg-light timetable">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr class="bg-danger text-light" style="border-radius: 10px 10px 0 0">
+                            <th style="width: 15px; border-radius: 10px 0 0 0;" scope="col">Stunde</th>
+                            <th style="width: 25px" scope="col">Raum</th>
+                            <th style="width: 30px" scope="col">Lehrer</th>
+                            <th style="width: 25px" scope="col">Fach</th>
+                            <th style="width: 100px; border-radius: 0 10px 0 0;" scope="col">Kommentar</th>
+                        </tr>
+                        </thead>
+                        <tbody class="bg-light">
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>1203</td>
+                            <td>THU</td>
+                            <td>KA</td>
+                            <td>Englisch</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>1203</td>
+                            <td>STO</td>
+                            <td>XXX</td>
+                            <td>Info</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>1203</td>
+                            <td >Larry the Bird</td>
+                            <td>@twitter</td>
+                            <td>jöt</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td>1203</td>
+                            <td >Larry the Bird</td>
+                            <td>@twitter</td>
+                            <td>jöt</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td>1203</td>
+                            <td >Larry the Bird</td>
+                            <td>@twitter</td>
+                            <td>jöt</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">6</th>
+                            <td>1203</td>
+                            <td >Larry the Bird</td>
+                            <td>@twitter</td>
+                            <td>jöt</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">7</th>
+                            <td>1203</td>
+                            <td >Larry the Bird</td>
+                            <td>@twitter</td>
+                            <td>jöt</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div style="padding-top: 2rem">
+            <h3>
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-newspaper" viewBox="0 0 16 19">
+                    <path d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5v-11zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.5.497.5H12z"/>
+                    <path d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z"/>
+                </svg>
+                Neuigkeiten
+            </h3>
+            <div class="news-list">
+                <div class="news-item" style="padding-left: 0">
+                    <div class="card bg-dark">
+                        <a class="custom-link" href="https://loewenrot-gymnasium.de/karibu-sana-aufbaugymnasium-unternimmt-reise-nach-kenia/">
+                            <img src="https://loewenrot-gymnasium.de/wp-content/uploads/2022/07/KENIA-400x256.jpg" class="card-img" alt="...">
+                            <div class="card-img-overlay" style="background: linear-gradient(158deg, rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0) 70%);">
+                                <h5 class="card-title text-white">Schule als Chance – ABG erlebt Leben und Lernen in Kenia</h5>
+                                <p class="card-text text-white">Sandstrände mit Palmen am indischen Ozea...</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="news-item">
+                    <div class="card bg-dark">
+                        <a class="custom-link" href="https://loewenrot-gymnasium.de/sommerfest-2022-22-juli-1430-17-uhr/">
+                            <img src="https://loewenrot-gymnasium.de/wp-content/uploads/2022/07/ballons-1-400x257.jpg" class="card-img" alt="...">
+                            <div class="card-img-overlay" style="background: linear-gradient(158deg, rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0) 70%);">
+                                <h5 class="card-title text-white">Sommerfest 2022: 22. Juli, 14:30 – 17 Uhr</h5>
+                                <p class="card-text text-white">Wir freuen uns, Sie alle endlich wieder persönlic...</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="news-item">
+                    <div class="card bg-dark">
+                        <a class="custom-link" href="https://loewenrot-gymnasium.de/sie-haben-post-mailaustauschprogramm-der-8b-mit-frankreich/">
+                            <img src="https://loewenrot-gymnasium.de/wp-content/uploads/2022/07/mail-400x257.jpg" class="card-img" alt="...">
+                            <div class="card-img-overlay" style="background: linear-gradient(158deg, rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0) 70%);">
+                                <h5 class="card-title text-white">“Sie haben Post!” Mailaustauschprogramm der 8b mit Frankreich</h5>
+                                <p class="card-text text-white">An den beiden Wochenenden vom 24. Juni un...</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="news-item">
+                    <div class="card bg-dark">
+                        <a class="custom-link" href="https://loewenrot-gymnasium.de/abifeier-2022/">
+                            <img src="https://loewenrot-gymnasium.de/wp-content/uploads/2022/07/abi22teaser-400x257.jpeg" class="card-img" alt="...">
+                            <div class="card-img-overlay" style="background: linear-gradient(158deg, rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0) 70%);">
+                                <h5 class="card-title text-white">“Bildung verpflichtet” – Abifeier 2022</h5>
+                                <p class="card-text text-white">In Schale geworfen und voller Erwartung...</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="news-item">
+                    <div class="card bg-dark">
+                        <a class="custom-link" href="https://loewenrot-gymnasium.de/gesundes-picknick-im-fach-glueck/">
+                            <img src="https://loewenrot-gymnasium.de/wp-content/uploads/2022/06/Lilly-400x258.jpg" class="card-img" alt="...">
+                            <div class="card-img-overlay" style="background: linear-gradient(158deg, rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0) 70%);">
+                                <h5 class="card-title text-white">Gesundes Picknick im Fach Glück</h5>
+                                <p class="card-text text-white">Die Klasse 6a plante im Rahmen der Glückseinheit “Gesunde Ernährung”...</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </main>

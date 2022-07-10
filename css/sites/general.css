@@ -17,6 +17,10 @@ body {
     font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 
+h1 {
+    font-size: 4rem;
+}
+
 .introduction {
     display: flex;
     width: 100%;
@@ -36,14 +40,9 @@ body {
     height: 170px;
 }
 
-h1 {
-    font-size: 4rem;
-}
-
 .roundHover {
     transition: 500ms ease-in-out;
 }
-
 .roundHover:hover {
     border-radius: 30px;
     transition: 500ms ease-in-out;
