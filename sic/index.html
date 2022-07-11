@@ -14,9 +14,9 @@
     <link href="/img/favicon_io/site.webmanifest" rel="manifest">
 
     <!--Description Meta tags-->
-    <meta name="title" content="Parcivad's Website">
+    <meta name="title" content="Parcivad School Information Collection">
     <meta name="description"
-          content="Start Site of parcivads Website ;D">
+          content="Für zusammengefasste Informationen, wähle bitte deine Schule und Klasse aus.">
 
     <!--Bootstrap CSS-->
     <link href="/css/bootstrap.css" rel="stylesheet" type="text/css">
@@ -39,27 +39,12 @@
                 <p>Für zusammengefasste Informationen, wähle bitte deine Schule und Klasse aus.</p>
             </div>
             <div class="col-4 text-end schoolLogo">
-                <img src="https://loewenrot-gymnasium.de/wp-content/uploads/2019/10/logo_LR.jpg">
-            </div>
-            <!-- Selected View -->
-            <div class="selectedView hidden" id="selectedItems">
-                <a>
-                    Schule:
-                    <span id="selectedSchool" onclick='$("#selectUi").removeClass("hidden"); $("#selectedItems").addClass("hidden");'>
-                        Löwenrot-Gymnasium
-                    </span>
-                </a>
-                <a style="padding-left: 6px">
-                    Klasse:
-                    <span id="selectedClass" onclick='$("#selectUi").removeClass("hidden"); $("#selectedItems").addClass("hidden");'>
-                        10a
-                    </span>
-                </a>
+                <img id="schoolLogo">
             </div>
         </div>
         <!-- Select UI - Hidden by default! -->
         <div class="row row-cols-3" id="selectUi">
-            <div class="col-5">
+            <div class="col-6 col-md-3">
                 <h5>Schule</h5>
                 <div class="input-group mb-3">
                     <select class="form-select" id="schoolSelect">
@@ -69,27 +54,25 @@
                     </select>
                 </div>
             </div>
-            <div class="col-5">
+            <div class="col-6 col-md-2">
                 <h5>Klasse</h5>
                 <div class="input-group mb-3">
-                    <select class="form-select" id="classSelect"></select>
+                    <select class="form-select" id="classSelect">
+                        <option selected>Schule zuerst wählen!</option>
+                    </select>
                 </div>
             </div>
-            <a onclick='$("#selectUi").addClass("hidden"); $("#selectedItems").removeClass("hidden");'
-               class="col-2 align-self-start text-start custom-link">
-                Hide
-            </a>
         </div>
     </div>
     <!-- Timetable, Newsletter, Formula and People -->
     <div class="container pt-4 pt-xl-3">
         <div class="row row-cols-2">
-            <div class="col-12 col-xl-5">
+            <div class="col-12 col-xl-6">
                 <div class="row row-cols-2">
                     <h4>Klassenarbeitsplan</h4>
                     <a class="custom-link text-end align-self-center">Export zum Kalendar</a>
                 </div>
-                <div class="table-responsive timetable">
+                <div id="classworkTable" class="table-responsive bg-light timetable">
                     <table class="table table-hover">
                         <thead>
                         <tr class="bg-danger text-light">
@@ -99,75 +82,11 @@
                             <th style="width: 100px; border-radius: 0 10px 0 0;" scope="col">Kommentar</th>
                         </tr>
                         </thead>
-                        <tbody class="bg-light">
-                        <tr>
-                            <th scope="row">08.07.2022</th>
-                            <td>THU</td>
-                            <td>Englisch</td>
-                            <td>Klassenarbeit</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">11.07.2022</th>
-                            <td>STO</td>
-                            <td>Info</td>
-                            <td>USA-Austausch</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">11.07.2022</th>
-                            <td>STO</td>
-                            <td>Info</td>
-                            <td>USA-Austausch</td>
-                        </tr><tr>
-                            <th scope="row">11.07.2022</th>
-                            <td>STO</td>
-                            <td>Info</td>
-                            <td>USA-Austausch</td>
-                        </tr><tr>
-                            <th scope="row">11.07.2022</th>
-                            <td>STO</td>
-                            <td>Info</td>
-                            <td>USA-Austausch</td>
-                        </tr><tr>
-                            <th scope="row">11.07.2022</th>
-                            <td>STO</td>
-                            <td>Info</td>
-                            <td>USA-Austausch</td>
-                        </tr><tr>
-                            <th scope="row">11.07.2022</th>
-                            <td>STO</td>
-                            <td>Info</td>
-                            <td>USA-Austausch</td>
-                        </tr><tr>
-                            <th scope="row">11.07.2022</th>
-                            <td>STO</td>
-                            <td>Info</td>
-                            <td>USA-Austausch</td>
-                        </tr><tr>
-                            <th scope="row">11.07.2022</th>
-                            <td>STO</td>
-                            <td>Info</td>
-                            <td>USA-Austausch</td>
-                        </tr><tr>
-                            <th scope="row">11.07.2022</th>
-                            <td>STO</td>
-                            <td>Info</td>
-                            <td>USA-Austausch</td>
-                        </tr><tr>
-                            <th scope="row">11.07.2022</th>
-                            <td>STO</td>
-                            <td>Info</td>
-                            <td>USA-Austausch</td>
-                        </tr><tr>
-                            <th scope="row">11.07.2022</th>
-                            <td>STO</td>
-                            <td>Info</td>
-                            <td>USA-Austausch</td>
-                        </tr>
-                        </tbody>
+                        <tbody id="classworkTableBody"></tbody>
                     </table>
                 </div>
             </div>
-            <div class="col-12 col-xl-7 pt-5 pt-xl-0">
+            <div class="col-12 col-xl-6 pt-5 pt-xl-0">
                 <div class="row row-cols-2">
                     <h4>Vertretungsplan</h4>
                     <a class="custom-link text-end align-self-center">Morgen</a>
@@ -330,47 +249,6 @@
 
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/loader.js"></script>
-<script>
-    /*====== active group items ======*/
-    $("#schoolSelect").change(async function () {
-
-        // get school id
-        let id = $("#schoolSelect option:selected").val();
-
-        // reset list
-        $("#classSelect option").remove();
-        // current proxy and target Url
-        let proxyUrl = "https://cors-anywhere.herokuapp.com/",
-            targetUrl = `http://schulinternes.de/dato40/ifr-kl-termine.php?schule=${id}`;
-        // make request
-        fetch(proxyUrl + targetUrl)
-            .then(function (response) {
-                // when done return with text
-                return response.text();
-            })
-            .then(function (html) {//
-                // search for classes
-                let classes = html.toString().split("<option value='");
-                classes = classes.slice(1, classes.length);
-
-                for (let i=0; i<classes.length; i++) {
-                    // format class
-                    classes[i] = classes[i].split("'")[0];
-                    $("#classSelect").append(`<option value="${classes[i]}">${classes[i]}</option>`)
-                }
-
-                return classes;
-
-            }).catch(function (err) {
-            // There was an error
-            console.warn('Something went wrong.', err);
-        });
-    });
-
-    /*====== background process ======*/
-    $("#schoolSelect").change(function () {
-        $("#selectedSchool").text($("#schoolSelect option:selected").innerText);
-    });
-</script>
+<script src="/js/sic.js"></script>
 </body>
 </html>
