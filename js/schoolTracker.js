@@ -144,7 +144,7 @@ $("#schoolSelect,#classSelect").change(function () {
     let id = $("#schoolSelect option:selected").val(),
         cl = $("#classSelect option:selected").val();
     if (cl !== undefined) window.history.pushState(
-        'save school calender options', 'Parcivad | SIC', `/sic/?school=${id}&class=${cl}`);
+        'save school calender options', 'Parcivad | SIC', `/schoolTracker/?school=${id}&class=${cl}`);
 
     // array list of school image
     let schoolLogo = {

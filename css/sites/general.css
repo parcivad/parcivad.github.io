@@ -48,6 +48,22 @@ h1 {
     transition: 500ms ease-in-out;
 }
 
+.symconModules {
+    display: flex;
+    overflow-x: scroll;
+}
+.symconModules img {
+    width: auto;
+    margin: 10px;
+    filter: grayscale(100%);
+    transition: 500ms ease-in;
+}
+.symconModules img:hover {
+    filter: grayscale(0);
+    transition: 200ms ease-in-out;
+}
+
+
 .custom-link {
     cursor: cell;
     outline: none;
