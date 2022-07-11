@@ -23,9 +23,6 @@ $(function () {
                 break;
         }
     });
-    // check ui
-    updateUI();
-
 });
 
 /**
@@ -86,7 +83,7 @@ async function updateClassworkTimetable() {
 
 /**
  * Updates List of Classes
- * @return {Promise<unknown>}
+ * @return {Promise<boolean>}
  */
 function updateClasses() {
     // start selection view
@@ -133,7 +130,7 @@ function updateClasses() {
             // There was an error
             console.warn('Something went wrong.', err);
             // reject error
-            reject(err);
+            reject(false);
         });
     })
 }
@@ -146,7 +143,8 @@ $("#schoolSelect,#classSelect").change(function () {
     // get set data
     let id = $("#schoolSelect option:selected").val(),
         cl = $("#classSelect option:selected").val();
-    window.history.pushState('save school calender options', 'Parcivad | SIC', `/sic/?school=${id}&class=${cl}`);
+    if (cl !== undefined) window.history.pushState(
+        'save school calender options', 'Parcivad | SIC', `/sic/?school=${id}&class=${cl}`);
 
     // array list of school image
     let schoolLogo = {
@@ -159,8 +157,8 @@ $("#schoolSelect,#classSelect").change(function () {
         $("#schoolLogo").attr("src", schoolLogo[$("#schoolSelect option:selected").val()]);
         return;
     }
-    // alternative
-    $("#schoolLogo").attr("src", "/img/sic/search.svg");
+    // if there is no school logo present - reset
+    $("#schoolLogo").attr("src", "");
 });
 
 /**

@@ -33,37 +33,33 @@
 <main>
     <!-- Introduction of SIC -->
     <div class="container" style="padding-top: 2rem">
-        <div class="row row-cols-2">
-            <div class="col-8">
-                <h1>School Information Collection</h1>
-                <p>Für zusammengefasste Informationen, wähle bitte deine Schule und Klasse aus.</p>
-            </div>
-            <div class="col-4 text-end schoolLogo">
-                <img id="schoolLogo">
-            </div>
-        </div>
-        <!-- Select UI - Hidden by default! -->
-        <div class="row row-cols-3" id="selectUi">
-            <div class="col-6 col-md-3">
-                <h5>Schule</h5>
-                <div class="input-group mb-3">
-                    <select class="form-select" id="schoolSelect">
-                        <option selected>Schule wählen...</option>
-                        <option value="68789lrgym">Löwenrot-Gymnasium</option>
-                        <option value="69190gywa">Walldorf-Gymnasium</option>
-                    </select>
+        <div style="display: flex">
+            <div class="col-12 col-xl-8 row row-cols-2">
+                <div class="col-12 col-md-9 col-xl-8">
+                    <h5>Schule</h5>
+                    <div class="input-group mb-3">
+                        <select class="form-select" id="schoolSelect" style="border: none; font-weight: 600; font-size: 2rem">
+                            <option selected>Schule wählen...</option>
+                            <option value="68789lrgym">Löwenrot-Gymnasium</option>
+                            <option value="69190gywa">Walldorf-Gymnasium</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6 col-xl-4">
+                    <h5>Klasse</h5>
+                    <div class="input-group mb-3">
+                        <select class="form-select border-0" id="classSelect"></select>
+                    </div>
                 </div>
             </div>
-            <div class="col-6 col-md-2">
-                <h5>Klasse</h5>
-                <div class="input-group mb-3">
-                    <select class="form-select" id="classSelect">
-                        <option selected>Schule zuerst wählen!</option>
-                    </select>
-                </div>
+            <div class="col-0 col-xl-4 text-end schoolLogo d-none d-xxl-block">
+                <img id="schoolLogo" src="" onerror="this.src='/img/sic/search.svg';">
             </div>
         </div>
     </div>
+    <!-- Placeholder -->
+    <div class="container splitter"></div>
+    <div class="placeholder pt-3 pt-xl-2"></div>
     <!-- Timetable, Newsletter, Formula and People -->
     <div class="container pt-4 pt-xl-3">
         <div class="row row-cols-2">
