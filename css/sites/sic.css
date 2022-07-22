@@ -57,11 +57,19 @@
     overflow-x: auto;
     overflow-y: hidden;
     max-height: 300px;
+    min-height: 300px;
 }
 .news-item {
     min-width: 300px;
     max-height: 300px;
     padding-left: 20px;
+}
+.news-item:first-child {
+    padding-left: 0;
+}
+.news-card {
+    background-color: gray;
+    background: linear-gradient(158deg, rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0) 70%);
 }
 
 .hidden {

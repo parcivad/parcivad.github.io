@@ -92,6 +92,23 @@ async function updateClassworkTimetable() {
     }
 }
 
+async function updateNewsList() {
+    // mark loading
+    $("#newsList").addClass("loading");
+    // if valid data access
+    let id = $("#schoolSelect option:selected").val();
+    // check for valid info
+    if (id !== undefined) {
+        switch (id) {
+            case "68789lrgym":
+                //TODO: Löwenrot new check
+                break;
+            case "69190gywa":
+
+        }
+    }
+}
+
 /**
  * Updates List of Classes
  * @return {Promise<boolean>}
