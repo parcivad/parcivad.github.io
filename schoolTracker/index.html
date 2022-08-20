@@ -8,7 +8,7 @@
     <meta property="og:title" content="Parcivads SchoolTracker to check for classworks and other media"/>
     <meta property="og:image" content="http://localhost/img/header/parcivad.png"/>
     <!-- Standard Meta -->
-    <meta name="theme-color" content="#0E0F10">
+    <meta name="theme-color" content="#19191f">
     <title>Parcivad | SchoolTracker</title>
     <!--Favicon Icons-->
     <link href="/img/favicon_io/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
@@ -23,40 +23,42 @@
 
     <!--Bootstrap CSS-->
     <link href="/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="/css/sites/sic.css" rel="stylesheet" type="text/css">
+    <link href="/css/sites/schoolTracker.css" rel="stylesheet" type="text/css">
     <!--Java Script-->
     <script src="/js/bootstrap.js"></script>
 </head>
 <body>
 
 <!-- Header Area module load via js -->
-<header class=sticky-top id="header"></header>
+<header style="background-color: #19191f" id="header"></header>
 
 <!-- Content of the page -->
 <main>
     <!-- Introduction of SIC -->
-    <div class="container" style="padding-top: 2rem">
-        <div style="display: flex">
-            <div class="col-12 col-xl-8 row row-cols-2">
-                <div class="col-12 col-md-9 col-xl-8">
-                    <h5>Schule</h5>
-                    <div class="input-group mb-3">
-                        <select class="form-select" id="schoolSelect" style="border: none; font-weight: 600; font-size: 2rem">
-                            <option selected>Schule wählen...</option>
-                            <option value="68789lrgym">Löwenrot-Gymnasium</option>
-                            <option value="69190gywa">Walldorf-Gymnasium</option>
-                        </select>
+    <div class="container-fluid">
+        <div class="container" style="padding-top: 2rem">
+            <div style="display: flex">
+                <div class="col-12 col-xl-8 row row-cols-2">
+                    <div class="col-12 col-md-9 col-xl-8">
+                        <h5>Schule</h5>
+                        <div class="input-group mb-3">
+                            <select class="form-select" id="schoolSelect" style="border: none; font-weight: 600; font-size: 2rem">
+                                <option selected>Schule wählen...</option>
+                                <option value="68789lrgym">Löwenrot-Gymnasium</option>
+                                <option value="69190gywa">Walldorf-Gymnasium</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6 col-xl-4">
+                        <h5>Klasse</h5>
+                        <div class="input-group mb-3">
+                            <select class="form-select border-0" id="classSelect"></select>
+                        </div>
                     </div>
                 </div>
-                <div class="col-6 col-xl-4">
-                    <h5>Klasse</h5>
-                    <div class="input-group mb-3">
-                        <select class="form-select border-0" id="classSelect"></select>
-                    </div>
+                <div class="col-0 col-xl-4 text-end schoolLogo d-none d-xl-block">
+                    <img id="schoolLogo" src="" onerror="this.src='/img/schoolTracker/search.svg';">
                 </div>
-            </div>
-            <div class="col-0 col-xl-4 text-end schoolLogo d-none d-xl-block">
-                <img id="schoolLogo" src="" onerror="this.src='/img/schoolTracker/search.svg';">
             </div>
         </div>
     </div>
@@ -114,52 +116,52 @@
                         <tbody class="bg-light">
                         <tr>
                             <th scope="row">1</th>
-                            <td>1203</td>
-                            <td>THU</td>
-                            <td>KA</td>
-                            <td>Englisch</td>
+                            <td>1234</td>
+                            <td>STO</td>
+                            <td>-</td>
+                            <td>-</td>
                         </tr>
                         <tr>
                             <th scope="row">2</th>
-                            <td>1203</td>
+                            <td>1234</td>
                             <td>STO</td>
-                            <td>XXX</td>
-                            <td>Info</td>
+                            <td>-</td>
+                            <td>-</td>
                         </tr>
                         <tr>
                             <th scope="row">3</th>
-                            <td>1203</td>
-                            <td >Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td>jöt</td>
+                            <td>1234</td>
+                            <td>STO</td>
+                            <td>-</td>
+                            <td>-</td>
                         </tr>
                         <tr>
                             <th scope="row">4</th>
-                            <td>1203</td>
-                            <td >Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td>jöt</td>
+                            <td>1234</td>
+                            <td>STO</td>
+                            <td>-</td>
+                            <td>-</td>
                         </tr>
                         <tr>
                             <th scope="row">5</th>
-                            <td>1203</td>
-                            <td >Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td>jöt</td>
+                            <td>1234</td>
+                            <td>STO</td>
+                            <td>-</td>
+                            <td>-</td>
                         </tr>
                         <tr>
                             <th scope="row">6</th>
-                            <td>1203</td>
-                            <td >Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td>jöt</td>
+                            <td>1234</td>
+                            <td>STO</td>
+                            <td>-</td>
+                            <td>-</td>
                         </tr>
                         <tr>
                             <th scope="row">7</th>
-                            <td>1203</td>
-                            <td >Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td>jöt</td>
+                            <td>1234</td>
+                            <td>STO</td>
+                            <td>-</td>
+                            <td>-</td>
                         </tr>
                         </tbody>
                     </table>
@@ -237,6 +239,11 @@
 
 <!-- Footer Area module load via js -->
 <footer id="footer"></footer>
+
+<!-- Get access to cors -->
+<script>
+
+</script>
 
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/loader.js"></script>

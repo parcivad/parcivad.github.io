@@ -1,68 +1,73 @@
-:root {
-    --title-size-mobil: 1.2rem;
-    --title-text-size-mobil: 0.2rem;
-}
-
-@media only screen and (max-width: 600px) {
-    .title-area h1 {
-        font-size: var(--title-size-mobil);
-    }
-    .title-area p {
-        font-size: var(--title-text-size-mobil);
-    }
+@font-face {
+    font-family: "Arial Black";
+    src: url("/font/arial-black.woff") format("woff"),
+    url("/font/arial-black.woff2") format("woff2");
 }
 
 body {
-    /*background-color: rgba(25, 25, 31, 100);*/
-    font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+    overflow-x: hidden;
 }
 
-h1 {
-    font-size: 4rem;
+.thumbnailColor {
+    background-color: rgb(25, 25, 31);
 }
 
-.introduction {
-    display: flex;
-    width: 100%;
-    height: 700px;
-    background-image:
-            radial-gradient(at 18% 16%, rgba(6, 142, 157, 0.4) 0px, transparent 50%), /* Top left */
-            radial-gradient(at 90% 0%, rgba(83, 89, 154, 0.56) 0px, transparent 50%), /* Top right */
-            radial-gradient(at 40% 45%, rgba(109, 157, 197, 0.3) 0px, transparent 50%), /* middle left */
-            radial-gradient(at 40% 50%, rgba(128, 222, 217, 0.2) 0px, transparent 50%), /* middle */
-            radial-gradient(at 100% 40%, rgba(174, 236, 239, 0.3) 0px, transparent 50%), /* middle right */
-            radial-gradient(at 0% 60%, rgba(83, 89, 154, 0.35) 0px, transparent 50%), /* bottom right */
-            radial-gradient(at 70% 60%, rgba(75, 17, 241, 0.27) 5px, transparent 50%) /* bottom left */
+.thumbnail-area {
+    background-color: rgba(25, 25, 31, 100);
 }
 
-.forceCarouselImage img {
-    width: 170px;
-    height: 170px;
+.button {
+    background-color: #eeeeee;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 500px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
 }
 
-.roundHover {
-    transition: 500ms ease-in-out;
-}
-.roundHover:hover {
-    border-radius: 30px;
-    transition: 500ms ease-in-out;
+.button:hover {
+    box-shadow: 0 10px 14px 0 rgba(0,0,0,0.15), 0 13px 46px 0 rgba(0,0,0,0.09);
+    background-color: #ffffff;
 }
 
-.symconModules {
-    display: flex;
-    overflow-x: scroll;
-}
-.symconModules img {
-    width: auto;
-    margin: 10px;
-    filter: grayscale(100%);
-    transition: 500ms ease-in;
-}
-.symconModules img:hover {
-    filter: grayscale(0);
-    transition: 200ms ease-in-out;
+.container-text h2 {
+    font-family: 'Arial Black';
+    font-style: normal;
+    font-size: 3rem;
 }
 
+.container-text h3 {
+    font-family: 'Arial Black';
+    font-style: normal;
+    font-size: 2.4rem;
+}
+
+.container-text p {
+    font-family: 'Arial';
+    font-style: normal;
+    font-size: 1.5rem;
+}
+
+.container-module {
+    background-color: #323249;
+    border-radius: 10px;
+}
+
+.container-module h5 {
+    font-family: 'Arial';
+    font-style: normal;
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
 
 .custom-link {
     cursor: cell;

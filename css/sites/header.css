@@ -10,15 +10,16 @@
 
 /* Brand CSS style */
 .brand a {
-    text-decoration: none;
-    cursor: none;
+    cursor: pointer;
 }
 
 
 .discordGlow {
-    fill: #fff;
+    color: #fff;
+    transition: color 200ms ease-in-out;
 }
 
 .discordGlow:hover {
-    fill: #4957F0;
+    color: #7289da;
+    transition: color 200ms ease-in-out;
 }

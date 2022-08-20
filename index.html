@@ -8,8 +8,8 @@
     <meta property="og:title" content="Parcivads Tool and Function Website"/>
     <meta property="og:image" content="http://localhost/img/header/parcivad.png"/>
     <!-- Standard Meta -->
-    <meta name="theme-color" content="#0E0F10">
-    <title>Parcivad | Start</title>
+    <meta name="theme-color" content="#19191F">
+    <title>Parcivad | Home</title>
     <!--Favicon Icons-->
     <link href="/img/favicon_io/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
     <link href="/img/favicon_io/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
@@ -27,78 +27,85 @@
     <!--Java Script-->
     <script src="/js/bootstrap.js"></script>
 </head>
-<body class="bg-light">
+<body>
 
-<!-- Header Area module load via js -->
-<header class=sticky-top id="header"></header>
+<header class="thumbnailColor" id="header"></header>
 
 <!-- Content of the page -->
 <main>
-    <!-- Page Thumbnail -->
-    <div class="container-fluid introduction align-items-center pt-5 pt-md-0">
-        <div class="container text-center" style="margin-bottom: 10rem">
-            <div style="margin: 0 auto; width: 170px; height: 170px" id="carouselTwitchEmotes" class="carousel slide" data-bs-ride="carousel">
-                <div id="carouselContent" class="carousel-inner forceCarouselImage">
-                    <div class="carousel-item active" data-bs-interval="17000">
-                        <img src="/img/home/twitchEmotes/kppa.png" class="d-block w-100" alt="">
-                    </div>
-                    <div class="carousel-item" data-bs-interval="4000">
-                        <img src="/img/home/twitchEmotes/LUL.png" class="d-block w-100" alt="">
-                    </div>
-                    <div class="carousel-item" data-bs-interval="4000">
-                        <img src="/img/home/twitchEmotes/omegalul.png" class="d-block w-100" alt="">
-                    </div>
-                    <div class="carousel-item" data-bs-interval="4000">
-                        <img src="/img/home/twitchEmotes/pogchamp.png" class="d-block w-100" alt="">
-                    </div>
-                    <div class="carousel-item" data-bs-interval="4000">
-                        <img src="/img/home/twitchEmotes/jebaited.png" class="d-block w-100" alt="">
-                    </div>
-                    <div class="carousel-item" data-bs-interval="4000">
-                        <img src="/img/home/twitchEmotes/feelsgoodman.png" class="d-block w-100" alt="">
-                    </div>
-                    <div class="carousel-item" data-bs-interval="4000">
-                        <img src="/img/home/twitchEmotes/gachigasm.png" class="d-block w-100" alt="">
-                    </div>
-                    <div class="carousel-item" data-bs-interval="4000">
-                        <img src="/img/home/twitchEmotes/gachigasm.png" class="d-block w-100" alt="">
-                    </div>
-                    <div class="carousel-item" data-bs-interval="4000">
-                        <img src="/img/home/twitchEmotes/jebaited.png" class="d-block w-100" alt="">
-                    </div>
-                    <div class="carousel-item" data-bs-interval="4000">
-                        <img src="/img/home/twitchEmotes/feelsbadman.png" class="d-block w-100" alt="">
-                    </div>
-                    <div class="carousel-item" data-bs-interval="4000">
-                        <img src="/img/home/twitchEmotes/mr.png" class="d-block w-100" alt="">
-                    </div>
-                    <div class="carousel-item" data-bs-interval="4000">
-                        <img src="/img/home/twitchEmotes/trihard.png" class="d-block w-100" alt="">
-                    </div>
+    <div class="thumbnail-area">
+        <div class="container">
+            <div class="row row-cols-2 w-100 pt-5 pb-3">
+                <div class="col-12 col-xl-6 container-text text-light">
+                    <h2>IMMER DEN DIREKTEN ÜBERLICK HABEN</h2>
+                    <p>Über das Server Dashboard hast du immer Zugriff auf deine MC Daten. Zudem kannst du Online- und Afkzeiten einsehen.</p>
+                    <button class="button">DASHBOARD</button>
                 </div>
-            </div>
-            <div>
-                <h1>Take a cookie and look around</h1>
-                <h3>This site offers useful tools and functions you can use</h3>
-                <button id="randomSiteTrigger" class="btn btn-outline-dark roundHover">
-                    Discover random function
-                </button>
+                <div class="col-12 col-xl-6 align-content-end">
+
+                    <img width="100%" src="/img/parcTest.svg">
+                </div>
             </div>
         </div>
     </div>
-    <div class="container" style="margin-top: -6rem">
-        <h3>IP-Symcon Modules</h3>
-        <div class="pt-2 symconModules">
-            <a href="https://github.com/parcivad/ips-home-connect"><img style="height: 4rem;" src="/img/home/symconModules/homeConnect.png"></a>
-            <a href="https://github.com/parcivad/ips-reolink"><img style="height: 3.7rem;" src="/img/home/symconModules/reolink.png"></a>
-            <a href="https://github.com/parcivad/ips-magic-home-controller"><img style="height: 3.5rem;" src="/img/home/symconModules/magicHome.png"></a>
-            <a href="https://github.com/parcivad/ips-logger"><img style="height: 3.2rem;" src="/img/home/symconModules/logger.png"></a>
+
+    <div class="container pt-5 pb-5">
+        <div class="row row-cols-2 w-100 pt-5">
+            <div class="col-12 col-xl-7">
+                <img width="100%" src="/img/parcTest2.svg">
+            </div>
+            <div class="col-12 col-xl-5 container-text text-end align-self-center">
+                <h2>BLEIB AUF DEM NEUSTEN STAND</h2>
+                <p>Schul Websiten auf das Wichtigste heruntergebrochen. Mit dem
+                    <a href="/schoolTracker" class="custom-link">School Tracker</a>
+                    kannst du ganz einfach die letzten Artikel, Neuigkeiten und Terminpläne deiner Schule einsehen. Aber zur Zeit befindet sich dieses Tool noch in der Demoversion.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="pt-5 pb-5" style="background-color: #ebfaff">
+        <div class="container">
+            <div class="container-text text-center align-self-center pt-5">
+                <h3>NOCH MEHR AUF EINEM FLECK</h3>
+                <p>Nutzte PHP Module um deiner Hausautomation den letzten Schliff zu geben!</p>
+
+                <div class="container pt-2 pb-3 text-center text-light">
+                    <div class="row row-cols-3 g-3">
+                        <div class="col-12 col-xl">
+                            <div class="p-3 container-module">
+                                <div class="pb-1">
+                                    <img height="80px" src="/img/homeConnect.png">
+                                </div>
+                                <h5>Bosch HomeConnect</h5>
+                            </div>
+                        </div>
+                        <div class="col-12 col-xl">
+                            <div class="p-3 container-module">
+                                <div class="pb-1">
+                                    <img height="80px" src="/img/reolink.png">
+                                </div>
+                                <h5>REOLINK®</h5>
+                            </div>
+                        </div>
+                        <div class="col-12 col-xl">
+                            <div class="p-3 container-module">
+                                <div class="pb-1">
+                                    <img height="80px" src="/img/magicHome.png">
+                                </div>
+                                <h5>MagicHome</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="location.assign('/module/')" class="button" style="background-color: #8bb3ff">ZU DEN MODULEN</button>
+            </div>
         </div>
     </div>
 </main>
 
-<!-- Footer Area module load via js -->
 <footer id="footer"></footer>
+
 
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/loader.js"></script>
