@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <!--Required Meta-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Social Media Headline -->
+    <meta property="og:title" content="Parcivad iCal. Stundenplan, Vertretungsplan und Klausurplan in einem Kalender."/>
+    <meta property="og:image" content="http://192.168.1.204/img/header/parcivad.png"/>
+    <!-- Standard Meta -->
+    <meta name="theme-color" content="#19191F">
+    <title>Parcivad | Student</title>
+    <!--Favicon Icons-->
+    <link href="/img/favicon_io/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+    <link href="/img/favicon_io/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
+    <link href="/img/favicon_io/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16">
+    <link href="/img/favicon_io/site.webmanifest" rel="manifest">
+
+    <!--Description Meta tags-->
+    <meta name="title" content="Parcivad's Website">
+    <meta name="description"
+          content="Start Seite von parcivads Website ;D">
+
+    <!--Bootstrap CSS-->
+    <script src="/vendor/jquery-3.6.0.min.js"></script>
+
+    <link href="/vendor/bootstrap/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/css/sites/general.css" rel="stylesheet" type="text/css">
+
+    <link href="/vendor/loadAnimation/loadAnimation.css" rel="stylesheet" type="text/css">
+    <script src="/vendor/loadAnimation/loadAnimation.js"></script>
+    <!--Java Script-->
+    <script src="/vendor/bootstrap/bootstrap.js"></script>
+</head>
+<body>
+
+<header class="thumbnailColor" id="header"></header>
+
+<!-- Content of the page -->
+<main>
+    <div class="thumbnail-area">
+        <div class="container">
+            <div class="row row-cols-2 w-100 pt-5 pb-3">
+                <div class="col-12 col-xl-6 container-text text-light">
+                    <h2>DEINE KURSE DIREKT IM KALENDER</h2>
+                    <p>Über diese Seite kannst du einfach und schnell deinen Stundenplan in den Apple, Google oder Outlook Kalender einfügen.</p>
+                    <p>Dieser Kalender kann dann mit dem Vertretungsplan & Klausurterminen automatisch verändert werden.
+                        Wähle dafür deine Kurse aus und gib deinen Namen an.</p>
+                </div>
+                <div class="col-12 col-xl-6 align-content-end text-end">
+
+                    <img width="85%" style="overflow-x: hidden" src="/img/student/calThumbnail.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container pt-5 pb-5 container-text">
+        <div class="row  row-cols-3">
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="p-2 h-100" style="background-color: #f5f5f5; border-radius: 10px;">
+                    <h4 class="text-center">Hinweise</h4>
+                    <p style="font-size: 1rem; hyphens: auto; text-align: justify" class="text-secondary">
+                        Wenn du Hinweise bei deiner Registrierung aktiviert hast sind diese automatisch in deinem Kalender
+                        eingetragen. Damit du diese auch als Nachricht sichtbar angezeigt bekommst musst du die Funktion
+                        in deinem Kalender noch erlauben.
+                    </p>
+                    <div class="text-center pt-2">
+                        <img width="80%" style="overflow-x: hidden;" src="/img/student/notificationsExplained.svg">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xl-4 pt-3 pt-md-0">
+                <div class="p-2 h-100" style="background-color: #f5f5f5; border-radius: 10px;">
+                    <h4 class="text-center">Aktualisierung</h4>
+                    <p style="font-size: 1rem; hyphens: auto; text-align: justify" class="text-secondary">
+                        Dein registrierter Kalender aktualisiert sich nur sehr selten automatisch. Wenn du aber im
+                        Fall von Vertretungen den Kalender aktualisieren willst kannst du das über die Einstellung
+                        <span style="font-weight: bolder">Kalender aktualisieren</span> tun oder du ziehst das Menü im
+                        Apple Kalender nach unten.
+                    </p>
+                    <div class="text-center pt-1">
+                        <img width="80%" style="overflow-x: hidden;" src="/img/student/calendarRefresh.svg">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-4 pt-4 pt-xl-0">
+                <div id="registerView">
+                    <div class="p-2" style="background-color: #f5f5f5; border-radius: 10px 10px 0 0;">
+                        <h4 class="text-center">Registrieren</h4>
+                        <div class="pt-2 pb-3">
+                            <!-- Courses to select -->
+                            <div>
+                                <select id="courseSelector" class="courseSelector" name="courses"
+                                        multiple multiselect-hide-x="true" multiselect-search="true">
+                                </select>
+                            </div>
+
+                            <!-- Text fields for user create -->
+                            <div class="pt-3">
+                                <div class="input-group flex-nowrap needs-validation">
+                                    <input style="border: 0; border-radius: 10px 10px 0 0;" type="text" class="form-control firstname" oninput="document.getElementById('calendarName').value = 'Stundenplan '+value" placeholder="Vorname" id="firstname" aria-label="firstname" aria-describedby="addon-wrapping">
+                                </div>
+                                <div class="input-group flex-nowrap">
+                                    <input style="border: 0; border-radius: 0 0px 10px 10px" type="text" class="form-control" placeholder="Nachname" id="lastname" aria-label="lastname" aria-describedby="addon-wrapping">
+                                </div>
+                            </div>
+
+                            <div class="pt-3">
+                                <div class="input-group flex-nowrap">
+                                    <input style="border: 0; border-radius: 10px;" type="text" class="form-control" placeholder="🏫 Stundenplan Name" id="calendarName" aria-label="calendarName" aria-describedby="addon-wrapping">
+                                </div>
+                            </div>
+
+                            <!-- Booleans as Checkbox for user -->
+                            <div class="input-group pt-2">
+                                <input class="form-check-input mt-1 rounded" type="checkbox" id="alarm" value="" aria-label="Checkbox for following text input">
+                                <span class="px-1 text-secondary">⏰ Hinweise 5 minuten vor jedem Kursbeginn</span>
+                            </div>
+                            <div class="input-group pt-1">
+                                <input class="form-check-input mt-1 rounded" type="checkbox" id="emoji" value="" aria-label="Checkbox for following text input">
+                                <span class="px-1 text-secondary">🎉 Emojis in Titeln und Beschreibungen</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="calenderButton" class="pt-2 button-calendar">
+                        <button onclick="registerUser()">Zum Kalendar hinzufügen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer id="footer"></footer>
+
+<script src="/js/loader.js"></script>
+<script src="/js/studentRegister.js"></script>
+<script>
+    // selector optimised
+    if (!('ontouchstart' in window)) {
+        var fileRef = document.createElement('script');
+        fileRef.setAttribute("type","text/javascript");
+        fileRef.setAttribute("src", "/vendor/multiSelect/multiselect-dropdown.js");
+
+        if (typeof fileRef!="undefined") document.getElementsByTagName("head")[0].appendChild(fileRef);
+    }
+</script>
+</body>
+</html>
