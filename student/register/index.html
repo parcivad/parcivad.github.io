@@ -19,7 +19,7 @@
     <!--Description Meta tags-->
     <meta name="title" content="Parcivad's Website">
     <meta name="description"
-          content="Start Seite von parcivads Website ;D">
+          content="Parcivad iCal. Stundenplan, Vertretungsplan und Klausurplan in einem Kalender.">
 
     <!--Bootstrap CSS-->
     <script src="/vendor/jquery-3.6.0.min.js"></script>
@@ -40,11 +40,11 @@
 <main>
     <div class="thumbnail-area">
         <div class="container">
-            <div class="row row-cols-2 w-100 pt-5 pb-3">
+            <div class="row row-cols-2 w-100 pt-5 pb-4">
                 <div class="col-12 col-xl-6 container-text text-light">
                     <h2>DEINE KURSE DIREKT IM KALENDER</h2>
                     <p>Über diese Seite kannst du einfach und schnell deinen Stundenplan in den Apple oder Google Kalender einfügen.</p>
-                    <p>Dieser Kalender kann dann mit dem Vertretungsplan & Klausurterminen automatisch verändert werden.
+                    <p>Vertretungsplan, Klausurplan und Stundenplan können dann zu jeder Zeit in deiner Kalender App aktualisiert werden.
                         Wähle dafür deine Kurse aus und gib deinen Namen an.</p>
                 </div>
                 <div class="col-12 col-xl-6 align-content-end text-end">
@@ -61,9 +61,7 @@
                 <div class="p-2 h-100" style="background-color: #f5f5f5; border-radius: 10px;">
                     <h4 class="text-center">Hinweise</h4>
                     <p style="font-size: 1rem; hyphens: auto; text-align: justify" class="text-secondary">
-                        Wenn du Hinweise bei deiner Registrierung aktiviert hast sind diese automatisch in deinem Kalender
-                        eingetragen. Damit du diese auch als Nachricht sichtbar angezeigt bekommst musst du die Funktion
-                        in deinem Kalender noch erlauben.
+                        Wenn du Hinweise bei deiner Registrierung aktiviert hast, sind diese automatisch in deinem Kalender eingetragen. Damit du eine Erinnerung/Nachricht siehst, musst du die Funktion in deinem Kalender erlauben.
                     </p>
                     <div class="text-center pt-2">
                         <img width="80%" style="overflow-x: hidden;" src="/img/student/notificationsExplained.svg">
@@ -74,9 +72,9 @@
                 <div class="p-2 h-100" style="background-color: #f5f5f5; border-radius: 10px;">
                     <h4 class="text-center">Aktualisierung</h4>
                     <p style="font-size: 1rem; hyphens: auto; text-align: justify" class="text-secondary">
-                        Dein registrierter Kalender aktualisiert sich nur sehr selten automatisch. Wenn du aber im
-                        Fall von Vertretungen den Kalender aktualisieren willst kannst du das über die Einstellung
-                        <span style="font-weight: bolder">Kalender aktualisieren</span> tun oder du ziehst das Menü im
+                        Dein registrierter Kalender aktualisiert sich nur sehr selten automatisch. Wenn du im
+                        Fall von Vertretungen den Kalender aktualisieren willst, musst du die Option
+                        <span style="font-weight: bolder">Kalender aktualisieren</span> einstellen oder du ziehst das Menü im
                         Apple Kalender nach unten.
                     </p>
                     <div class="text-center pt-1">
@@ -114,11 +112,11 @@
 
                             <!-- Booleans as Checkbox for user -->
                             <div class="input-group pt-2">
-                                <input class="form-check-input mt-1 rounded" type="checkbox" id="alarm" value="" aria-label="Checkbox for following text input">
+                                <input class="form-check-input mt-1 rounded" type="checkbox" checked id="alarm" value="" aria-label="Checkbox for following text input">
                                 <span class="px-1 text-secondary">⏰ Hinweise 5 minuten vor jedem Kursbeginn</span>
                             </div>
                             <div class="input-group pt-1">
-                                <input class="form-check-input mt-1 rounded" type="checkbox" id="emoji" value="" aria-label="Checkbox for following text input">
+                                <input class="form-check-input mt-1 rounded" type="checkbox" checked id="emoji" value="" aria-label="Checkbox for following text input">
                                 <span class="px-1 text-secondary">🎉 Emojis in Titeln und Beschreibungen</span>
                             </div>
                         </div>
@@ -132,6 +130,7 @@
             </div>
         </div>
     </div>
+    <div class="pb-4"></div>
 </main>
 
 <footer id="footer"></footer>
