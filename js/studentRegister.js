@@ -75,7 +75,7 @@ function registerUser() {
             let isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
             if(isAndroid) {
                 // open with google calender
-                location.assign(`https://calendar.google.com/calendar/u/0/r?cid=${data.replace('"', '').replace('"', "")}&pli=1`)
+                location.assign(`https://calendar.google.com/calendar/u/0/r?cid=https://${apiDomain}/student/feed?studentId=${data.replace('"', '').replace('"', "")}&pli=1`)
             } else {
                 // open with apple calendar
                 location.assign(`webcal://${apiDomain}/student/feed?studentId=${data.replace('"', '').replace('"', "")}`)
