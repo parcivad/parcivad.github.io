@@ -1,23 +1,27 @@
 const apiUrl = "https://api.parcivad.de"
 const apiDomain = "api.parcivad.de"
 
-// Load register card
-animateLoad("registerView")
-fetch(`${apiUrl}/student/courses`)
-    .then(response => response.json())
-    .then(data => {
-        data.forEach(course => {
-            // create html element and push it under the playerlist div
-            $("#courseSelector").append(`<option value="${course["courseId"]}">${course["courseName"]}</option>`)
-        })
+loadCourse();
 
-        // end loading animation
-        animateStop("registerView")
-    })
-    .catch(error => {
-        // display error on loading
-        animateError("registerView")
-    });
+function loadCourse() {
+    // Load register card
+    animateLoad("registerView", 350)
+    fetch(`${apiUrl}/student/courses`)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(course => {
+                // create html element and push it under the playerlist div
+                $("#courseSelector").append(`<option value="${course["courseId"]}">${course["courseName"]}</option>`)
+            })
+
+            // end loading animation
+            animateStop("registerView")
+        })
+        .catch(error => {
+            // display error on loading
+            animateError("registerView")
+        });
+}
 
 /**
  * Return list of courses from the select
@@ -67,6 +71,14 @@ function registerUser() {
             // remove red
             $("#calenderButton").removeClass("button-calendar-wrong");
             // open calendar
-            location.assign(`webcal://${apiDomain}/student/feed?studentId=${data.replace('"', '').replace('"', "")}`)
+            let ua = navigator.userAgent.toLowerCase();
+            let isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+            if(isAndroid) {
+                // open with google calender
+                location.assign(`https://calendar.google.com/calendar/u/0/r?cid=${data.replace('"', '').replace('"', "")}&pli=1`)
+            } else {
+                // open with apple calendar
+                location.assign(`webcal://${apiDomain}/student/feed?studentId=${data.replace('"', '').replace('"', "")}`)
+            }
         })
 }
