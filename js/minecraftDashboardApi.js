@@ -266,9 +266,9 @@ function setConnections() {
                         color = '#00A896';
                     } else if (ping < 50) {
                         color = '#f4c63d';
-                    } else if (ping < 100) {
+                    } else if (ping < 140) {
                         color = '#ff8b00'
-                    } else if (ping < 300) {
+                    } else if (ping >= 140) {
                         color = '#f05b4f';
                     }
                 } else {
