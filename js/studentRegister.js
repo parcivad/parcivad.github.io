@@ -80,5 +80,9 @@ function registerUser() {
                 // open with apple calendar
                 location.assign(`webcal://${apiDomain}/student/feed?studentId=${data.replace('"', '').replace('"', "")}`)
             }
+
+            document.getElementById('firstname').value = "";
+            document.getElementById('lastname').value = "";
+            document.getElementById('calendarName').value = "";
         })
 }
