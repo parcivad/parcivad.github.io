@@ -203,7 +203,7 @@ function setPerformance() {
                     color = "#de6203";
                 } else if (performanceEntry["ticksPerSeconds"] < 16) {
                     color = "#de7b03";
-                } else if (performanceEntry["ticksPerSeconds"] < 17) {
+                } else if (performanceEntry["ticksPerSeconds"] < 18) {
                     color = "rgba(0,168,150,0.48)";
                 } else if (performanceEntry["ticksPerSeconds"] < 19 ) {
                     color = "rgba(0,168,150,0.75)";
