@@ -203,7 +203,7 @@ function setPerformance() {
                     color = "#de6203";
                 } else if (performanceEntry["ticksPerSeconds"] < 16) {
                     color = "#de7b03";
-                } else if (performanceEntry["ticksPerSeconds"] < 18) {
+                } else if (performanceEntry["ticksPerSeconds"] < 17) {
                     color = "rgba(0,168,150,0.48)";
                 } else if (performanceEntry["ticksPerSeconds"] < 19 ) {
                     color = "rgba(0,168,150,0.75)";
@@ -266,9 +266,9 @@ function setConnections() {
                         color = '#00A896';
                     } else if (ping < 50) {
                         color = '#f4c63d';
-                    } else if (ping < 140) {
+                    } else if (ping < 100) {
                         color = '#ff8b00'
-                    } else if (ping >= 140) {
+                    } else if (ping < 300) {
                         color = '#f05b4f';
                     }
                 } else {
