@@ -83,11 +83,7 @@ function registerUser() {
             let isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
             if(isAndroid) {
                 // open with google calender
-<<<<<<< Updated upstream
-                location.assign(`http://calendar.google.com/calendar/u/0/r?cid=https://api.parcivad.de/student/feed?studentId=${data.replace('"', '').replace('"', "")}`)
-=======
                 location.assign(`https://calendar.google.com/calendar/u/0/r?cid=http://${apiDomain}/student/feed?studentId=${data.replace('"', '').replace('"', "")}`)
->>>>>>> Stashed changes
             } else {
                 // open with apple calendar
                 location.assign(`webcal://${apiDomain}/student/feed?studentId=${data.replace('"', '').replace('"', "")}`)
