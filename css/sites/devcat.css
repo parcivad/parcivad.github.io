@@ -1,0 +1,15 @@
+.bd-links-heading {
+    font-size: 1.1rem;
+}
+
+.bd-links-link {
+    text-decoration: none;
+    color: #e0e0e0;
+    padding: 2px;
+    transition: all ease-in-out 200ms;
+}
+
+.bd-links-link:hover {
+    color: #fff;
+    transition: all ease-in-out 400ms;
+}

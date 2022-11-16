@@ -177,7 +177,7 @@ body {
 
 .connection-item div {
     mask-image: linear-gradient(90deg, currentColor 30%,  rgba(255, 255, 255, 0) 100%);
-    background: currentColor;
+    background: linear-gradient(90deg, currentColor 30%,  rgba(255, 255, 255, 0) 100%);
     border-radius: 5px 0 0 5px;
     margin-right: 5px;
     height: 28px;
