@@ -9,7 +9,7 @@
     <meta property="og:image" content="http://parcivad.de/img/header/parcivad.png"/>
     <!-- Standard Meta -->
     <meta name="theme-color" content="#e7e8ed">
-    <title>Registrierung Schulverwaltung</title>
+    <title>Anmeldung Schulverwaltung</title>
     <!--Favicon Icons-->
     <link href="/img/favicon_io/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
     <link href="/img/favicon_io/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
@@ -48,67 +48,41 @@
                                 <option selected value="LRGYM">Löwenrot-Gymnasium</option>
                             </select>
                         </div>
-
-                        <p id="grade-error" class="input-valid">Bitte wähle deine Kurse</p>
-                        <div class="input-group mb-3" style="background-color: #f1f1f1; border: 0; border-radius: 15px;">
-                            <select style="background-color: #f1f1f1; border: 0; border-radius: 15px;"
-                                    name="grade" id="grade" class="form-select" onchange="loadCourses()">
-                            </select>
-                        </div>
-
-                        <p id="courses-error" class="input-valid">Bitte wähle deine Kurse</p>
-                        <div class="input-group mb-3" style="background-color: #f1f1f1; border: 0; border-radius: 15px;">
-                            <select multiple multiselect-hide-x="true" multiselect-search="true" multiselect-max-items="5"
-                                    name="courses" id="courses" style="background-color: #f1f1f1; border: 0; border-radius: 15px; width: 100%;" onchange="courses.loadOptions()">
-                            </select>
-                        </div>
                     </div>
 
                     <div>
-                        <p id="firstname-error" class="input-valid">Bitte gebe deinen Vornamen an</p>
+                        <p id="name-error" class="input-valid">Bitte gebe deinen Vornamen an</p>
                         <div class="input-group" data-index="1">
-                            <input id="firstname" oninput="buildMail()" style="border-radius: 15px 15px 0 0;" type="text" class="form-control input-item" placeholder="Vorname" autocomplete="given-name" aria-label="firstname" aria-describedby="basic-addon1" onkeydown="" data-index="1">
-                        </div>
-                        <p id="lastname-error" class="input-valid">Bitte gebe deinen Nachnamen an</p>
-                        <div class="input-group" data-index="2">
-                            <input id="lastname" oninput="buildMail()" style="border-radius: 0 0 15px 15px;" type="text" class="form-control input-item" placeholder="Name" autocomplete="family-name" aria-label="lastname" aria-describedby="basic-addon1" data-index="2">
+                            <input id="name" style="border-radius: 15px" type="text" class="form-control input-item" placeholder="Vorname.Name" aria-label="name" aria-describedby="basic-addon1" data-index="1">
                         </div>
 
                         <div class="mt-3">
-                            <p id="mail-error" class="input-valid">Bitte gebe ein E-Mail für dich an</p>
+                            <p id="password-error" class="input-valid">Bitte gebe dein Passwort ein</p>
                             <div class="input-group">
-                                <input id="mail" type="email" class="input-item form-control" disabled style="cursor: not-allowed" placeholder="E-Mail" aria-label="email" aria-describedby="basic-addon1">
-                            </div>
-                        </div>
-
-                        <div class="mt-3">
-                            <p id="password-error" class="input-valid">Bitte gebe ein Passwort für dich ein</p>
-                            <div class="input-group">
-                                <input id="password" type="password" class="input-item form-control" placeholder="Passwort" aria-label="password" aria-describedby="basic-addon1" data-index="3">
+                                <input id="password" type="password" class="input-item form-control" placeholder="Passwort" aria-label="password" aria-describedby="basic-addon1" data-index="2">
                             </div>
                         </div>
 
                         <div class="mt-3">
                             <p id="cookies_agree-error" class="input-valid">Dieser Dienst der Website benötigt notwendige Cookies</p>
                             <div class="d-flex">
-                                <input id="cookies_agree" class="form-check-input mt-0" style="min-width: 15px;" type="checkbox">
+                                <input id="cookies_agree" class="form-check-input mt-0" style="min-width: 15px;" type="checkbox" checked disabled>
                                 <p class="ps-1 text-secondary" style="line-height: 1">Mit der Nutzung dieser Website stimme ich dauerhaft der Verwendung von notwendigen Cookies zu und benötige keinen weiteren Hinweis zu diesen.</p>
                             </div>
                         </div>
                         <div class="text-center pt-1 pb-2">
-                            <a href="/student/login" class="text-decoration-none text-dark">Du hast bereits ein Konto?</a>
+                            <a href="/student/register" class="text-decoration-none text-dark">Du hast noch kein Konto?</a>
                         </div>
 
                         <p id="register-error" class="text-center input-valid">Etwas ist schiefgelaufen, bitte überprüfe deine Eingabe</p>
                     </div>
 
-
                     <div class="text-center pt-5">
-                        <button class="learn-more" type="submit" value="Login" onclick="register()" data-index="4">
+                        <button class="learn-more" type="submit" value="Login" onclick="login()" data-index="3">
                         <span class="circle" aria-hidden="true">
                         <span class="icon arrow"></span>
                         </span>
-                            <span class="button-text">Registrieren</span>
+                            <span class="button-text">Anmelden</span>
                         </button>
                     </div>
                 </div>
@@ -124,6 +98,6 @@
 </div>
 
 <script src="/js/student/cookieHandler.js"></script>
-<script src="/js/student/studentRegister.js"></script>
+<script src="/js/student/studentLogin.js"></script>
 </body>
 </html>

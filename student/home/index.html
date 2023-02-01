@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="de" class="h-100">
+<head>
+    <!--Required Meta-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Social Media Headline -->
+    <meta property="og:title" content="Parcivad iCal. Stundenplan, Vertretungsplan und Klausurplan in einem Kalender."/>
+    <!-- Standard Meta -->
+    <title>Schulverwaltung</title>
+
+    <!--Favicon Icons-->
+    <link href="/img/favicon_io/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+    <link href="/img/favicon_io/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
+    <link href="/img/favicon_io/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16">
+    <link href="/img/favicon_io/site.webmanifest" rel="manifest">
+
+    <!--Vendor-->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <script src="/vendor/jquery-3.6.0.min.js"></script>
+    <script src="/vendor/popper/popper.min.js"></script>
+
+    <link href="/vendor/bootstrap/bootstrap.css" rel="stylesheet" type="text/css">
+    <script src="/vendor/bootstrap/bootstrap.js"></script>
+
+    <link href="/vendor/loadAnimation/loadAnimation.css" rel="stylesheet" type="text/css">
+    <script src="/vendor/loadAnimation/loadAnimation.js"></script>
+
+    <!-- CSS -->
+    <link href="/css/studentHome.css" rel="stylesheet" type="text/css">
+
+    <!-- Site theme Meta -->
+    <meta name="theme-color" content="#e7e8ed" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+</head>
+
+<body class="h-100">
+
+<div class="container-fluid h-100">
+    <div id="homeView" class="h-100">
+        <a id="sideBarToggle" class="sideBarToggle display-none pt-2" onclick="themeChange()"
+           data-bs-toggle="offcanvas" href="#sideBarView" role="button" aria-controls="offcanvasExample">
+            <ion-icon name="chevron-back-outline">Zurück</ion-icon>
+        </a>
+        <div class="row h-100">
+            <div id="sideBarView" class="sideBar h-100 px-2 py-3 m-0"
+                 tabindex="-1" aria-labelledby="offcanvasExampleLabel">
+                <!-- Site Menu -->
+                <div class="h-100">
+                    <!--Starter Menu-->
+                    <div class="d-flex pb-1">
+                        <div class="col text-start">
+                            <ion-icon name="grid-outline"></ion-icon>
+                        </div>
+                        <div class="col text-end px-2">
+                            <a class="linkAction" onclick="logout()">Logout</a>
+                        </div>
+                    </div>
+
+                    <!-- gekürzt auf 12 -->
+                    <h2 id="largeTitle">Lädt...</h2>
+
+                    <div class="pb-3 align-content-between">
+                        <div class="d-flex cursor-pointer" style="filter: grayscale(100%); color: var(--sys-gray)">
+                            <div class="pe-1 text-start"><ion-icon name="cube-outline"></ion-icon></div>
+                            <div class="col text-start"><a role="button" data-bs-dismiss="offcanvas" aria-label="Close">Überblick</a></div>
+                            <div class="col text-end text-secondary container-none">Detail</div>
+                            <div class="ps-1 text-start container-none"><ion-icon name="information-circle-outline"></ion-icon></div>
+                        </div>
+                    </div>
+
+                    <div class="pb-3">
+                        <h3>Community</h3>
+                        <div class="ps-1 align-content-between" style="filter: grayscale(100%); color: var(--sys-gray)">
+                            <div class="d-flex pb-1 cursor-pointer">
+                                <div class="pe-1 text-start"><ion-icon name="radio-outline"></ion-icon></div>
+                                <div class="col text-start">Rundnachrichten</div>
+                                <div class="col text-end text-secondary container-none">Detail</div>
+                                <div class="ps-1 text-end"><ion-icon style="padding-right: 6px; font-size: 10px" name="ellipse"></ion-icon></div>
+                            </div>
+                            <div class="d-flex pb-1 cursor-pointer">
+                                <div class="pe-1 text-start"><ion-icon name="chatbox-outline"></ion-icon></ion-icon></div>
+                                <div class="col text-start">Kommentare</div>
+                                <div class="col text-end text-secondary container-none">Detail</div>
+                                <div class="ps-1 text-start container-none"><ion-icon name="information-circle-outline"></ion-icon></div>
+                            </div>
+                            <div class="d-flex pb-1 cursor-pointer">
+                                <div class="pe-1 text-start"><ion-icon name="trending-up-outline"></ion-icon></div>
+                                <div class="col text-start">Rankings</div>
+                                <div class="col text-end text-secondary container-none">Detail</div>
+                                <div class="ps-1 text-start container-none"><ion-icon name="information-circle-outline"></ion-icon></div>
+                            </div>
+                            <div class="d-flex pb-1 cursor-pointer">
+                                <div class="pe-1 text-start"><ion-icon name="pie-chart-outline"></ion-icon></div>
+                                <div class="col text-start">Umfragen</div>
+                                <div class="col text-end text-secondary container-none">Detail</div>
+                                <div class="ps-1 text-start container-none"><ion-icon name="information-circle-outline"></ion-icon></div>
+                            </div>
+                            <div class="d-flex pb-1 cursor-pointer">
+                                <div class="pe-1 text-start"><ion-icon name="file-tray-full-outline"></ion-icon></ion-icon></div>
+                                <div class="col text-start"><a role="button" data-bs-dismiss="offcanvas" aria-label="Close" onclick="/*loadModule('quotation')*/">Zitate</a></div>
+                                <div class="col text-end text-secondary container-none">Detail</div>
+                                <div class="ps-1 text-start container-none"><ion-icon name="information-circle-outline"></ion-icon></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pb-3">
+                        <h3>Kalender</h3>
+                        <div class="ps-1 align-content-between">
+                            <div class="d-flex pb-1 cursor-pointer" style="filter: grayscale(100%); color: var(--sys-gray)">
+                                <div class="pe-1 text-start"><ion-icon name="time-outline"></ion-icon></div>
+                                <div class="col text-start">Stundenplan</div>
+                                <div class="col text-end text-secondary container-none">Detail</div>
+                                <div class="ps-1 text-start container-none"><ion-icon name="information-circle-outline"></ion-icon></div>
+                            </div>
+                            <div class="d-flex pb-1 cursor-pointer" style="filter: grayscale(100%); color: var(--sys-gray)">
+                                <div class="pe-1 text-start"><ion-icon name="calendar-outline"></ion-icon></div>
+                                <div class="col text-start">Veranstaltungen</div>
+                                <div class="col text-end text-secondary container-none">Detail</div>
+                                <div class="ps-1 text-start container-none"><ion-icon name="information-circle-outline"></ion-icon></div>
+                            </div>
+                            <div class="d-flex pb-1 cursor-pointer">
+                                <div class="pe-1 text-start"><ion-icon name="add-circle-outline"></ion-icon></div>
+                                <div class="col text-start"><a role="button" data-bs-dismiss="offcanvas" aria-label="Close" onclick="loadModule('calendarSubscription')">Kalender Abonnieren</a></div>
+                                <div class="col text-end text-secondary container-none">Detail</div>
+                                <div id="calendarActive" class="ps-1 text-start"><ion-icon name="checkmark-outline"></ion-icon></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pb-3">
+                        <h3>Verwaltung</h3>
+                        <div class="ps-1 align-content-between" style="filter: grayscale(100%); color: var(--sys-gray)">
+                            <div class="d-flex pb-1 cursor-pointer">
+                                <div class="pe-1 text-start"><ion-icon name="cash-outline"></ion-icon></div>
+                                <div class="col text-start">Finanzen</div>
+                                <div class="col text-end text-secondary container-none">Detail</div>
+                                <div class="ps-1 text-start"><ion-icon name="information-circle-outline"></ion-icon></div>
+                            </div>
+                            <div class="d-flex pb-1 cursor-pointer">
+                                <div class="pe-1 text-start"><ion-icon name="person-circle-outline"></ion-icon></div>
+                                <div class="col text-start">Schüler</div>
+                                <div class="col text-end text-secondary container-none">Detail</div>
+                                <div class="ps-1 text-start"><ion-icon name="information-circle-outline"></ion-icon></div>
+                            </div>
+                            <div class="d-flex pb-1 cursor-pointer">
+                                <div class="pe-1 text-start"><ion-icon name="add-circle-outline"></ion-icon></div>
+                                <div class="col text-start">Lehrer</div>
+                                <div class="col text-end text-secondary container-none">Detail</div>
+                                <div class="ps-1 text-start container-none"><ion-icon name="information-circle-outline"></ion-icon></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pb-3">
+                        <h3>Einstellungen</h3>
+                        <div class="ps-1 align-content-between">
+                            <div class="d-flex pb-1 cursor-pointer" style="filter: grayscale(100%); color: var(--sys-gray)">
+                                <div class="pe-1 text-start"><ion-icon name="person-circle-outline"></ion-icon></div>
+                                <div class="col text-start">Konto</div>
+                                <div class="col text-end text-secondary container-none">Detail</div>
+                                <div class="ps-1 text-start"><ion-icon name="information-circle-outline"></ion-icon></div>
+                            </div>
+                            <div class="d-flex pb-1 cursor-pointer" style="filter: grayscale(100%); color: var(--sys-gray)">
+                                <div class="pe-1 text-start"><ion-icon name="cog-outline"></ion-icon></div>
+                                <div class="col text-start">Allgemein</div>
+                                <div class="col text-end text-secondary container-none">Detail</div>
+                                <div class="ps-1 text-start container-none"><ion-icon name="information-circle-outline"></ion-icon></div>
+                            </div>
+                            <div class="d-flex pb-1 cursor-pointer" style="filter: grayscale(100%); color: var(--sys-gray)">
+                                <div class="pe-1 text-start"><ion-icon name="hammer-outline"></ion-icon></div>
+                                <div class="col text-start">Entwicklung</div>
+                                <div class="col text-end text-secondary container-none">v.0.1</div>
+                                <div class="ps-1 text-start container-none"><ion-icon name="information-circle-outline"></ion-icon></div>
+                            </div>
+                            <div class="d-flex pb-1 cursor-pointer" style="filter: grayscale(100%); color: var(--sys-gray)">
+                                <div class="pe-1 text-start"><ion-icon name="open-outline"></ion-icon></ion-icon></div>
+                                <div class="col text-start">Datenschutz</div>
+                                <div class="col text-end text-secondary container-none">Detail</div>
+                                <div class="ps-1 text-start container-none"><ion-icon name="information-circle-outline"></ion-icon></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content col p-0 m-0 h-100">
+                <!-- Main Content Part of the selected Header -->
+                <div id="contentView" class="h-100">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/student/cookieHandler.js"></script>
+<script src="/js/student/studentHome.js"></script>
+<script src="/js/student/studentHomeHandler.js"></script>
+</body>
+</html>

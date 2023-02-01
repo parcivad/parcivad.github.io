@@ -1,13 +1,27 @@
+
 /**
  * Add the loading animation in and hide the id content
  * @param id
  * @param height
  */
-function animateLoad(id, height) {
+function animateLoadByType(id, height, type) {
     $(`#${id}`).addClass("container-none");
     // check if the load already exists
     if ($(`#animate${id}`).length !== 0) return
-    $(`#${id}`).parent().append(`<div id="animate${id}" class="container-loading" style="width: 100%; height: ${height}px"><div class="building-blocks"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>`);
+
+    switch (type) {
+        case "bricks":
+            $(`#${id}`).parent().append(`<div id="animate${id}" class="container-loading" style="width: 100%; height: ${height}"><div class="building-blocks"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>`);
+            break;
+
+        case "spinner":
+            $(`#${id}`).parent().append(`<div id="animate${id}" class="container-loading" style="width: 100%; height: ${height}"><div class="spinner"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>`);
+            break;
+
+        case "dots":
+            $(`#${id}`).parent().append(`<div id="animate${id}" class="container-loading" style="width: 100%; height: ${height}"><div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>`);
+            break;
+    }
 }
 
 /**

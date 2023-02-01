@@ -156,7 +156,7 @@ body {
     height: 30px;
 }
 
-.domain {
+.dynInfoTitle {
     font-family: 'Arial' !important;
     font-style: normal !important;
     font-size: 1.2rem !important;
@@ -190,9 +190,9 @@ body {
 }
 
 .player-list {
-mask-image: linear-gradient(0deg, rgba(255, 255, 255, 0) 2%, rgba(19, 26, 38, 1) 15%);
-height: 355px;
-overflow-y: scroll;
+    mask-image: linear-gradient(0deg, rgba(255, 255, 255, 0) 2%, rgba(19, 26, 38, 1) 15%);
+    height: 355px;
+    overflow-y: scroll;
 }
 
 .player-item {

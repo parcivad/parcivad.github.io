@@ -8,6 +8,10 @@ body {
     overflow-x: hidden;
 }
 
+.display-none {
+    display: none;
+}
+
 .thumbnailColor {
     background-color: rgb(25, 25, 31);
 }

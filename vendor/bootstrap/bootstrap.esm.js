@@ -3,7 +3,7 @@
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
-import * as Popper from '@popperjs/core';
+import * as Popper from '@popper/core';
 
 /**
  * --------------------------------------------------------------------------
@@ -3114,7 +3114,7 @@ EventHandler.on(document, EVENT_CLICK_DATA_API$2, SELECTOR_DATA_TOGGLE$2, functi
 
   EventHandler.one(target, EVENT_SHOW$3, showEvent => {
     if (showEvent.defaultPrevented) {
-      // only register focus restorer if modal will actually get shown
+      // only landing focus restorer if modal will actually get shown
       return;
     }
 

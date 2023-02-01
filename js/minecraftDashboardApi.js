@@ -114,7 +114,7 @@ function getPlayerIdleTimeSeries(playerSession, limit) {
  */
 function setOnlinePlayers() {
     // start loading animation
-    animateLoad("playerView", 320)
+    animateLoadByType("playerView", "320px", "bricks");
 
     // Create a line chart with responsive options+
     fetch(`${apiUrl}/minecraft/playerSession`)
@@ -138,7 +138,7 @@ function setOnlinePlayers() {
             })
 
             // end loading animation
-            animateStop("playerView")
+            animateStop("playerView");
         })
         .catch(error => {
             // display error on loading
@@ -154,7 +154,7 @@ function setPerformance() {
     const dataPoints = 31;
 
     // start loading animation
-    animateLoad("performanceView", 164)
+    animateLoadByType("performanceView", "164px", "bricks")
 
     // Create a line chart with responsive options+
     fetch(`${apiUrl}/minecraft/serverPerformance/now`)
@@ -242,7 +242,7 @@ function setPerformance() {
  */
 function setConnections() {
     // start loading animation
-    animateLoad("connectionView", 164)
+    animateLoadByType("connectionView", "164px", "bricks")
 
     // Create a line chart with responsive options+
     fetch(`${apiUrl}/minecraft/playerSession`)
@@ -322,7 +322,7 @@ function setPlayerActivityGraph(onlineOrIdle) {
     if ($("#timeBackSelect option:selected").val() > 7) labels = [];
 
     // start loading animation
-    animateLoad("graphView", 320);
+    animateLoadByType("graphView", "320px", "bricks");
 
     // Create a line chart with responsive options+
     fetch(`${apiUrl}/minecraft/playerSession`)
@@ -446,7 +446,7 @@ function setPlayerActivityGraph(onlineOrIdle) {
  */
 function setPlayerGraph(playerUUID) {
     // start loading animation
-    animateLoad("graphView", 320);
+    animateLoadByType("graphView", "375px", "bricks");
 
     // Create a line chart with responsive options+
     fetch(`${apiUrl}/minecraft/playerSession/${playerUUID}`)
