@@ -1,5 +1,4 @@
-//const apiUrl = "https://api.parcivad.de";
-const apiUrl = "http://127.0.0.1:3000"
+const apiUrl = "https://api.parcivad.de";
 
 // need authentication
 if (!getCookie("token") || !getCookie("refresh_token")) {
