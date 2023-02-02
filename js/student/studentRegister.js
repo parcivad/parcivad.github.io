@@ -1,16 +1,3 @@
-const apiUrl = "https://api.parcivad.de"
-
-/**
- * JQuery reacting to keyboard to skip through login
- */
-$(".input-group").on('keydown', 'input', function (event) {
-    if (event.which === 13) {
-        event.preventDefault();
-        let $this = $(event.target);
-        let index = parseFloat($this.attr('data-index'));
-        $('[data-index="' + (index + 1) + '"]').focus().click();
-    }
-});
 
 loadForm()
     .then(resolve => {
@@ -30,6 +17,55 @@ loadForm()
     });
 
 /**
+ * Checks form and registers the user on the server
+ * Validates from server and continues to home
+ */
+function register() {
+    if (formCheck()) {
+        let $errorLabel = $("#register-error");
+
+        // make endpoint call
+        call("/student/register", "POST", JSON.stringify({
+            "name": {
+                "firstname": $("#firstname").val(),
+                "lastname": $("#lastname").val()
+            },
+            "email": $("#mail").val(),
+            "password": $("#password").val(),
+            "grade": $("#grade option:selected").val(),
+            "courses": Object.assign([], getCourses())
+        }), null)
+            .then(value => {
+                // catch error
+                if (isset(value["error_key"])) {
+                    switch (value["error_key"]) {
+                        case 'request_not_valid':
+                            $errorLabel.text("Etwas ist schiefgelaufen, bitte überprüfe deine Eingabe (Passwort mindestens 6 Zeichen)")
+                            $errorLabel.removeClass("input-valid");
+                            $errorLabel.addClass("input-error");
+                            break;
+                        case 'request_duplicated':
+                            $errorLabel.text("Dieses Konto gibt es bereits. Probiere dich einzuloggen")
+                            $errorLabel.removeClass("input-valid");
+                            $errorLabel.addClass("input-error");
+                            break;
+                    }
+                    return false;
+                }
+
+                // set jwt as Cookies and redirect to Home
+                setCookies(value);
+                location.assign("/student/home/?t=calendarSubscription");
+            })
+            .catch(error => {
+                // let the client know an error occurred
+                $errorLabel.removeClass("input-valid");
+                $errorLabel.addClass("input-error");
+            })
+    }
+}
+
+/**
  * Loads all variable input needed
  * @returns {Promise} All loaded
  */
@@ -46,74 +82,58 @@ function loadForm() {
                     })
                     .catch(error => {
                         animateError("loginView");
-                        console.debug(error)
                         reject();
                     })
             })
             .catch(error => {
                 animateStop("loginView");
-                console.debug(error);
                 reject();
             })
     })
 }
 
+/**
+ * Loads all grades from API and adds to Select HTML
+ * @returns {Promise<unknown>}
+ */
 function loadGrades() {
     return new Promise(function (resolve, reject) {
-        fetch(`${apiUrl}/student/grades`)
-            .then(response => response.json())
-            .then(grades => {
-
+        // making endpoint call for all grades
+        call("/student/grades", "GET", null, null)
+            .then(value => {
+                // add all courses and sort
                 let firstSelect = "selected";
-                for (let i=0; i < grades.length; i++) {
-                    let grade = grades[i];
+                for (let i=0; i < value.length; i++) {
+                    let grade = value[i];
                     // create html element and push it under the class selector
                     $("#grade").append(`<option ${firstSelect} value="${grade["gradeId"]}">${grade["gradeName"]}</option>`)
                     firstSelect = "";
                 }
+                sortSelect("grade");
 
-                let options = $('#grade option');
-                let arr = options.map(function (_, o) {
-                    return {t: $(o).text(), v: o.value};
-                }).get();
-                arr.sort(function (o1, o2) {
-                    return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0;
-                });
-                options.each(function (i, o) {
-                    o.value = arr[i].v;
-                    $(o).text(arr[i].t);
-                })
-                resolve();
+                resolve()
             })
             .catch(error => {
                 reject();
-            });
+            })
     })
 }
 
+/**
+ * Loads all courses from API and adds to Select HTML
+ * @returns {Promise<unknown>}
+ */
 function loadCourses() {
     return new Promise(function (resolve, reject) {
-        fetch(`${apiUrl}/student/courses?gradeId=${$("#grade option:selected").val()}`)
-            .then(response => response.json())
-            .then(courses => {
-                for (let i = 0; i < courses.length; i++) {
-                    let course = courses[i];
-                    // create html element and push it under the class selector
+        // making endpoint call
+        call(`/student/courses?gradeId=${$("#grade option:selected").val()}`, "GET", null, null)
+            .then(value => {
+                // add all courses and sort
+                value.forEach(course => {
                     $("#courses").append(`<option value="${course["courseId"]}">${course["courseName"]}</option>`)
-
-                }
-
-                let options = $('#courses option');
-                let arr = options.map(function (_, o) {
-                    return {t: $(o).text(), v: o.value};
-                }).get();
-                arr.sort(function (o1, o2) {
-                    return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0;
-                });
-                options.each(function (i, o) {
-                    o.value = arr[i].v;
-                    $(o).text(arr[i].t);
                 })
+                sortSelect("courses");
+
                 resolve();
             })
             .catch(error => {
@@ -123,46 +143,57 @@ function loadCourses() {
 }
 
 /**
- * Builds Mail from
+ * Builds Mail from first and lastname
  */
 function buildMail() {
     $("#mail").val(`${$("#firstname").val().toLowerCase()}.${$("#lastname").val().toLowerCase()}@loewenrot-gymnasium.de`)
 }
 
+/**
+ * Checks given input fields of input
+ * @returns {boolean}
+ */
 function formCheck() {
     let validInput = true,
         fields = ["#grade", "#courses", "#firstname", "#lastname", "#password"];
 
-    for (let i=0; i < fields.length; i++) {
-        // if there is no input
-        if ($(fields[i]).val() === "") {
-            $(fields[i]+"-error").removeClass("input-valid")
-            $(fields[i]+"-error").addClass("input-error")
+    // id
+    let cookiesError = $("#cookies_agree-error"),
+        courseError = $("#courses-error");
+
+    fields.forEach(field => {
+        let fieldElement = $(`${field}-error`);
+
+        if ($(field).val() === "") {
+            // if not valid
+            fieldElement.removeClass("input-valid")
+            fieldElement.addClass("input-error")
             validInput = false;
-            continue;
+
+        } else {
+            // if valid
+            fieldElement.addClass("input-valid")
+            fieldElement.removeClass("input-error")
         }
-        // if valid
-        $(fields[i]+"-error").addClass("input-valid")
-        $(fields[i]+"-error").removeClass("input-error")
-    }
+    })
 
     if (!$("#cookies_agree").is(":checked")) {
-        $("#cookies_agree-error").removeClass("input-valid")
-        $("#cookies_agree-error").addClass("input-error")
+        cookiesError.removeClass("input-valid")
+        cookiesError.addClass("input-error")
         validInput = false;
     } else {
-        $("#cookies_agree-error").addClass("input-valid")
-        $("#cookies_agree-error").removeClass("input-error")
+        cookiesError.addClass("input-valid")
+        cookiesError.removeClass("input-error")
     }
 
     if ($(`${"#courses"} option:selected`).val() === undefined) {
-        $("#courses-error").removeClass("input-valid")
-        $("#courses-error").addClass("input-error")
+        courseError.removeClass("input-valid")
+        courseError.addClass("input-error")
         validInput = false;
     } else {
         // if valid
-        $("#courses-error").addClass("input-valid")
-        $("#courses-error").removeClass("input-error")
+        courseError.addClass("input-valid")
+        courseError.removeClass("input-error")
     }
 
     // return valid
@@ -180,53 +211,19 @@ function getCourses() {
 }
 
 /**
- * Checks form and registers the user on the server
- * Validates from server and continues to home
+ * Sorts a select list in alphabetic order
+ * @param id    ID of the HTML Select
  */
-function register() {
-    if (formCheck()) {
-
-        let $errorLabel = $("#register-error"),
-            coursesJson = JSON.stringify(Object.assign([], getCourses())),
-            body = `{"name":{"firstname": "${$("#firstname").val()}","lastname": "${$("#lastname").val()}"},"email": "${$("#mail").val()}","password": "${$("#password").val()}","grade": "${$("#grade option:selected").val()}","courses": ${coursesJson}}`;
-
-
-        fetch(`${apiUrl}/student/register`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: body
-        })
-            .then(response => response.json())
-            .then(data => {
-                // catch error
-                if (data["error_key"]) {
-                    switch (data["error_key"]) {
-                        case 'request_not_valid':
-                            $errorLabel.text("Etwas ist schiefgelaufen, bitte überprüfe deine Eingabe (Passwort mindestens 6 Zeichen)")
-                            $errorLabel.removeClass("input-valid");
-                            $errorLabel.addClass("input-error");
-                            break;
-                        case 'request_duplicated':
-                            $errorLabel.text("Dieses Konto gibt es bereits. Probiere dich einzuloggen")
-                            $errorLabel.removeClass("input-valid");
-                            $errorLabel.addClass("input-error");
-                            break;
-                    }
-                    return false;
-                }
-
-                setCookie("token", data["token"], 1);
-                setCookie("refresh_token", data["refresh_token"], 1);
-                setCookie("expiresIn", data["expiresIn"], 1);
-                setCookie("token_type", data["token_type"], 1);
-                location.assign("/student/home/?t=calendarSubscription");
-
-            })
-            .catch(error => {
-                $errorLabel.removeClass("input-valid");
-                $errorLabel.addClass("input-error");
-            })
-    }
+function sortSelect(id) {
+    let options = $(`#${id} option`);
+    let arr = options.map(function (_, o) {
+        return {t: $(o).text(), v: o.value};
+    }).get();
+    arr.sort(function (o1, o2) {
+        return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0;
+    });
+    options.each(function (i, o) {
+        o.value = arr[i].v;
+        $(o).text(arr[i].t);
+    })
 }

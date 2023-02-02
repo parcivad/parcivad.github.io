@@ -4,9 +4,11 @@
     <!--Required Meta-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <!-- Social Media Headline -->
-    <meta property="og:title" content="Parcivad iCal. Stundenplan, Vertretungsplan und Klausurplan in einem Kalender."/>
-    <!-- Standard Meta -->
+
+    <!--Social Media Headline-->
+    <meta property="og:title" content="Parcivad Schulverwaltung für deine Stufe oder Klasse."/>
+
+    <!--Standard Meta-->
     <title>Schulverwaltung</title>
 
     <!--Favicon Icons-->
@@ -16,22 +18,22 @@
     <link href="/img/favicon_io/site.webmanifest" rel="manifest">
 
     <!--Vendor-->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-    <script src="/vendor/jquery-3.6.0.min.js"></script>
-    <script src="/vendor/popper/popper.min.js"></script>
+    <script src="/vendor/jquery-3.6.0.min.js" rel="script" type="text/javascript"></script>
 
     <link href="/vendor/bootstrap/bootstrap.css" rel="stylesheet" type="text/css">
     <script src="/vendor/bootstrap/bootstrap.js"></script>
+    <script src="/vendor/popper/popper.min.js" type="text/javascript"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
     <link href="/vendor/loadAnimation/loadAnimation.css" rel="stylesheet" type="text/css">
     <script src="/vendor/loadAnimation/loadAnimation.js"></script>
 
-    <!-- CSS -->
+    <!--CSS-->
     <link href="/css/studentHome.css" rel="stylesheet" type="text/css">
 
-    <!-- Site theme Meta -->
+    <!--Site theme Meta-->
     <meta name="theme-color" content="#e7e8ed" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 </head>
@@ -40,16 +42,20 @@
 
 <div class="container-fluid h-100">
     <div id="homeView" class="h-100">
+
+        <!-- Open Menu Button -->
         <a id="sideBarToggle" class="sideBarToggle display-none pt-2" onclick="themeChange()"
-           data-bs-toggle="offcanvas" href="#sideBarView" role="button" aria-controls="offcanvasExample">
+           role="button" data-bs-toggle="offcanvas" href="#sideBarView" aria-controls="offcanvasExample">
             <ion-icon name="chevron-back-outline">Zurück</ion-icon>
         </a>
+
+        <!-- Site Content -->
         <div class="row h-100">
             <div id="sideBarView" class="sideBar h-100 px-2 py-3 m-0"
                  tabindex="-1" aria-labelledby="offcanvasExampleLabel">
                 <!-- Site Menu -->
                 <div class="h-100">
-                    <!--Starter Menu-->
+                    <!-- Header -->
                     <div class="d-flex pb-1">
                         <div class="col text-start">
                             <ion-icon name="grid-outline"></ion-icon>
@@ -59,9 +65,10 @@
                         </div>
                     </div>
 
-                    <!-- gekürzt auf 12 -->
+                    <!-- Student Name -->
                     <h2 id="largeTitle">Lädt...</h2>
 
+                    <!-- Menu -->
                     <div class="pb-3 align-content-between">
                         <div class="d-flex cursor-pointer" style="filter: grayscale(100%); color: var(--sys-gray)">
                             <div class="pe-1 text-start"><ion-icon name="cube-outline"></ion-icon></div>
@@ -192,8 +199,10 @@
     </div>
 </div>
 
-<script src="/js/student/cookieHandler.js"></script>
-<script src="/js/student/studentHome.js"></script>
-<script src="/js/student/studentHomeHandler.js"></script>
+<script src="/js/student/cookieHandler.js" rel="script" type="text/javascript"></script>
+<script src="/js/student/studentApi.js" rel="script" type="text/javascript"></script>
+<script src="/js/student/studentHome.js" rel="script" type="text/javascript"></script>
+<script src="/js/student/studentHomeHandler.js" rel="script" type="text/javascript"></script>
+<script src="/js/student/studentModuleHandler.js" rel="script" type="text/javascript"></script>
 </body>
 </html>

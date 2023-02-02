@@ -1,84 +1,68 @@
-const apiUrl = "https://api.parcivad.de"
-
 /**
- * JQuery reacting to keyboard to skip through login
+ * Tries to log the user in with given values
  */
-$(".input-group").on('keydown', 'input', function (event) {
-    if (event.which === 13) {
-        event.preventDefault();
-        let $this = $(event.target);
-        let index = parseFloat($this.attr('data-index'));
-        $('[data-index="' + (index + 1) + '"]').focus().click();
-    }
-});
-
-function formCheck() {
-    let validInput = true,
-        fields = ["#name", "#password"];
-
-    for (let i=0; i < fields.length; i++) {
-        // if there is no input
-        if ($(fields[i]).val() === "") {
-            $(fields[i]+"-error").removeClass("input-valid")
-            $(fields[i]+"-error").addClass("input-error")
-            validInput = false;
-            continue;
-        }
-        // if valid
-        $(fields[i]+"-error").addClass("input-valid")
-        $(fields[i]+"-error").removeClass("input-error")
-    }
-
-    // return valid
-    return validInput;
-}
-
 function login() {
+    // checking raw for correct input value
     if (formCheck()) {
-        let $errorLabel = $("#register-error");
-        let name = $("#name").val().split(".", 2),
+        let $errorLabel = $("#register-error"),
+            name = $("#name").val().split(".", 2),
             firstname = name[0],
             lastname = name[1];
 
-        console.debug(firstname)
-        console.debug(lastname)
-
-
-        fetch(`${apiUrl}/student/login`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
+        // making endpoint call
+        call("/student/login", "POST", JSON.stringify({
+            "name": {
+                "firstname": firstname,
+                "lastname": lastname
             },
-            body: JSON.stringify({
-                "name": {
-                    "firstname": firstname,
-                    "lastname": lastname
-                },
-                "password":$("#password").val()
-            })
-        })
-            .then(response => response.json())
-            .then(data => {
+            "password": $("#password").val()
+        }), null)
+            .then(value => {
                 // catch error
-                if (isset(data["error_key"])) {
+                if (isset(value["error_key"])) {
                     $errorLabel.text("Etwas ist schiefgelaufen, bitte überprüfe deinen Namen und dein Passwort")
                     $errorLabel.removeClass("input-valid");
                     $errorLabel.addClass("input-error");
                     return;
                 }
 
-                setCookie("token", data["token"], 1);
-                setCookie("refresh_token", data["refresh_token"], 1);
-                setCookie("expiresIn", data["expiresIn"], 1);
-                setCookie("token_type", data["token_type"], 1);
+                // save jwt in cookies and redirect to Home
+                setCookies(value)
                 location.assign("/student/home/?t=calendarSubscription");
 
             })
             .catch(error => {
+                // showing the client that an error occurred
                 $errorLabel.removeClass("input-valid");
                 $errorLabel.addClass("input-error");
             })
     }
 }
 
-function isset(o) {return typeof o !== 'undefined';}
+/**
+ * Checking given input fields of there value
+ * @returns {boolean}
+ */
+function formCheck() {
+    let validInput = true,
+        fields = ["#name", "#password"];
+
+    fields.forEach(field => {
+        let fieldElement = $(`${field}-error`);
+
+        if ($(field).val() === "") {
+            // if not valid
+            fieldElement.removeClass("input-valid")
+            fieldElement.addClass("input-error")
+            validInput = false;
+
+        } else {
+            // if valid
+            fieldElement.addClass("input-valid")
+            fieldElement.removeClass("input-error")
+        }
+    })
+
+    // return valid
+    return validInput;
+}

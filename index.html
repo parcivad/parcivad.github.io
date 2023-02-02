@@ -4,26 +4,24 @@
     <!--Required Meta-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- Social Media Headline -->
     <meta property="og:title" content="Parcivads Tool and Function Website"/>
-    <meta property="og:image" content="http://parcivad.de/img/header/parcivad.png"/>
+
     <!-- Standard Meta -->
     <meta name="theme-color" content="#19191F">
     <title>Parcivad | Home</title>
+
     <!--Favicon Icons-->
     <link href="/img/favicon_io/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
     <link href="/img/favicon_io/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
     <link href="/img/favicon_io/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16">
     <link href="/img/favicon_io/site.webmanifest" rel="manifest">
 
-    <!--Description Meta tags-->
-    <meta name="title" content="Parcivad's Website">
-    <meta name="description"
-          content="Start Seite von parcivads Website ;D">
-
     <!--Bootstrap CSS-->
     <link href="/vendor/bootstrap/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="/css/sites/general.css" rel="stylesheet" type="text/css">
+
     <!--Java Script-->
     <script src="/vendor/bootstrap/bootstrap.js"></script>
 </head>
@@ -37,13 +35,15 @@
         <div class="container">
             <div class="row row-cols-2 w-100 pt-5 pb-3">
                 <div class="col-12 col-xl-6 container-text text-light">
-                    <h2>IMMER DEN DIREKTEN ÜBERLICK HABEN</h2>
-                    <p>Über das Server Dashboard hast du immer Zugriff auf deine MC Daten. Zudem kannst du Online- und Afkzeiten einsehen.</p>
-                    <button onclick="location.assign('/minecraft/')" class="button">DASHBOARD</button>
+                    <h2>ALLES AN EINEM PLATZ</h2>
+                    <p>Stundenplan, Klausurplan und vieles mehr an einem Platz. Die Schulverwaltung von Parcivad bietet
+                    einen Ort an dem deine Stufe oder Klasse den Überblick behält. Startet Umfragen oder sammelt Zitate
+                    eurer Lehrer.</p>
+                    <button onclick="location.assign('/student/login')" class="button">JETZT ANMELDEN</button>
                 </div>
                 <div class="col-12 col-xl-6 align-content-end">
 
-                    <img width="100%" src="/img/home/parcTest.svg">
+                    <img width="100%" src="/img/home/studentThumbnail.svg">
                 </div>
             </div>
         </div>
@@ -52,13 +52,12 @@
     <div class="container pt-5 pb-5">
         <div class="row row-cols-2 w-100 pt-5">
             <div class="col-12 col-xl-7">
-                <img width="100%" src="/img/home/parcTest2.svg">
+                <img width="100%" src="/img/home/dashboardThumbnail.svg">
             </div>
             <div class="col-12 col-xl-5 container-text text-end align-self-center">
-                <h2>BLEIB AUF DEM NEUSTEN STAND</h2>
-                <p>Stundenplan, Vertrungsplan und Klausurplan in einem Kalender. Mit der
-                    <a href="/student/register" class="custom-link">Schulverwaltung</a>
-                    kannst du ganz einfach deine Kurse markieren und sie in deinen Kalender einfügen.</p>
+                <h2>IMMER DEN DIREKTEN ÜBERLICK HABEN</h2>
+                <p>Über das Server Dashboard hast du immer Zugriff auf deine MC Daten. Zudem kannst du Online- und Afkzeiten einsehen.</p>
+                <button onclick="location.assign('/minecraft/')" class="button">DASHBOARD</button>
             </div>
         </div>
     </div>
@@ -74,7 +73,7 @@
                         <div class="col-12 col-xl">
                             <div class="p-3 container-module">
                                 <div class="pb-1">
-                                    <img height="80px" src="/img/home/homeConnect.png">
+                                    <img height="80px" src="/img/home/module/homeConnect.png">
                                 </div>
                                 <h5>Bosch HomeConnect</h5>
                             </div>
@@ -82,7 +81,7 @@
                         <div class="col-12 col-xl">
                             <div class="p-3 container-module">
                                 <div class="pb-1">
-                                    <img height="80px" src="/img/home/reolink.png">
+                                    <img height="80px" src="/img/home/module/reolink.png">
                                 </div>
                                 <h5>REOLINK®</h5>
                             </div>
@@ -90,7 +89,7 @@
                         <div class="col-12 col-xl">
                             <div class="p-3 container-module">
                                 <div class="pb-1">
-                                    <img height="80px" src="/img/home/magicHome.png">
+                                    <img height="80px" src="/img/home/module/magicHome.png">
                                 </div>
                                 <h5>MagicHome</h5>
                             </div>
@@ -108,6 +107,6 @@
 
 
 <script src="/vendor/jquery-3.6.0.min.js"></script>
-<script src="/js/loader.js"></script>
+<script src="/js/utils/footerAndHeader.js"></script>
 </body>
 </html>
