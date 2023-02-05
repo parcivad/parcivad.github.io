@@ -64,6 +64,8 @@
 body {
     background-color: var(--bg-content);
     color: var(--sys-black);
+
+    overflow-x: hidden;
 }
 
 ion-icon {
