@@ -51,16 +51,8 @@
     .setting-box p {
         font-size: 10pt
     }
-
-    .button {
-        background-color: var(--sys-gray5);
-        color: var(--sys-blue);
-        min-width: 200px;
-        border-radius: 12px;
-        border: 1px solid var(--sys-gray6)
-    }
 </style>
-<div class="h-100">
+<div class="h-100" style="overflow-x: hidden">
     <!-- Header -->
     <div class="sticky-top" style="z-index: 1; background-color: var(--bg-content)">
         <div class="d-flex pt-3 px-1 justify-content-end sticky-top">
@@ -186,13 +178,13 @@
         </div>
     </div>
 </div>
-<script>
-    const apiDomain = "api.parcivad.de",
+<script id="moduleScript">
+    var apiDomain = "api.parcivad.de",
         monthNames = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun",
-        "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
-
-    let calendarData = null,
+        "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+        calendarData = null,
         updating = false;
+
     getCalendar();
 
     function update(id) {
@@ -259,7 +251,7 @@
         else $("#emoji-thumbnail").addClass("thumbnail-off")
 
         let date = new Date(data["lastAccess"]),
-            dateString = `${date.getDate()}. ${monthNames[date.getMonth()]} ${date.getFullYear()} ${date.getHours()}:${date.getMinutes()} Uhr`;
+            dateString = `${date.getDate()}. ${monthNames[date.getMonth()]} ${date.getFullYear()} ${timeFormat(date.getHours())}:${timeFormat(date.getMinutes())} Uhr`;
         if (data["calendarActive"]) {
             $("#status-thumbnail").removeClass("thumbnail-off")
             $("#status-content").html(`Aktualisiert am <span style="color: var(--sys-green)">${dateString}</span>`)

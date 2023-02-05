@@ -2,7 +2,8 @@
  * @author Timur Stegmann
  */
 
-const apiUrl = "https://api.parcivad.de"
+//const apiUrl = "https://api.parcivad.de"
+const apiUrl = "http://192.168.1.204:3000"
 
 /**
  * Send request via call function and handles token
@@ -45,6 +46,10 @@ function api(endpoint, method, body) {
                     }
                 }
                 resolve(value);
+            })
+            .catch(error => {
+                logout();
+                reject(error)
             })
     })
 }

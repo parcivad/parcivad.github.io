@@ -1,0 +1,160 @@
+<style>
+    .content ion-icon {
+        color: var(--sys-gray);
+        font-size: 22px;
+    }
+
+    .icon-button {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .icon-button:hover {
+        background-color: var(--sys-gray6);
+        border-radius: 6px;
+    }
+
+    .searchBar {
+        background: url("/img/icons/search.png") no-repeat 5px 5px;
+        background-size: 15px;
+        width: 300px;
+        height: 28px;
+        color: var(--sys-black);
+        font-size: 10pt;
+        font-style: var(--sys-gray6);
+        padding-left: 28px;
+        border-radius: 6px;
+        border: 1px solid var(--sys-gray6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .searchBar:focus {
+        background-color: var(--sys-gray6);
+    }
+
+    @media only screen and (max-width: 720px) {
+        .searchBar {
+            width: 150px;
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .searchBar {
+            background: url("/img/icons/search.dark.png") no-repeat 5px 5px;
+            background-size: 15px;
+        }
+    }
+</style>
+<div class="h-100" style="overflow-x: hidden">
+    <!-- Header -->
+    <div class="sticky-top" style="z-index: 1; background-color: var(--bg-content)">
+        <div class="d-flex pt-3 px-1 justify-content-end sticky-top">
+            <div class="d-flex px-2">
+                <div class="d-flex px-2">
+                    <div class="pe-2">
+                        <div class="icon-button">
+                            <ion-icon name="add-outline"></ion-icon>
+                        </div>
+                    </div>
+
+                    <div>
+                        <input id="searchBar" class="searchBar" oninput="onSearch()" placeholder="Suchen" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2 id="name" class="px-3 px-md-5" style="font-weight: bold; color: var(--sys-green)">Entwicklung</h2>
+    </div>
+
+    <!-- Content -->
+    <div class="px-3 px-md-5" style="height: 90%; overflow-y: auto;">
+        <h5 class="pt-1">Schulverwaltung von Timur Stegmann</h5>
+        <p class="text-secondary">Dieses Projekt einer Schulverwaltung für Schüler habe ich Anfang 2023 begonnen und
+            seither entwickelt. Sowohl das UI, als auch Back-End, wird von mir allein programmiert.
+            Deshalb kommen Funktionen der Web-App erst nach und nach.</p>
+
+        <!-- Als App -->
+        <h5 class="pt-4">Website als App</h5>
+        <p><span class="text-secondary">Für einen bequemeren Zugang drücke</span>
+            Teilen
+            <ion-icon class="align-text-bottom" style="color: var(--sys-blue)" name="share-outline"></ion-icon>
+            <span style="color: var(--sys-gray)">></span>
+            Zu Home-Bildschirm
+            <ion-icon class="align-text-bottom" style="color: var(--sys-blue)" name="duplicate-outline"></ion-icon>
+            <span class="text-secondary">hinzufügen.</span></p>
+
+        <!-- Change Log -->
+        <h5 class="pt-4">Change Log seit Beginn der Alpha</h5>
+        <div id="changeLog"></div>
+    </div>
+</div>
+
+<script id="moduleScript">
+    var monthNames = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun",
+            "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
+
+    getChangeLog()
+
+    function getChangeLog() {
+        animateLoadByType("contentView", "100%", "dots");
+        api("/student/changelog", "GET", null)
+            .then(value => {
+                loadUI(value);
+                animateStop("contentView");
+            })
+            .catch(error => {
+                console.debug(error);
+                animateError("contentView");
+            })
+    }
+
+    function onSearch() {
+        let searchInput = $("#searchBar");
+
+        var children = $("#changeLog").children();
+        for (let i=0; i < children.length; i++) {
+            if (!children[i].getAttribute("data-search-context").toLowerCase().includes(searchInput.val().toLowerCase())) {
+                console.debug("remove")
+                children[i].classList.add("display-none");
+            } else {
+                children[i].classList.remove("display-none");
+            }
+        }
+
+    }
+
+    function loadUI(data) {
+        let changeLogList = [];
+        data.forEach(changelog => {
+            let icon = `<ion-icon style="rotate: 90deg; color: var(--sys-green); --ionicon-stroke-width: 50px;" name="git-commit-outline"></ion-icon>`;
+            let date = new Date(changelog["date"]),
+                dateString = `${date.getDate()}. ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+
+            // change on conditions
+            if (changelog["pending"]) {
+                icon = `<ion-icon style="color: var(--sys-orange); --ionicon-stroke-width: 50px;" name="timer-outline"></ion-icon>`;
+                dateString = "ausstehend";
+            }
+
+            if (changelog["canceled"]) {
+                icon = `<ion-icon style="color: var(--sys-red); --ionicon-stroke-width: 50px;" name="close-outline"></ion-icon>`;
+                dateString = "abgesagt";
+            }
+
+
+            changeLogList.push(`<div class="d-flex pt-4 pt-md-3 align-items-center" data-search-context="${changelog["description"]}"><div class="icon-button">${icon}</div>
+                <div class="pt-2"><p class="text-secondary m-0" style="font-weight: bold">${changelog["version"]}
+                <span style="font-weight: normal; font-size: 10pt">${dateString}</span></p>
+                <p class="m-0">${changelog["description"]}</p>
+                </div>
+            </div>`)
+        })
+        // add from new to old to list
+        changeLogList.reverse().forEach(changeLog => {$("#changeLog").append(changeLog)})
+    }
+</script>

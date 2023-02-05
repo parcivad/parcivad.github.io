@@ -14,13 +14,18 @@ function loadModuleFromUrl() {
         .then(text=> {
             document.getElementById('contentView').innerHTML = text
 
+            // remove old script
+            document.getElementById("moduleScript").remove();
+
             let newscript = document.createElement("script");
-            newscript.text = text.split("<script>")[1].replace("</script>", "");
+            newscript.text = text.split('<script id="moduleScript">')[1].replace("</script>", "");
+            newscript.id = "moduleScript";
             document.head.appendChild(newscript);
 
-            animateStop("contentView");
+            // new script has to animateStop
         })
         .catch(error => {
+            console.debug(error)
             animateError("contentView");
         });
 }
@@ -33,5 +38,9 @@ function loadModule(moduleName) {
     let params = new URLSearchParams(window.location.search);
     params.delete("t");
     params.set("t", moduleName);
-    window.location.search = params;
+    //window.location.search = params.toString();
+
+    let url = window.location.origin+window.location.pathname+"?"+params.toString();
+    window.history.pushState({}, '', url)
+    loadModuleFromUrl();
 }

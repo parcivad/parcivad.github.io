@@ -34,3 +34,5 @@ function logout() {
 }
 
 function isset(o) {return typeof o !== 'undefined';}
+
+function timeFormat(i) { if (i<10) { return "0"+i } else { return i }}
