@@ -1,0 +1,153 @@
+<style>
+    .content ion-icon {
+        color: var(--sys-gray);
+        font-size: 22px;
+    }
+
+    .icon-button {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .icon-button:hover {
+        background-color: var(--sys-gray6);
+        border-radius: 6px;
+    }
+
+    .searchBar {
+        background: url("/img/icons/search.png") no-repeat 5px 5px;
+        background-size: 15px;
+        width: 300px;
+        height: 28px;
+        color: var(--sys-black);
+        font-size: 10pt;
+        font-style: var(--sys-gray6);
+        padding-left: 28px;
+        border-radius: 6px;
+        border: 1px solid var(--sys-gray6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .searchBar:focus {
+        background-color: var(--sys-gray6);
+    }
+
+    @media only screen and (max-width: 720px) {
+        .searchBar {
+            width: 150px;
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .searchBar {
+            background: url("/img/icons/search.dark.png") no-repeat 5px 5px;
+            background-size: 15px;
+        }
+    }
+
+    .student {
+        border-radius: 8px;
+        padding: 8px;
+        color: var(--sys-black);
+    }
+
+    .student ion-icon {
+        color: var(--sys-black);
+    }
+
+    .student:nth-child(even) {
+        background: var(--sys-gray6);
+    }
+</style>
+<div class="h-100" style="overflow-x: hidden">
+    <div class="sticky-top" style="z-index: 1; background-color: var(--bg-content)">
+        <div class="d-flex pt-3 px-1 justify-content-end sticky-top">
+            <div class="d-flex px-2">
+                <div>
+                    <input id="searchBar" class="searchBar" placeholder="Suchen" oninput="onSearch()" type="text">
+                </div>
+            </div>
+        </div>
+        <h2 id="title" class="px-3 px-md-5" style="font-weight: bold; color: var(--sys-blue)">lädt...</h2>
+    </div>
+    <div class="px-3 px-md-5" style="height: 90%; overflow-y: auto;">
+        <div id="students" class="pt-3"></div>
+
+        <div id="noStudents" style="height: 90%; display: flex; align-items: center; justify-content: center">
+            <div>
+                <div class="d-flex justify-content-center align-content-center">
+                    <ion-icon style="font-size: 55px; color: var(--sys-gray)" name="pencil-outline"></ion-icon>
+                </div>
+                <h4 class="text-center">Keine Schüler</h4>
+                <p class="text-center" style="font-size: large; color: var(--sys-gray)">Es konnten keine Schüler in deiner Klasse oder Stufe gefunden werden.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="moduleScript">
+    getStudents()
+
+    function onSearch() {
+        let searchInput = $("#searchBar");
+
+        var children = $("#students").children();
+        for (let i=0; i < children.length; i++) {
+            if (!children[i].getAttribute("data-search-context").toLowerCase().includes(searchInput.val().toLowerCase())) {
+                console.debug("remove")
+                children[i].classList.add("display-none");
+            } else {
+                children[i].classList.remove("display-none");
+            }
+        }
+
+    }
+
+    function getStudents() {
+        api("/student/students", "GET", null)
+            .then(value => {
+                loadUI(value);
+                animateStop("contentView")
+            })
+            .catch(error => {
+                console.debug(error);
+                animateError("contentView");
+            })
+    }
+
+    function loadUI(data) {
+
+        let count = Object.keys(data).length
+
+        // set title
+
+        $("#title").text(`Alle Schüler (${count})`)
+
+        if (count === 0) return;
+        $("#noStudents").addClass("display-none");
+
+        // irritate through students and add
+        for (let student in data) {
+            // get student by id
+            student = data[student];
+            $("#students").append(`
+            <div class="col-12 student" data-search-context="${student["name"]["firstname"]} ${student["name"]["lastname"]} ${student["roles"].toString().replaceAll("ROLE_", "").replaceAll(",", ", ").toLowerCase()}">
+                <div class="row row-cols-2">
+                    <div class="col-6 d-flex">
+                        <ion-icon name="person"></ion-icon>
+                        <p class="m-0 ps-3" style="font-size: 12pt; font-weight: bold">${student["name"]["firstname"]} ${student["name"]["lastname"]}</p>
+                    </div>
+                    <div class="col-6">
+                        <p class="m-0 text-secondary text-end">${student["roles"].toString().replaceAll("ROLE_", "").replaceAll(",", ", ").toLowerCase()}</p>
+                    </div>
+                </div>
+            </div>`
+            )
+        }
+    }
+</script>

@@ -23,8 +23,7 @@ function api(endpoint, method, body) {
                                 // on error quit
                                 if (isset(value["error_key"])) {
                                     // reset session
-                                    eraseCookies();
-                                    location.assign("/student/login")
+                                    logout()
                                     reject();
                                 }
 
@@ -35,8 +34,7 @@ function api(endpoint, method, body) {
                                         // on error quit
                                         if (isset(value["error_key"])) {
                                             // reset session
-                                            eraseCookies();
-                                            location.assign("/student/login")
+                                            logout()
                                             reject();
                                         }
                                         resolve(value);

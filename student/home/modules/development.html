@@ -119,7 +119,6 @@
         var children = $("#changeLog").children();
         for (let i=0; i < children.length; i++) {
             if (!children[i].getAttribute("data-search-context").toLowerCase().includes(searchInput.val().toLowerCase())) {
-                console.debug("remove")
                 children[i].classList.add("display-none");
             } else {
                 children[i].classList.remove("display-none");
