@@ -58,7 +58,7 @@
         <div class="d-flex pt-3 px-1 justify-content-end sticky-top">
             <div class="d-flex px-2">
                 <div class="pe-2">
-                    <div class="icon-button" onclick="openICalender()"><ion-icon name="add-outline"></ion-icon></div>
+                    <div class="icon-button" onclick="openICalender()"><ion-icon name="link-outline"></ion-icon></div>
                 </div>
             </div>
         </div>
@@ -180,8 +180,6 @@
 </div>
 <script id="moduleScript">
     var apiDomain = "api.parcivad.de",
-        monthNames = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun",
-        "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
         calendarData = null,
         updating = false;
 
@@ -251,7 +249,7 @@
         else $("#emoji-thumbnail").addClass("thumbnail-off")
 
         let date = new Date(data["lastAccess"]),
-            dateString = `${date.getDate()}. ${monthNames[date.getMonth()]} ${date.getFullYear()} ${timeFormat(date.getHours())}:${timeFormat(date.getMinutes())} Uhr`;
+            dateString = `${date.getDate()}. ${months[date.getMonth()]} ${date.getFullYear()} ${timeFormat(date.getHours())}:${timeFormat(date.getMinutes())} Uhr`;
         if (data["calendarActive"]) {
             $("#status-thumbnail").removeClass("thumbnail-off")
             $("#status-content").html(`Aktualisiert am <span style="color: var(--sys-green)">${dateString}</span>`)

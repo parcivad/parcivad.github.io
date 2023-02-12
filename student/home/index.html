@@ -105,11 +105,13 @@
                                 <div class="col text-end text-secondary container-none">Detail</div>
                                 <div class="ps-1 text-start container-none"><ion-icon name="information-circle-outline"></ion-icon></div>
                             </div>
-                            <div class="d-flex pb-1 cursor-pointer" style="filter: grayscale(100%); color: var(--sys-gray)">
-                                <div class="pe-1 text-start"><ion-icon name="file-tray-full-outline"></ion-icon></ion-icon></div>
-                                <div class="col text-start">Zitate</div>
-                                <div class="col text-end text-secondary container-none">Detail</div>
-                                <div class="ps-1 text-start container-none"><ion-icon name="information-circle-outline"></ion-icon></div>
+                            <div class="pb-1">
+                                <div class="d-flex cursor-pointer" role="button" data-bs-dismiss="offcanvas" aria-label="Close" onclick="loadModule('quotation')">
+                                    <div class="pe-1 text-start"><ion-icon name="file-tray-full-outline"></ion-icon></ion-icon></div>
+                                    <div class="col text-start">Zitate</div>
+                                    <div class="col text-end text-secondary container-none">Detail</div>
+                                    <div class="ps-1 text-start container-none"><ion-icon name="information-circle-outline"></ion-icon></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -207,6 +209,7 @@
     </div>
 </div>
 
+<script src="/js/utils/skipThroughInput.js" rel="script" type="text/javascript"></script>
 <script src="/js/student/cookieHandler.js" rel="script" type="text/javascript"></script>
 <script src="/js/student/studentApi.js" rel="script" type="text/javascript"></script>
 <script src="/js/student/studentHome.js" rel="script" type="text/javascript"></script>

@@ -3,6 +3,7 @@
  */
 
 const apiUrl = "https://api.parcivad.de"
+const months = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
 
 /**
  * Send request via call function and handles token
@@ -39,6 +40,10 @@ function api(endpoint, method, body) {
                                         }
                                         resolve(value);
                                     })
+                            })
+                            .catch(error => {
+                                logout();
+                                reject(error);
                             })
                     }
                 }

@@ -1,0 +1,469 @@
+<style>
+    .quotationBlock {
+        border-radius: 8px;
+    }
+
+    .icon-like {transition: color 400ms ease-in-out;}
+    .icon-like:hover {
+        color: var(--sys-red);
+        transition: color 400ms ease-in-out;
+    }
+    .icon-like-xl {
+        font-size: 50pt;
+    }
+
+    .icon-validate {
+        --ionicon-stroke-width: 35px;
+        font-size: 1.6rem;
+    }
+
+    .quotation .quotationBlock {
+        background: var(--sys-gray6);
+        box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .quotationBlock:hover .icon-delete ion-icon {
+        color: var(--sys-gray);
+        visibility: visible;
+        transition: 300ms all ease-in-out;
+    }
+
+    .quotationCreateInput {
+        background-color: var(--sys-gray6);
+        background-size: 15px;
+        color: var(--sys-black);
+        font-weight: 500;
+        font-style: var(--sys-gray6);
+        width: 100%;
+        border-radius: 6px;
+        outline: none;
+        border: 1px solid var(--sys-gray6);
+    }
+
+    .quotationShadow {
+        box-shadow: 0px 10px 20px -3px rgba(75, 190, 246, 0.3) !important;
+    }
+</style>
+<div class="h-100" style="overflow-x: hidden">
+    <div class="sticky-top" style="z-index: 1; background-color: var(--bg-content)">
+        <div class="d-flex pt-3 px-1 justify-content-end sticky-top">
+            <div class="d-flex px-2">
+                <div class="pe-2">
+                    <div class="icon-button" onclick="toggleAddUI()">
+                        <ion-icon name="add-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="pe-2">
+                    <div class="icon-button" onclick="filterLike()">
+                        <ion-icon id="likeToggle" name="heart-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="d-flex icon-group">
+                    <div class="pe-2">
+                        <div class="icon-button" onclick="blockView()">
+                            <ion-icon name="grid-outline"></ion-icon>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="icon-button" onclick="listView()">
+                            <ion-icon name="list-outline"></ion-icon>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ps-2">
+                    <input id="searchBar" class="searchBar" oninput="onSearch()" placeholder="Suchen" type="text">
+                </div>
+            </div>
+        </div>
+        <h2 class="px-3 px-md-5" style="font-weight: bold; color: #4bbef6">Alle Zitate</h2>
+    </div>
+    <div class="px-3 px-md-5" style="height: 90%; overflow-y: auto;">
+
+        <div id="quotationCreate" class="pt-4 pb-5 quotation display-none">
+            <div class="quotationBlock quotationShadow">
+                <div class="row row-cols-2 px-4 pt-3 pb-2">
+                    <div class="col-11">
+                        <div>
+                            <input id="quotationCreateText" class="quotationCreateInput" style="font-size: 1.25rem;"
+                                   placeholder="Neues Zitat" type="text" data-index="1" oninput="validForm()">
+                            <p id="textValidate" class="m-0 display-none" style="color: var(--sys-red); font-size: 10pt">+5 Zeichen</p>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="d-flex justify-content-end">
+                            <div class="icon-button">
+                                <ion-icon name="close-outline" onclick="toggleAddUI()"></ion-icon>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8 py-2 d-flex">
+                        <div>
+                            <input id="quotationCreateFrom" class="quotationCreateInput" style="font-size: 1rem;"
+                                   placeholder="~Von" type="text" data-index="2" oninput="validForm()">
+                            <p id="fromValidate" class="m-0 display-none" style="color: var(--sys-red); font-size: 10pt">+5 Zeichen</p>
+                            <p class="m-0 text-secondary" style="font-size: 10pt">11. Feb 2023</p>
+                        </div>
+                    </div>
+                    <div class="col-4 py-2 d-flex align-items-end justify-content-end">
+                        <a class="actionText pb-1 px-2" onclick="createQuotation()" data-index="3">Done</a>
+                        <div class="icon-button">
+                            <ion-icon id="iconValidate" class="icon-validate" name="close-circle-outline" style="color: var(--sys-red)"></ion-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="quotationList" class="pb-4"></div>
+        <div id="quotationBlock" class="pb-4 display-none">
+            <div id="quotationBlockRow" class="row">
+
+            </div>
+        </div>
+
+        <div id="notFound" class="display-none" style="height: 90%; display: flex; align-items: center; justify-content: center">
+            <div>
+                <div class="d-flex justify-content-center align-content-center">
+                    <ion-icon style="font-size: 55px; color: var(--sys-gray)" name="pencil-outline"></ion-icon>
+                </div>
+                <h4 id="notFoundText" class="text-center">Keine Zitate gefunden</h4>
+                <p id="notFoundDescription" class="text-center" style="font-size: large; color: var(--sys-gray)">Füge ein Zitat hinzu, drücke dafür auf das Symbol mit dem Plus</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="moduleScript">
+    let likeFilter = false;
+
+    getQuotation()
+        .then(value => {
+            loadUI(value);
+        });
+
+    function getQuotation() {
+        return new Promise(function (resolve, reject) {
+            api("/student/quotation/get", "GET", null)
+                .then(value => {
+                    animateStop("contentView")
+                    resolve(value)
+                })
+                .catch(error => {
+                    animateError("contentView")
+                    reject(error);
+                })
+        })
+    }
+
+    function likeQuotation(quotationId) {
+        return new Promise(function (resolve, reject) {
+            api(`/student/quotation/like?quotationId=${quotationId}`, "POST", null)
+                .then(value => {
+                    loadUI(value)
+                    resolve(value);
+                })
+                .catch(error => {
+                    animateLoadByType("contentView", "100%", "dots")
+                    animateError("contentView")
+                    reject(error);
+                })
+        })
+    }
+
+    function createQuotation() {
+        if (!validForm()) return false;
+
+        return new Promise(function (resolve, reject) {
+            api(`/student/quotation/create`, "POST", JSON.stringify({
+                "text": $("#quotationCreateText").val(),
+                "from": $("#quotationCreateFrom").val(),
+            }))
+                .then(value => {
+                    loadUI(value)
+
+                    toggleAddUI()
+                    $("#quotationCreateText").val("")
+                    $("#quotationCreateFrom").val("")
+                    resolve(value);
+                })
+                .catch(error => {
+                    animateLoadByType("contentView", "100%", "dots")
+                    animateError("contentView")
+                    reject(error);
+                })
+        })
+    }
+
+    function deleteQuotation(quotationId) {
+        return new Promise(function (resolve, reject) {
+            api(`/student/quotation/delete?quotationId=${quotationId}`, "POST", null)
+                .then(value => {
+                    loadUI(value)
+                    resolve(value);
+                })
+                .catch(error => {
+                    animateLoadByType("contentView", "100%", "dots")
+                    animateError("contentView")
+                    reject(error);
+                })
+        })
+    }
+
+    function getStudents() {
+        return new Promise(function (resolve, reject) {
+            api("/student/students", "GET", null)
+                .then(value => {
+                    animateStop("contentView")
+                    resolve(value)
+                })
+                .catch(error => {
+                    animateError("contentView")
+                    reject(error);
+                })
+        })
+    }
+
+
+    function filterLike() {
+        hideNoResult()
+
+        let likeToggle = $("#likeToggle"),
+            childrenList = $("#quotationList").children(),
+            childrenBlock = $("#quotationBlockRow").children(),
+            noResult = true;
+
+        if (!likeFilter) {
+            likeToggle.attr("name", "heart");
+            likeFilter = true;
+
+            for (let i=0; i < childrenList.length; i++) {
+                if (childrenList[i].getAttribute("data-like") === "false") {
+                    childrenList[i].classList.add("display-none");
+                } else {
+                    childrenList[i].classList.remove("display-none");
+                    noResult = false;
+                }
+            }
+
+            for (let i=0; i < childrenBlock.length; i++) {
+                if (childrenBlock[i].getAttribute("data-like") === "false") {
+                    childrenBlock[i].classList.add("display-none");
+                } else {
+                    childrenBlock[i].classList.remove("display-none");
+                    noResult = false;
+                }
+            }
+
+            if (noResult) showNoResult("Keine Zitate mit Like", "Um ein Zitat zu liken, klicke auf das Herz Symbol des Zitats")
+        } else {
+
+            hideNoResult();
+            likeToggle.attr("name", "heart-outline")
+            likeFilter = false;
+            for (let i=0; i < childrenList.length; i++) {
+                childrenList[i].classList.remove("display-none");
+            }
+
+            for (let i=0; i < childrenBlock.length; i++) {
+                childrenBlock[i].classList.remove("display-none");
+            }
+        }
+    }
+
+    function onSearch() {
+        hideNoResult()
+        let searchInput = $("#searchBar");
+
+        // turn likeFilter off
+        likeFilter = true;
+        filterLike();
+
+        let childrenList = $("#quotationList").children(),
+            childrenBlock = $("#quotationBlockRow").children(),
+            noResult = true;
+
+        for (let i=0; i < childrenList.length; i++) {
+            if (!childrenList[i].getAttribute("data-search-context").toLowerCase().includes(searchInput.val().toLowerCase())) {
+                childrenList[i].classList.add("display-none");
+            } else {
+                childrenList[i].classList.remove("display-none");
+                noResult = false;
+            }
+        }
+
+        for (let i=0; i < childrenBlock.length; i++) {
+            if (!childrenBlock[i].getAttribute("data-search-context").toLowerCase().includes(searchInput.val().toLowerCase())) {
+                childrenBlock[i].classList.add("display-none");
+            } else {
+                childrenBlock[i].classList.remove("display-none");
+                noResult = false;
+            }
+        }
+
+        if (noResult) showNoResult(`Keine Zitate mit '${searchInput.val()}'`, "Ändere deine Eingabe, um das passende Zitat zu finden");
+    }
+
+    function validForm() {
+        let text = $("#quotationCreateText"),
+            from = $("#quotationCreateFrom"),
+            textValidate = $("#textValidate"),
+            fromValidate = $("#fromValidate"),
+            iconValidate = $("#iconValidate"),
+            badWords = ["arsch","arschficker","esel","arschloch","arschlöcher","balltasche","bälle","bastard","bestial","bestialität","blasen","bollok","boob","brüste","buceta","teppichmuncher","cipa","klitoris","schwanz","schwanzlutscher","schwänze","waschbär","sperma","abspritzen","cunillingus","fotze","dildo","dildos","dink","hundeficker","duche","deich","ejakulieren","ejakuliert","ejakulation","kippe","fagging","schwuchtel","schwuchteln","fanny","felching","fellatio","flansch","scheiße","gefickt","ficker","ficken","fickt","fudge packer","gott verdammt","gottverdammt","hore","geil","wichsen","kock","schamlippen","lust","lüstern","masochist","masturbieren","mutter ficker","nazi","nigger","negger","n3gger","n1gger","niger","orgasim","orgasmus","orgasmen","pecker","penis","piss","pisser","pisst","pissen","pissoff","poop","porno","pornographie","pube","fotzen","muschi","vergewaltigen","vergewaltiger","rektum","rimming","sadist","hodensack","samen","sex","shag","shagging","transen","beschissen","prostituierte","schlampe","schlampen","smegma","schmutz","schnappen","hurensohn","abstand","tit","titt","turd","vagina","viagra","vulva","wang","hure","xxx","hurensohn","h0rensohn","hur3nsohn"];
+            valid = true;
+
+        if (5 > text.val().length) {
+            textValidate.removeClass("display-none").text(`+${5-text.val().length} Zeichen`)
+            valid = false;
+        } else if (150 < text.val().length) {
+            textValidate.removeClass("display-none").text(`-${text.val().length-150} Zeichen`)
+            valid = false;
+        } else textValidate.addClass("display-none");
+
+        if (5 > from.val().length) {
+            fromValidate.removeClass("display-none").text(`+${5-from.val().length} Zeichen`)
+            valid = false;
+        } else if (150 < from.val().length) {
+            fromValidate.removeClass("display-none").text(`-${from.val().length-150} Zeichen`)
+            valid = false;
+        } else fromValidate.addClass("display-none");
+
+        badWords.forEach(badWord => {
+            if (text.val().toLowerCase().includes(badWord)) {
+                textValidate.removeClass("display-none").text(`Wortwahl nicht erlaubt`)
+                valid = false;
+            }
+            if (from.val().toLowerCase().includes(badWord)) {
+                fromValidate.removeClass("display-none").text(`Wortwahl nicht erlaubt`)
+                valid = false;
+            }
+        })
+
+        if (valid) iconValidate.attr("name", "checkmark-circle-outline").attr("style", "color: var(--sys-green)");
+        else iconValidate.attr("name", "close-circle-outline").attr("style", "color: var(--sys-red)")
+
+        return valid;
+    }
+
+    function toggleAddUI() {
+        listView()
+
+        let quotationCreate = $("#quotationCreate")
+        if (quotationCreate.hasClass("display-none")) quotationCreate.removeClass("display-none")
+        else quotationCreate.addClass("display-none");
+    }
+
+    function loadUI(value) {
+        hideNoResult()
+        $("#quotationList").text("")
+        $("#quotationBlockRow").text("")
+
+        let data = value["data"],
+            permission = value["permission"],
+            noResult = true;
+
+
+        getStudents()
+            .then(students => {
+                if (!permission["quotation.create"]) $("#addButton").remove();
+
+                data.forEach(quotation => {
+                    // found quote
+                    noResult = false;
+
+                    // check permissions for icon
+                    let remove =`<div class="d-flex icon-delete" onclick="deleteQuotation('${quotation["quotationId"]}')"><ion-icon name="trash-outline"></ion-icon></div>`;
+                    if (quotation["quotePublish"]["studentId"] !== identity["studentId"] && !permission["quotation.delete"]) remove = '';
+                    if (quotation["quotePublish"]["studentId"] !== identity["studentId"] && !permission["quotation.delete.own"]) remove = '';
+
+                    let student = {"firstname":"", "lastname":"unknown"};
+                    if (students[quotation["quotePublish"]["studentId"]]["name"] !== undefined) {
+                        student = students[quotation["quotePublish"]["studentId"]]["name"];
+                    }
+
+                    let likes = quotation["likes"],
+                        likeString = "Likes",
+                        likeAttribute = 'name="heart-outline"',
+                        liked = likes.find(like => like["studentId"] === identity["studentId"]) !== undefined;
+                    if (liked) likeAttribute='name="heart"; style="color: var(--sys-red) !important"'
+                    if (likes.length === 1) likeString="Like";
+
+                    let date = new Date(quotation["quotePublish"]["date"]),
+                        dateString = `${date.getDate()}. ${months[date.getMonth()]} ${date.getFullYear()}`;
+
+                    $("#quotationList").append(`<div class="py-3 quotation fadeIn" data-like=${liked} data-search-context="${quotation["quote"]["text"]} ${quotation["quote"]["from"]} ${student["firstname"]} ${student["lastname"]}">
+                        <div class="quotationBlock">
+                            <div class="row row-cols-2 px-4 pt-3 pb-2">
+                                <div class="col-10">
+                                    <h5>${quotation["quote"]["text"]}</h5>
+                                </div>
+                            <div class="col-2 text-end">
+                            <div class="d-inline-block justify-content-end">
+                                <div class="">
+                                    <div>
+                                        <div class="icon-button">
+                                            <ion-icon class="icon-like" onclick="likeQuotation('${quotation["quotationId"]}')" ${likeAttribute}></ion-icon>
+                                        </div>
+                                        <div class="text-center">
+                                            <p style="font-size: 11pt; margin-top: -8px">${likes.length}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8 d-flex">
+                            <div class="">
+                                <p class="m-0">~${quotation["quote"]["from"]}</p>
+                                <p class="m-0 text-secondary" style="font-size: 10pt">${dateString}</p>
+                            </div>
+                            ${remove}
+                        </div>
+                        <div class="col-4 text-end">
+                            <p class="text-secondary pt-2" style="font-size: 10pt">von ${student["firstname"]} ${student["lastname"]}</p>
+                        </div>
+                        </div></div></div>`)
+
+                    $("#quotationBlockRow").append(`<div class="col-6 py-4" style="max-width: 250px; min-height: 100%" data-like=${liked} data-search-context="${quotation["quote"]["text"]} ${quotation["quote"]["from"]} ${student["firstname"]} ${student["lastname"]}">
+                    <div class="h-100" style="background: var(--sys-gray6); border-radius: 8px; border: 1px solid var(--sys-gray5); box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);">
+                        <div class="d-flex align-items-center justify-content-center text-center" style="min-height: 110px; background: var(--bg-content); border-radius: 8px 8px 15px 15px">
+                            <div class="icon-button">
+                                <ion-icon class="icon-like icon-like-xl" onclick="likeQuotation('${quotation["quotationId"]}')" ${likeAttribute}></ion-icon>
+                            </div>
+                            <p class="m-0 ps-2" style="font-size: 15pt"><span>${likes.length}</span> ${likeString}</p>
+                        </div>
+                        <div class="px-4 pt-3 pb-1" style="min-height: 100%">
+                            <h5 class="mb-1" style="min-height: 100%">${quotation["quote"]["text"]}</h5>
+                            <p class="m-0">~${quotation["quote"]["from"]}</p>
+                            <p class="mb-2 text-secondary" style="font-size: 10pt">${dateString}</p>
+                            <p class="text-secondary" style="font-size: 10pt">von ${student["firstname"]} ${student["lastname"]}</p>
+                        </div>
+                    </div>
+                </div>`)
+                })
+
+                // if no result
+                if (noResult) showNoResult("Keine Zitate gefunden", "Um ein Zitat hinzuzufügen drücke auf das Symbol mit dem Plus")
+            })
+    }
+
+    function blockView() {
+        $("#quotationList").addClass("display-none");
+        $("#quotationBlock").removeClass("display-none");
+    }
+
+    function listView() {
+        $("#quotationList").removeClass("display-none");
+        $("#quotationBlock").addClass("display-none");
+    }
+
+    function hideNoResult() {
+        $("#notFound").addClass("display-none")
+    }
+
+    function showNoResult(title, description) {
+        $("#notFound").removeClass("display-none")
+        $("#notFoundText").text(title)
+        $("#notFoundDescription").text(description)
+    }
+</script>

@@ -1,6 +1,7 @@
 validateClient();
 loadSidebar();
 
+var identity;
 
 /**
  * Sets Student Title and looks to adjust icons on response
@@ -9,6 +10,7 @@ function loadSidebar() {
     // load student identity
     api("/student/identity", "GET", undefined)
         .then(value => {
+            identity = value;
             $("#largeTitle").text(`${value["name"]["firstname"]} ${value["name"]["lastname"].split("")[0]}.`)
 
             if (value["calendarActive"]) $("#calendarActive").removeClass("display-none");

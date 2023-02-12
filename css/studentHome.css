@@ -1,3 +1,5 @@
+
+/* Color Style Light & Dark */
 :root {
     --bg-content: #fff;
     --bg-sidebar: #e7e8ed;
@@ -57,6 +59,7 @@
 
 }
 
+/* Main Page adjusting */
 ::-webkit-scrollbar {
     display: none;
 }
@@ -64,10 +67,10 @@
 body {
     background-color: var(--bg-content);
     color: var(--sys-black);
-
     overflow-x: hidden;
 }
 
+/* Main Page Side Bar */
 ion-icon {
     --ionicon-stroke-width: 30px;
 }
@@ -112,6 +115,7 @@ ion-icon {
     outline: none !important;
 }
 
+/* Font Style */
 h2 {
     font-weight: 650;
 }
@@ -120,10 +124,92 @@ h3 {
     font-size: large;
 }
 
+/* Content */
 .content {
     overflow-y: scroll;
 }
 
+/* Ion Icon */
+ion-icon {
+    color: var(--sys-gray);
+    font-size: 22px;
+}
+
+.icon-group {
+    border-radius: 6px;
+}
+.icon-group:hover {
+    background: var(--sys-gray6);
+}
+.icon-group .icon-button:hover {
+    background: var(--sys-gray5);
+}
+
+.icon-button {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+.icon-button:hover {
+    background-color: var(--sys-gray6);
+    border-radius: 6px;
+}
+
+.icon-delete {
+    cursor: pointer;
+    align-self: center;
+    visibility: hidden;
+    padding-left: 15px;
+}
+.icon-delete:hover ion-icon {
+    color: red !important;
+    transition: 200ms all ease-in-out;
+}
+
+/* Search Bar Style */
+.searchBar {
+    background: url("/img/icons/search.png") no-repeat 5px 5px;
+    background-size: 15px;
+    width: 300px;
+    height: 28px;
+    color: var(--sys-black);
+    font-size: 10pt;
+    font-style: var(--sys-gray6);
+    padding-left: 28px;
+    border-radius: 6px;
+    border: 1px solid var(--sys-gray6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.searchBar:focus {
+    background-color: var(--sys-gray6);
+}
+@media only screen and (max-width: 720px) {
+    .searchBar {
+        width: 150px;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    .searchBar {
+        background: url("/img/icons/search.dark.png") no-repeat 5px 5px;
+        background-size: 15px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/* Tools */
 .cursor-pointer div {
     cursor: pointer;
 }
@@ -138,6 +224,12 @@ h3 {
 
 .display-none {
     display: none !important;
+}
+
+.actionText {
+    text-decoration: none;
+    color: var(--sys-blue);
+    cursor: pointer;
 }
 
 
