@@ -76,7 +76,21 @@
                 </div>
             </div>
         </div>
-        <h2 class="px-3 px-md-5" style="font-weight: bold; color: #4bbef6">Alle Zitate</h2>
+        <div class="d-flex pt-2 px-3 px-md-5" style="color: #4bbef6">
+            <h2 style="font-weight: bold;">Alle Zitate</h2>
+            <div class="align-self-end" style="line-height: 1.9">
+                <select id="selectSorting" class="ps-2 pe-3 px-0 align-text-bottom" style="outline: none; border:none; -webkit-appearance: none; -moz-appearance: none; appearance: none;
+                -ms-appearance: none; fill: var(--bg-content); background: rgba(0, 0, 0, 0); color: #4bbef6; font-weight: bold; font-size: 11pt;"
+
+                        onchange="sortChildrenAttr('quotationList', this.value, $(this).children('option:selected').attr('data-ascending')==='true');
+                                  sortChildrenAttr('quotationBlockRow', this.value, $(this).children('option:selected').attr('data-ascending')==='true')">
+                    <option value="data-sort-added" data-ascending="false" selected>▲ Hinzugefügt</option>
+                    <option value="data-sort-added" data-ascending="true">▼ Hinzugefügt</option>
+                    <option value="data-sort-like" data-ascending="false">▲ Likes</option>
+                    <option value="data-sort-like" data-ascending="true">▼ Likes</option>
+                </select>
+            </div>
+        </div>
     </div>
     <div class="px-3 px-md-5" style="height: 90%; overflow-y: auto;">
 
@@ -100,9 +114,9 @@
                     <div class="col-8 py-2 d-flex">
                         <div>
                             <input id="quotationCreateFrom" class="quotationCreateInput" style="font-size: 1rem;"
-                                   placeholder="~Von" type="text" data-index="2" oninput="validForm()">
+                                   placeholder="~Von" type="text" data-index="2" oninput="validForm(); this.value = this.value.replaceAll('~', '')">
                             <p id="fromValidate" class="m-0 display-none" style="color: var(--sys-red); font-size: 10pt">+5 Zeichen</p>
-                            <p class="m-0 text-secondary" style="font-size: 10pt">11. Feb 2023</p>
+                            <p class="m-0 text-secondary" style="font-size: 10pt">Heute</p>
                         </div>
                     </div>
                     <div class="col-4 py-2 d-flex align-items-end justify-content-end">
@@ -118,7 +132,6 @@
         <div id="quotationList" class="pb-4"></div>
         <div id="quotationBlock" class="pb-4 display-none">
             <div id="quotationBlockRow" class="row">
-
             </div>
         </div>
 
@@ -135,7 +148,8 @@
 </div>
 
 <script id="moduleScript">
-    var likeFilter = false;
+    var SEARCH_FILTER = "data-filter",
+        likeFilter = false;
 
     getQuotation()
         .then(value => {
@@ -224,7 +238,6 @@
         })
     }
 
-
     function filterLike() {
         hideNoResult()
 
@@ -272,36 +285,19 @@
     }
 
     function onSearch() {
-        hideNoResult()
-        let searchInput = $("#searchBar");
+        let index = $("#searchBar").val();
 
         // turn likeFilter off
         likeFilter = true;
         filterLike();
 
-        let childrenList = $("#quotationList").children(),
-            childrenBlock = $("#quotationBlockRow").children(),
-            noResult = true;
-
-        for (let i=0; i < childrenList.length; i++) {
-            if (!childrenList[i].getAttribute("data-search-context").toLowerCase().includes(searchInput.val().toLowerCase())) {
-                childrenList[i].classList.add("display-none");
-            } else {
-                childrenList[i].classList.remove("display-none");
-                noResult = false;
-            }
+        // show index children or info
+        hideNoResult()
+        if (!searchFilter(index, "quotationList", SEARCH_FILTER)
+            || !searchFilter(index, "quotationBlockRow", SEARCH_FILTER)) {
+            // no result with index info
+            showNoResult(`Keine Zitate mit '${index}'`, "Ändere deine Eingabe, um das passende Zitat zu finden");
         }
-
-        for (let i=0; i < childrenBlock.length; i++) {
-            if (!childrenBlock[i].getAttribute("data-search-context").toLowerCase().includes(searchInput.val().toLowerCase())) {
-                childrenBlock[i].classList.add("display-none");
-            } else {
-                childrenBlock[i].classList.remove("display-none");
-                noResult = false;
-            }
-        }
-
-        if (noResult) showNoResult(`Keine Zitate mit '${searchInput.val()}'`, "Ändere deine Eingabe, um das passende Zitat zu finden");
     }
 
     function validForm() {
@@ -356,28 +352,30 @@
 
     function loadUI(value) {
         hideNoResult()
-        $("#quotationList").text("")
-        $("#quotationBlockRow").text("")
 
         let data = value["data"],
             permission = value["permission"],
-            noResult = true;
-
+            noResult = true,
+            quotationList = $("#quotationList"),
+            quotationBlockRow = $("#quotationBlockRow"),
+            selectSortingSelected = $("#selectSorting option:selected");
 
         getStudents()
             .then(students => {
                 if (!permission["quotation.create"]) $("#addButton").remove();
 
+                quotationList.text("")
+                quotationBlockRow.text("")
                 data.forEach(quotation => {
                     // found quote
                     noResult = false;
 
                     // check permissions for icon
-                    let remove =`<div class="d-flex icon-delete" onclick="deleteQuotation('${quotation["quotationId"]}')"><ion-icon name="trash-outline"></ion-icon></div>`;
+                    let remove = `<div class="d-flex icon-delete" onclick="deleteQuotation('${quotation["quotationId"]}')"><ion-icon name="trash-outline"></ion-icon></div>`;
                     if (quotation["quotePublish"]["studentId"] !== identity["studentId"] && !permission["quotation.delete"]) remove = '';
                     if (quotation["quotePublish"]["studentId"] !== identity["studentId"] && !permission["quotation.delete.own"]) remove = '';
 
-                    let student = {"firstname":"", "lastname":"unknown"};
+                    let student = {"firstname": "", "lastname": "unknown"};
                     if (students[quotation["quotePublish"]["studentId"]]["name"] !== undefined) {
                         student = students[quotation["quotePublish"]["studentId"]]["name"];
                     }
@@ -386,13 +384,12 @@
                         likeString = "Likes",
                         likeAttribute = 'name="heart-outline"',
                         liked = likes.find(like => like["studentId"] === identity["studentId"]) !== undefined;
-                    if (liked) likeAttribute='name="heart"; style="color: var(--sys-red) !important"'
-                    if (likes.length === 1) likeString="Like";
+                    if (liked) likeAttribute = 'name="heart"; style="color: var(--sys-red) !important"'
+                    if (likes.length === 1) likeString = "Like";
 
-                    let date = new Date(quotation["quotePublish"]["date"]),
-                        dateString = `${date.getDate()}. ${months[date.getMonth()]} ${date.getFullYear()}`;
+                    let date = timeToString(new Date(quotation["quotePublish"]["date"]));
 
-                    $("#quotationList").append(`<div class="py-3 quotation fadeIn" data-like=${liked} data-search-context="${quotation["quote"]["text"]} ${quotation["quote"]["from"]} ${student["firstname"]} ${student["lastname"]}">
+                    $("#quotationList").append(`<div class="py-3 quotation fadeIn" data-sort-added=${new Date(quotation["quotePublish"]["date"]).getTime()} data-sort-like=${likes.length} data-like=${liked} ${SEARCH_FILTER}="${quotation["quote"]["text"]} ${quotation["quote"]["from"]} ${student["firstname"]} ${student["lastname"]}">
                         <div class="quotationBlock">
                             <div class="row row-cols-2 px-4 pt-3 pb-2">
                                 <div class="col-10">
@@ -405,6 +402,7 @@
                                         <div class="icon-button">
                                             <ion-icon class="icon-like" onclick="likeQuotation('${quotation["quotationId"]}')" ${likeAttribute}></ion-icon>
                                         </div>
+
                                         <div class="text-center">
                                             <p style="font-size: 11pt; margin-top: -8px">${likes.length}</p>
                                         </div>
@@ -415,7 +413,7 @@
                         <div class="col-8 d-flex">
                             <div class="">
                                 <p class="m-0">~${quotation["quote"]["from"]}</p>
-                                <p class="m-0 text-secondary" style="font-size: 10pt">${dateString}</p>
+                                <p class="m-0 text-secondary" style="font-size: 10pt">${date}</p>
                             </div>
                             ${remove}
                         </div>
@@ -424,9 +422,9 @@
                         </div>
                         </div></div></div>`)
 
-                    $("#quotationBlockRow").append(`<div class="col-6 py-4" style="max-width: 250px; min-height: 100%" data-like=${liked} data-search-context="${quotation["quote"]["text"]} ${quotation["quote"]["from"]} ${student["firstname"]} ${student["lastname"]}">
-                    <div class="h-100" style="background: var(--sys-gray6); border-radius: 8px; border: 1px solid var(--sys-gray5); box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);">
-                        <div class="d-flex align-items-center justify-content-center text-center" style="min-height: 110px; background: var(--bg-content); border-radius: 8px 8px 15px 15px">
+                    $("#quotationBlockRow").append(`<div class="col-6 py-4" style="max-width: 250px; min-height: 100%" data-sort-added=${new Date(quotation["quotePublish"]["date"]).getTime()} data-sort-like=${likes.length} data-like=${liked} ${SEARCH_FILTER}="${quotation["quote"]["text"]} ${quotation["quote"]["from"]} ${student["firstname"]} ${student["lastname"]}">
+                        <div class="h-100" style="background: var(--sys-gray6); border-radius: 8px; border: 1px solid var(--sys-gray5); box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);">
+                            <div class="d-flex align-items-center justify-content-center text-center" style="min-height: 110px; background: var(--bg-content); border-radius: 8px 8px 15px 15px">
                             <div class="icon-button">
                                 <ion-icon class="icon-like icon-like-xl" onclick="likeQuotation('${quotation["quotationId"]}')" ${likeAttribute}></ion-icon>
                             </div>
@@ -435,12 +433,15 @@
                         <div class="px-4 pt-3 pb-1" style="min-height: 100%">
                             <h5 class="mb-1" style="min-height: 100%">${quotation["quote"]["text"]}</h5>
                             <p class="m-0">~${quotation["quote"]["from"]}</p>
-                            <p class="mb-2 text-secondary" style="font-size: 10pt">${dateString}</p>
+                            <p class="mb-2 text-secondary" style="font-size: 10pt">${date}</p>
                             <p class="text-secondary" style="font-size: 10pt">von ${student["firstname"]} ${student["lastname"]}</p>
                         </div>
                     </div>
-                </div>`)
+                    </div>`)
                 })
+
+                sortChildrenAttr('quotationList', selectSortingSelected.val(), selectSortingSelected.attr('data-ascending')==='true');
+                sortChildrenAttr('quotationBlockRow', selectSortingSelected.val(), selectSortingSelected.attr('data-ascending')==='true')
 
                 // if no result
                 if (noResult) showNoResult("Keine Zitate gefunden", "Um ein Zitat hinzuzufügen drücke auf das Symbol mit dem Plus")
@@ -455,15 +456,5 @@
     function listView() {
         $("#quotationList").removeClass("display-none");
         $("#quotationBlock").addClass("display-none");
-    }
-
-    function hideNoResult() {
-        $("#notFound").addClass("display-none")
-    }
-
-    function showNoResult(title, description) {
-        $("#notFound").removeClass("display-none")
-        $("#notFoundText").text(title)
-        $("#notFoundDescription").text(description)
     }
 </script>

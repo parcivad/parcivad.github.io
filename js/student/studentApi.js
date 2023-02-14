@@ -2,8 +2,7 @@
  * @author Timur Stegmann
  */
 
-const apiUrl = "https://api.parcivad.de"
-const months = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
+const apiUrl = "https://api.parcivad.de";
 
 /**
  * Send request via call function and handles token

@@ -73,18 +73,18 @@
                 </div>
             </div>
         </div>
-        <h2 id="title" class="px-3 px-md-5" style="font-weight: bold; color: var(--sys-blue)">lädt...</h2>
+        <h2 id="title" class="pt-2 px-3 px-md-5" style="font-weight: bold; color: var(--sys-blue)">lädt...</h2>
     </div>
     <div class="px-3 px-md-5" style="height: 90%; overflow-y: auto;">
         <div id="students" class="pt-3"></div>
 
-        <div id="noStudents" style="height: 90%; display: flex; align-items: center; justify-content: center">
+        <div id="notFound" class="display-none" style="height: 90%; display: flex; align-items: center; justify-content: center">
             <div>
                 <div class="d-flex justify-content-center align-content-center">
                     <ion-icon style="font-size: 55px; color: var(--sys-gray)" name="pencil-outline"></ion-icon>
                 </div>
-                <h4 class="text-center">Keine Schüler</h4>
-                <p class="text-center" style="font-size: large; color: var(--sys-gray)">Es konnten keine Schüler in deiner Klasse oder Stufe gefunden werden.</p>
+                <h4 id="notFoundText" class="text-center">Keine Schüler</h4>
+                <p id="notFoundDescription" class="text-center" style="font-size: large; color: var(--sys-gray)">Etwas ist schiefgelaufen</p>
             </div>
         </div>
     </div>
@@ -94,18 +94,9 @@
     getStudents()
 
     function onSearch() {
-        let searchInput = $("#searchBar");
-
-        var children = $("#students").children();
-        for (let i=0; i < children.length; i++) {
-            if (!children[i].getAttribute("data-search-context").toLowerCase().includes(searchInput.val().toLowerCase())) {
-                console.debug("remove")
-                children[i].classList.add("display-none");
-            } else {
-                children[i].classList.remove("display-none");
-            }
-        }
-
+        hideNoResult()
+        if (searchFilter($("#searchBar").val(), 'students', 'data-filter')) return;
+        showNoResult(`Keine Schüler mit '${$("#searchBar").val()}'`, 'Ändere deine Eingabe, um den Schüler zu finden')
     }
 
     function getStudents() {
@@ -136,7 +127,7 @@
             // get student by id
             student = data[student];
             $("#students").append(`
-            <div class="col-12 student" data-search-context="${student["name"]["firstname"]} ${student["name"]["lastname"]} ${student["roles"].toString().replaceAll("ROLE_", "").replaceAll(",", ", ").toLowerCase()}">
+            <div class="col-12 student" data-filter="${student["name"]["firstname"]} ${student["name"]["lastname"]} ${student["roles"].toString().replaceAll("ROLE_", "").replaceAll(",", ", ").toLowerCase()}">
                 <div class="row row-cols-2">
                     <div class="col-6 d-flex">
                         <ion-icon name="person"></ion-icon>

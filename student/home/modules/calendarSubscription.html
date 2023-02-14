@@ -62,7 +62,7 @@
                 </div>
             </div>
         </div>
-        <h2 class="px-3 px-md-5" style="font-weight: bold; color: var(--sys-pink)">Kalender Abonnement</h2>
+        <h2 class="pt-2 px-3 px-md-5" style="font-weight: bold; color: var(--sys-pink)">Kalender Abonnement</h2>
     </div>
 
     <!-- Content -->
@@ -248,14 +248,13 @@
         if (data["emoji"]) $("#emoji-thumbnail").removeClass("thumbnail-off")
         else $("#emoji-thumbnail").addClass("thumbnail-off")
 
-        let date = new Date(data["lastAccess"]),
-            dateString = `${date.getDate()}. ${months[date.getMonth()]} ${date.getFullYear()} ${timeFormat(date.getHours())}:${timeFormat(date.getMinutes())} Uhr`;
+        let date = timeToString(new Date(data["lastAccess"]));
         if (data["calendarActive"]) {
             $("#status-thumbnail").removeClass("thumbnail-off")
-            $("#status-content").html(`Aktualisiert am <span style="color: var(--sys-green)">${dateString}</span>`)
+            $("#status-content").html(`Aktualisiert <span style="color: var(--sys-green)">${date}</span>`)
         } else {
             $("#status-thumbnail").addClass("thumbnail-off")
-            $("#status-content").text(`Zuletzt am ${dateString}`)
+            $("#status-content").text(`Zuletzt ${date}`)
         }
     }
 </script>
