@@ -149,12 +149,21 @@
 
 <script id="moduleScript">
     var SEARCH_FILTER = "data-filter",
+        INTERVAL_REFRESH = 50,
         likeFilter = false;
+
+    var intervalRefresh = window.setInterval(function(){
+        getQuotation().then(value => {loadUI(value);}).catch(error => clearInterval(intervalRefresh));
+    }, INTERVAL_REFRESH*1000);
 
     getQuotation()
         .then(value => {
             loadUI(value);
         });
+
+    var intervalRefresh = window.setInterval(function(){
+        getQuotation().then(value => {loadUI(value); console.debug("hit")}).catch(error => clearInterval(intervalRefresh));
+    }, 10000);
 
     function getQuotation() {
         return new Promise(function (resolve, reject) {
