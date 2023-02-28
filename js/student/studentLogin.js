@@ -28,7 +28,7 @@ function login() {
 
                 // save jwt in cookies and redirect to Home
                 setCookies(value)
-                location.assign("/student/home/?t=calendarSubscription");
+                location.assign("/student/home/?t=quotation");
 
             })
             .catch(error => {
