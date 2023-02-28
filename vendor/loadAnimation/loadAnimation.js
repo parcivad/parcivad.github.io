@@ -15,7 +15,7 @@ function animateLoadByType(id, height, type) {
             break;
 
         case "spinner":
-            $(`#${id}`).parent().append(`<div id="animate${id}" class="container-loading" style="width: 100%; height: ${height}"><div class="spinner"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>`);
+            $(`#${id}`).parent().append(`<div id="animate${id}" class="container-loading" style="width: 100%; height: ${height}"><div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>`);
             break;
 
         case "dots":

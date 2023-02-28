@@ -98,13 +98,27 @@
             <p style="color: var(--sys-gray2); font-size: 10pt">Eine Rolle bestimmt deine Zugriffsrechte.</p>
         </div>
 
-        <!-- Delete -->
-        <h5 class="pt-4">Löschen</h5>
-        <p class="text-danger">Durch das Klicken auf "Konto löschen" werden alle deine Daten gelöscht und du wirst
-            ausgeloggt! Dein verbundener Kalender kann sich dann nicht mehr aktualisieren.</p>
-        <button id="deleteButton" class="button" onclick="deleteStudent()" style="background: var(--sys-red); color: #fff">
-            Konto löschen
-        </button>
+        <!-- dangerous button zone -->
+        <div class="col-12 py-4">
+            <h5 class="pt-2">Achtung explosiv</h5>
+            <div class="px-2" style="border-radius: 10px; border: 1px solid var(--sys-red);">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="px-1 pt-3">
+                            <h6 class="mb-1">Konto und Daten löschen</h6>
+                            <p>Lösche dein Konto und deaktiviere alle Funktionen (Kalender)</p>
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex justify-content-end">
+                        <div class="d-flex align-self-center">
+                            <button id="deleteButton" style="border-radius: 10px" class="btn btn-danger" onclick="deleteStudent()">
+                                Konto löschen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -222,6 +222,22 @@ ion-icon {
     border: 1px solid var(--sys-gray6)
 }
 
+.checkbox {
+    margin: 0 0 10px 0;
+}
+
+.checkbox input {
+    background-color: var(--sys-gray6);
+    width: 15px;
+    height: 15px
+}
+
+.checkbox p {
+    line-height: 23px;
+    font-size: 11pt;
+    margin: 0;
+}
+
 .display-none {
     display: none !important;
 }
@@ -232,6 +248,20 @@ ion-icon {
     cursor: pointer;
 }
 
+.opacityFadeIn {
+    animation-name: animationFadeIn;
+    animation-duration: 1400ms;
+    animation-iteration-count: 1;
+}
+
+@keyframes animationFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 
 @media only screen and (max-width: 720px) {
     .sideBar {

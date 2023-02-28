@@ -129,8 +129,8 @@
             </div>
         </div>
 
-        <div id="quotationList" class="pb-4"></div>
-        <div id="quotationBlock" class="pb-4 display-none">
+        <div id="quotationList" class="pb-4 opacityFadeIn"></div>
+        <div id="quotationBlock" class="pb-4 opacityFadeIn display-none">
             <div id="quotationBlockRow" class="row">
             </div>
         </div>
@@ -160,10 +160,6 @@
         .then(value => {
             loadUI(value);
         });
-
-    var intervalRefresh = window.setInterval(function(){
-        getQuotation().then(value => {loadUI(value); console.debug("hit")}).catch(error => clearInterval(intervalRefresh));
-    }, 10000);
 
     function getQuotation() {
         return new Promise(function (resolve, reject) {
@@ -389,6 +385,12 @@
                         student = students[quotation["quotePublish"]["studentId"]]["name"];
                     }
 
+                    let studentName = `von  ${student["firstname"]} ${student["lastname"]}`;
+                    if (!permission["quotation.show.publisher"]) {
+                        if (quotation["quotePublish"]["studentId"] !== identity["studentId"]) studentName = "";
+                        else studentName = "dein Zitat"
+                    }
+
                     let likes = quotation["likes"],
                         likeString = "Likes",
                         likeAttribute = 'name="heart-outline"',
@@ -427,7 +429,7 @@
                             ${remove}
                         </div>
                         <div class="col-4 text-end">
-                            <p class="text-secondary pt-2" style="font-size: 10pt">von ${student["firstname"]} ${student["lastname"]}</p>
+                            <p class="text-secondary pt-2" style="font-size: 10pt">${studentName}</p>
                         </div>
                         </div></div></div>`)
 

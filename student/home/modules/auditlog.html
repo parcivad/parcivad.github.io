@@ -1,0 +1,264 @@
+<style>
+    .auditLogHeader {
+        background-color: var(--sys-gray5);
+        border-radius: 10px 0 0 10px;
+        max-width: 230px;
+    }
+
+    .auditLogContent {
+        background-color: var(--sys-gray6);
+        border-radius: 0 10px 10px 0;
+        max-height: 700px;
+        overflow-y: auto
+    }
+
+    .auditLogEntry {
+        border-bottom: 1px solid var(--sys-gray4);
+    }
+
+    .auditLogEntry:last-child {
+        border-bottom: none;
+    }
+
+    .auditLogEntry ion-icon {
+        color: var(--sys-gray);
+        font-size: 28px;
+        --ionicon-stroke-width: 32px;
+    }
+
+    @media only screen and (max-width: 767px) {
+        .auditLogHeader {
+            border-radius: 10px 10px 0 0;
+            max-width: 100% !important;
+        }
+
+        .auditLogContent {
+            border-radius: 0 0 10px 10px;
+            max-width: 100% !important;
+        }
+    }
+</style>
+<div class="h-100" style="overflow-x: hidden">
+    <div class="sticky-top" style="z-index: 1; background-color: var(--bg-content)">
+        <div class="d-flex pt-3 px-1 justify-content-end sticky-top">
+            <div class="d-flex px-2">
+                <div class="pe-2">
+                    <div class="icon-button" onclick="toggleAddUI()">
+                        <ion-icon style="color: var(--bg-content)" name="add-outline"></ion-icon>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="d-flex pt-2 px-3 px-md-5" style="color: #4bbef6">
+            <h2 style="font-weight: bold;">AuditLog</h2>
+            <div class="align-self-end" style="line-height: 1.9">
+                <select id="selectSorting" class="ps-2 pe-3 px-0 align-text-bottom" style="outline: none; border:none; -webkit-appearance: none; -moz-appearance: none; appearance: none;
+                -ms-appearance: none; fill: var(--bg-content); background: rgba(0, 0, 0, 0); color: #4bbef6; font-weight: bold; font-size: 11pt;">
+                    <option value="data-sort-added" data-ascending="false" selected>→ Live</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="px-3 px-md-5" style="height: 90%; overflow-y: auto;">
+        <div id="auditLogContent">
+            <p class="text-secondary m-0">Akutell befinden sich <span id="auditLogCount" style="color: var(--sys-gray)">lädt...</span> im AuditLog.</p>
+
+            <div class="px-1 pt-4 opacityFadeIn">
+                <div class="px-0 px-md-2">
+                    <div class="row row-cols-2">
+                        <div class="col-12 col-md-3 auditLogHeader">
+                            <div class="px-1 pt-3 d-flex justify-content-center">
+                                <input id="searchBar" style="background-color: var(--sys-gray6); width: 95%; max-width: 200px !important;" class="searchBar" oninput="onSearch()" placeholder="Suchen" type="text">
+                            </div>
+
+                            <h6 class="pt-4">Typ</h6>
+                            <li class="pt-1 list-unstyled" id="types">
+                            </li>
+                        </div>
+                        <div class="col-12 col-md-9 auditLogContent">
+                            <div id="notFoundContent" class="display-none" style="height: 350px; display: flex; align-items: center; justify-content: center">
+                                <div>
+                                    <div class="d-flex justify-content-center align-content-center">
+                                        <ion-icon style="font-size: 55px; color: var(--sys-red)" name="server-outline"></ion-icon>
+                                    </div>
+                                    <h4 id="notFoundContentText" class="text-center">Keine AuditLogs vorhanden</h4>
+                                    <p id="notFoundContentDescription" class="text-center" style="font-size: large; color: var(--sys-gray)">AuditLogs werden durch Ereignisse erstellt und hier angezeigt.</p>
+                                </div>
+                            </div>
+                            <div class="row px-0 px-md-3" id="auditLogs">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- dangerous button zone -->
+            <div class="col-12 py-4">
+                <h5 class="pt-2">Achtung explosiv</h5>
+                <div class="px-2" style="border-radius: 10px; border: 1px solid var(--sys-red);">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="px-1 pt-3">
+                                <h6 class="mb-1">Gesamtes AuditLog löschen</h6>
+                                <p>Lösche alle Aufzeichnungen seit Beginn</p>
+                            </div>
+                        </div>
+                        <div class="col-4 d-flex justify-content-end">
+                            <div class="d-flex align-self-center">
+                                <button type="button" onclick="deleteAuditLog()" style="border-radius: 10px" class="btn btn-danger">Löschen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- info sign -->
+        <div id="notFound" class="display-none" style="height: 90%; display: flex; align-items: center; justify-content: center">
+            <div>
+                <div class="d-flex justify-content-center align-content-center">
+                    <ion-icon style="font-size: 55px; color: var(--sys-red)" name="warning-outline"></ion-icon>
+                </div>
+                <h4 id="notFoundText" class="text-center">Zugriff verweigert</h4>
+                <p id="notFoundDescription" class="text-center" style="font-size: large; color: var(--sys-gray)">Unzureichende Zugriffsrechte</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="moduleScript">
+    var SEARCH_FILTER = "data-filter",
+        types = [],
+        reverse = false,
+        intervalRefresh;
+
+    getAuditLog()
+    startRefresh()
+
+    function startRefresh() {
+        intervalRefresh = window.setInterval(function(){
+            getAuditLog().then(value => {loadUI(value);}).catch(error => clearInterval(intervalRefresh));
+        }, 5*1000);
+    }
+
+    function stopRefresh() {
+        clearInterval(intervalRefresh);
+    }
+
+    function onSearch() {
+        let index = $("#searchBar").val();
+
+        // stop refreshing on search would destroy results
+        if (index==="") startRefresh();
+        else stopRefresh()
+
+        // show index children or info
+        hideNoResult("notFoundContent")
+        if (searchFilter(index, "auditLogs", SEARCH_FILTER)) {
+            filterType();
+            return;
+        }
+        showNoResult(`Keine AuditLogs mit '${index}'`, "Ändere deine Eingabe, um das passende AuditLog zu finden", "notFoundContent");
+    }
+
+    function filterType() {
+        var children = $(`#auditLogs`).children(),
+            selectedTypes = [],
+            found = false;
+
+        types.forEach(type => { if ($(`#${type}`).is(':checked')) selectedTypes.push(type)})
+
+        for (let i=0; i < children.length; i++) {
+            if (!selectedTypes.includes(children[i].getAttribute("data-filter-type"))) {
+                children[i].classList.add("display-none");
+            } else {
+                children[i].classList.remove("display-none");
+                found=true;
+            }
+        }
+
+        hideNoResult("notFoundContent")
+        if (!found) showNoResult("Keine AuditLogs mit den Typen", "Wähle andere Typen aus um die Ergebnisse zu erweitern.", "notFoundContent")
+    }
+
+    function getAuditLog() {
+        return new Promise(function (resolve,reject) {
+            api("/student/auditLog", "GET", null)
+                .then(value => {
+                    // check on error key
+                    if (isset(value["error_key"])) {
+                        if (value["error_key"] === "access_denied") {
+                            showNoResult("Zugriff verweigert", "Unzureichende Zugriffsrechte")
+                            stopRefresh();
+                            $("#auditLogContent").hide();
+                            reject(value);
+                        }
+                    }
+
+                    loadUI(value)
+                    resolve(value);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+        })
+    }
+
+    function deleteAuditLog() {
+        return new Promise(function (resolve, reject) {
+            api("/student/auditLog/delete", "POST", null)
+                .then(value => {
+                    getAuditLog()
+                    resolve(value);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+        })
+    }
+
+    function loadUI(value) {
+        $("#auditLogCount").text(` ${value.length} Aufzeichnungen`)
+
+        // remove existing
+        $("#auditLogs").text("")
+        // replace with new
+        value = value.sort(function(a, b) {
+            return new Date(b["date"]).getTime() - new Date(a["date"]).getTime();
+        });
+        value.forEach(auditLog => {
+            $("#auditLogs").append(`<div class="pt-4 auditLogEntry" data-filter="${auditLog["title"]} ${auditLog["description"]}" data-filter-type="${auditLog["type"]}">
+                                <div class="row row-cols-2">
+                                    <div class="col-1">
+                                        <ion-icon style="color: var(--sys-${auditLog["color"]})" name="${auditLog["icon"]}"></ion-icon>
+                                    </div>
+                                    <div class="col-11">
+                                        <div class="row">
+                                            <div class="col">
+                                                <p class="mb-1 text-start">${auditLog["title"]}</p>
+                                            </div>
+                                            <div class="col d-flex justify-content-end align-items-start">
+                                                <p class="mb-1" style="color: var(--sys-gray2); font-size: 10pt">${timeToString(new Date(auditLog["date"]))}</p>
+                                            </div>
+                                        </div>
+                                        <p style="font-size: 11pt;">${auditLog["description"]}</p>
+                                    </div>
+                                </div>
+                            </div>`)
+
+            if (!types.includes(auditLog["type"])) {
+                $("#types").append(`<ul class="ps-2 d-flex checkbox">
+                                <input id="${auditLog["type"]}" class="form-check-input" type="checkbox" onchange="filterType()">
+                                <p class="ps-2">${auditLog["type"]}</p>
+                            </ul>`)
+                types.push(auditLog["type"]);
+            }
+        })
+
+        // filter
+        filterType();
+
+    }
+    animateStop("contentView")
+</script>

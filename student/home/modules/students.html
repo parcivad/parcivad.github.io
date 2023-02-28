@@ -76,7 +76,7 @@
         <h2 id="title" class="pt-2 px-3 px-md-5" style="font-weight: bold; color: var(--sys-blue)">lädt...</h2>
     </div>
     <div class="px-3 px-md-5" style="height: 90%; overflow-y: auto;">
-        <div id="students" class="pt-3"></div>
+        <div id="students" class="opacityFadeIn pt-3"></div>
 
         <div id="notFound" class="display-none" style="height: 90%; display: flex; align-items: center; justify-content: center">
             <div>
@@ -113,15 +113,6 @@
 
     function loadUI(data) {
 
-        let count = Object.keys(data).length
-
-        // set title
-
-        $("#title").text(`Alle Schüler (${count})`)
-
-        if (count === 0) return;
-        $("#noStudents").addClass("display-none");
-
         // irritate through students and add
         for (let student in data) {
             // get student by id
@@ -140,5 +131,12 @@
             </div>`
             )
         }
+
+        let count = Object.keys(data).length
+
+        // set title
+        $("#title").html(`Alle Schüler (${count})`)
+        if (count === 0) return;
+        $("#noStudents").addClass("display-none");
     }
 </script>

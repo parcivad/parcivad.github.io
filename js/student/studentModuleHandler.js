@@ -40,6 +40,12 @@ function loadModule(moduleName) {
     params.set("t", moduleName);
     //window.location.search = params.toString();
 
+    try {
+        clearInterval(intervalRefresh);
+    } catch (exception) {
+        // nothing to do :)
+    }
+
     let url = window.location.origin+window.location.pathname+"?"+params.toString();
     window.history.pushState({}, '', url)
     loadModuleFromUrl();

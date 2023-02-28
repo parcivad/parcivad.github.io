@@ -1,0 +1,451 @@
+<style>
+    .division-container:hover .division-bar p {
+        color: rgba(255, 255, 255, 0.85);
+        transition: 200ms color ease-out;
+    }
+
+    .division-bar {
+        max-width: 40px !important;
+    }
+
+    .division-bar p {
+        color: transparent;
+        font-weight: bold;
+        font-size: 8pt;
+        transition: 1500ms color ease-out;
+    }
+
+    .division-bar-first {
+        border-radius: 5px 5px 0 0;
+    }
+
+    .division-bar-last {
+        border-radius: 0 0 5px 5px;
+    }
+
+    .division-text div {
+        border-bottom: 1px solid var(--sys-gray4);
+    }
+
+    .transaction-container {
+        padding-top: 22px;
+    }
+
+    .goal {
+        max-height: 45px;
+        overflow-y: hidden
+    }
+
+    .large-icon {
+        --ionicon-stroke-width: 40px;
+        font-size: 40pt
+    }
+
+    @media only screen and (max-width: 575px) {
+        .transaction-container {
+            padding-top: 270px;
+        }
+
+        .division-container .division-bar p {
+            color: rgba(255, 255, 255, 0.75);
+            transition: 200ms color ease-out;
+        }
+    }
+</style>
+<div class="h-100" style="overflow-x: hidden">
+    <div class="sticky-top" style="z-index: 1; background-color: var(--bg-content)">
+        <div class="d-flex pt-3 px-1 justify-content-end sticky-top">
+            <div class="d-flex px-2">
+                <div class="pe-2">
+                    <div class="icon-button" onclick="toggleAddUI()">
+                        <ion-icon style="color: var(--bg-content)" name="add-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="pe-2">
+                    <div class="icon-button" onclick="toggleAddUI()">
+                        <ion-icon style="color: var(--bg-content)" name="flag-outline"></ion-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex pt-2 px-3 px-md-5" style="color: var(--sys-green)">
+            <h2 style="font-weight: bold;">Finanzen</h2>
+        </div>
+    </div>
+    <div class="ps-3 px-md-5" style="height: 90%; overflow-y: auto;">
+
+        <div class="w-100 h-100">
+            <div class="w-100 row">
+                <div class="col-12 col-xl-5 p-sm-0 pe-md-3">
+                    <div class="row h-100">
+                        <div class="col-12 col-xl-6">
+                            <div class="d-flex align-content-center justify-content-end">
+                                <div class="opacityFadeIn">
+                                    <h2 class="m-0" style="white-space: nowrap; font-size: 30pt; font-weight: 600;"><span id="totalMoney">0 €</span></h2>
+                                    <p class="text-end text-secondary">Kasse Insgesamt</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-xl-6 opacityFadeIn">
+                            <div class="ps-0 ps-xl-3">
+                                <div class="p-3 h-100" style="border-radius: 10px; background-color: var(--sys-gray6);">
+                                    <h5>Trend</h5>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <ion-icon style="color: var(--sys-green); --ionicon-stroke-width: 40px; font-size: 40pt" name="trending-up-outline"></ion-icon>
+                                        <div class="ps-3" style="color: var(--sys-gray); max-height: 45px; overflow-y: hidden">
+                                            <span style="color: var(--sys-green)">+14.0%</span> in 2 Aktionen
+                                        </div>
+                                    </div>
+                                    <div class="display-none d-flex align-items-center justify-content-center">
+                                        <ion-icon style="color: var(--sys-gray3);" class="large-icon" name="trending-up-outline"></ion-icon>
+                                        <div class="ps-3" style="color: var(--sys-gray)">
+                                            Kein Trend erkannt
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ps-0 ps-xl-3 pt-2">
+                                <div id="goalContainer" class="p-3" style="border-radius: 10px; background-color: var(--sys-gray6);">
+                                    <h5>Goal</h5>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <ion-icon id="goalIcon" class="large-icon" style="color: var(--sys-gray3);" name="flag-outline"></ion-icon>
+                                        <div id="goal" class="ps-3 goal" style="color: var(--sys-gray);">
+                                            Ziel lädt...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-xl-7 pt-sm-3 pt-xl-0" style="min-height: 250px;">
+                    <div class="row" style="height: 250px">
+                        <div class="order-1 order-sm-0 col-12 col-sm-4 pt-3 pt-sm-0 p-sm-0 h-100">
+                            <div class="p-3 h-100 division-container" style="overflow-y: hidden; border-radius: 10px; background-color: var(--sys-gray6);">
+                                <h5>Einnahmen</h5>
+                                <div class="h-100 opacityFadeIn" style="overflow-x: hidden; min-width: 140px !important; max-width: 350px">
+                                    <div id="incomes" class="px-3 row row-cols-2" style="height: 70% !important;">
+
+                                        <div class="division-text col-10 col-md-9 col-xxl-10 order-2 d-flex align-items-end">
+                                            <div class="w-100">
+                                                <p class="m-0">Andere</p>
+                                            </div>
+                                        </div>
+                                        <div id="others" class="division-bar division-bar-last col-2 col-md-3 col-xxl-2 order-1 d-flex align-items-end align-content-end justify-content-center">
+                                            <p class="text-center m-0" id="othersText">lädt...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="order-0 order-sm-1 col-12 col-sm-8 pt-3 pt-sm-0 h-100">
+                            <div class="p-3 h-100" style="border-radius: 10px; background-color: var(--sys-gray6);">
+                                <h5>Wochenübersicht</h5>
+                                <div class="pt-2 m-2">
+                                    <div class="ct-chart ct-major-sixth"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 transaction-container">
+                    <h5>Transaktionen</h5>
+                    <div class="pt-2 pb-5" id="transactions"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="notFound" class="display-none" style="height: 90%; display: flex; align-items: center; justify-content: center">
+            <div>
+                <div class="d-flex justify-content-center align-content-center">
+                    <ion-icon style="font-size: 55px; color: var(--sys-red)" name="alert-circle-outline"></ion-icon>
+                </div>
+                <h4 id="notFoundText" class="text-center">Etwas ist schiefgelaufen!</h4>
+                <p id="notFoundDescription" class="text-center" style="font-size: large; color: var(--sys-gray)">Bitte probiere es zu einem späteren Zeitpunkt</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="moduleScript">
+    var tagColors = ["blue", "indigo", "purple", "pink", "red", "cyan", "green", "brown"];
+
+    getAccount()
+
+    function getAccount() {
+        return new Promise(function (resolve, reject) {
+            api("/student/finance/account", "GET", null)
+                .then(value => {
+                    loadUI(value)
+                    animateStop("contentView")
+                    resolve(value);
+                })
+                .catch(error => {
+                    console.debug(error)
+                    animateError("contentView")
+                    reject(value);
+                })
+        })
+    }
+
+    function getStudents() {
+        return new Promise(function (resolve, reject) {
+            api("/student/students", "GET", null)
+                .then(value => {
+                    animateStop("contentView")
+                    resolve(value)
+                })
+                .catch(error => {
+                    animateError("contentView")
+                    reject(error);
+                })
+        })
+    }
+
+    function setGoal() {
+        //TODO: goal set
+    }
+
+    function createTransaction() {
+        //TODO: create Transaction
+    }
+
+    function loadUI(value) {
+
+        getStudents().then(student => {
+            let goal = value["data"]["goal"],
+                totalMoney = 0.0,
+                weeks = [],
+                tags = {},
+                tagColor = 0,
+                transactions = value["data"]["transactions"];
+
+            // Build transactions
+            for (let i=0; i < transactions.length; i++) {
+                let transaction = transactions[i],
+                    money = transaction["money"],
+                    moneyPrefix = money < 0 ? "" : "+",
+                    moneyColor = money < 0 ? "red" : "green",
+                    title = transaction["title"],
+                    description = transaction["description"],
+                    tag = transaction["tag"],
+                    created = new Date(transaction["created"]),
+                    happened = new Date(transaction["happened"]),
+                    studentName = student[transaction["studentId"]]["name"]["firstname"]+" "
+                        +student[transaction["studentId"]]["name"]["lastname"];
+
+                let year = new Date(happened.getFullYear(), 0, 1);
+                let days = Math.floor((happened - year) / (24 * 60 * 60 * 1000));
+                let week = Math.ceil((happened.getDay() + 1 + days) / 7);
+                if (isset(weeks[week])) {
+                    if (money>=0) weeks[week]["pos"] += money;
+                    else weeks[week]["neg"] += money;
+                } else {
+                    weeks[week] = {"pos": 0, "neg": 0};
+                    if (money>=0) weeks[week]["pos"] = money;
+                    else weeks[week]["neg"] = money;
+                }
+
+                // tag handling
+                if (!isset(tags[tag])) {
+                    if (tag==="Andere") {
+                        tags[tag] = {"money": money, "color": "orange"}
+                    } else {
+                        tags[tag] = {"money": money, "color": tagColors[tagColor]}
+                        tagColor++
+                    }
+                } else {
+                    tags[tag]["money"] += money;
+                }
+
+                // calculate money
+                totalMoney += transaction["money"];
+
+                // generate transaction note
+                $("#transactions").append(`
+            <div class="w-100 d-flex pb-3" data-sort-created="${created.getTime()}">
+                            <div>
+                                <p style="color: var(--sys-${moneyColor}); white-space: nowrap; font-size: 12pt; min-width: 110px">
+                                    ${moneyPrefix}${currency.format(money)}
+                                </p>
+                            </div>
+                            <div class="w-100 row row-cols-2">
+                                <div class="col-12 col-sm-8">
+                                    <h6>${title}</h6>
+                                    <p>${description}</p>
+                                </div>
+                                <div class="col-12 col-sm-4 d-flex justify-content-sm-end">
+                                    <div>
+                                        <p class="pb-3 m-0"><span class="p-1" style="background: var(--sys-${tags[tag]["color"]});
+                                        border-radius: 8px; color: #fff; opacity: 0.9 ">${tag}</span></p>
+                                        <p class="m-0" style="font-size: 10pt; color: var(--sys-gray)">Erstellt: <span style="font-size: 11pt; color: var(--sys-black);">${timeToString(created)}</span></p>
+                                        <p class="m-0" style="font-size: 10pt; color: var(--sys-gray)">Stattgefunden: <span style="font-size: 11pt; color: var(--sys-black);">${timeToString(happened)}</span></p>
+                                        <p class="m-0" style="font-size: 10pt; color: var(--sys-gray)">Autorisiert: <span style="font-size: 11pt; color: var(--sys-black);">${studentName}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`);
+            }
+            // sort descending from created date
+            sortChildrenAttr("transactions", "data-sort-created", false);
+
+            // goal display
+            if (totalMoney < goal) {
+                $("#goalIcon").attr("style", "color:var(--sys-orange)")
+                $("#goal").html(`
+                    <span style="color: var(--sys-orange)">
+                        ${currency.format(goal-totalMoney)}</span> bis zum Ziel
+                    <span style="color: var(--sys-orange)">
+                        ${currency.format(goal)}</span>`)
+
+            } else {
+                $("#goalContainer").attr("style", "border-radius: 10px; background-color: var(--sys-green); color: #fff !important")
+                $("#goalIcon").attr("style", "color:currentColor")
+                $("#goal").html(`<span style="color: #fff; font-weight: bold">${currency.format(goal)} erreicht!</span>`)
+            }
+
+
+            let incomeTags = {},
+                incomeTagsTotalMoney = 0;
+
+            // find positive tags to list in income
+            for (let tagsKey in tags) {
+                let tag = tags[tagsKey];
+                if (tag["money"]>0) {
+                    incomeTags[tagsKey] = tag;
+                    incomeTagsTotalMoney += tag["money"];
+                }
+            }
+
+            // set percentage
+            let othersPercentage = 0,
+                first = true;
+            for (let incomeTagsKey in incomeTags) {
+                let incomeTag = incomeTags[incomeTagsKey],
+                    percentage = Math.round((incomeTag["money"] / incomeTagsTotalMoney) * 100);
+
+                if (percentage < 10 || incomeTagsKey==="Andere") {
+                    othersPercentage += (incomeTag["money"] / incomeTagsTotalMoney);
+                    continue;
+                }
+
+                $("#incomes").append(`<div class="division-bar ${first ? "division-bar-first" : ""} col-4 col-md-3 col-xxl-2 d-flex align-items-end align-content-end justify-content-center" style="background-color: var(--sys-${incomeTag["color"]}); min-height: ${percentage}% !important;">
+                                            <p class="text-center m-0">${percentage}%</p>
+                                        </div>
+                                        <div class="division-text col-10 col-md-9 col-xxl-10 d-flex align-items-end">
+                                            <div class="w-100">
+                                                <p class="m-0">${incomeTagsKey}</p>
+                                            </div>
+                                        </div>`)
+                first=false;
+            }
+            // set others percentage
+            $("#others").attr("style", `background-color: var(--sys-orange); min-height: ${othersPercentage*100}% !important`)
+            $("#othersText").text(`${Math.round(othersPercentage*100)}%`)
+
+
+
+            // total money display
+            $("#totalMoney").text(currency.format(totalMoney));
+
+
+
+
+
+
+            var seq=0;
+
+            let chartLabel = [];
+            let chartSeriesPos = [];
+            let chartSeriesNeg = [];
+            Object.keys(weeks).forEach(weekKey => {
+                chartLabel.push(weekKey);
+                chartSeriesPos.push(weeks[weekKey]["pos"])
+                chartSeriesNeg.push(weeks[weekKey]["neg"])
+            })
+
+            new Chartist.Bar('.ct-chart', {
+                labels: chartLabel,
+                series: [chartSeriesPos, chartSeriesNeg]
+            }, {
+                // Options for X-Axis
+                axisX: {
+                    // Allows you to correct label positioning on this axis by positive or negative x and y offset.
+                    labelOffset: {
+                        x: 0,
+                        y: 10
+                    },
+                    // Interpolation function that allows you to intercept the value from the axis label
+                    labelInterpolationFnc: function (value) {
+                        return `KW${value}`
+                    },
+                    // Set the axis type to be used to project values on this axis. If not defined, Chartist.StepAxis will be used for the X-Axis, where the ticks option will be set to the labels in the data and the stretch option will be set to the global fullWidth option. This type can be changed to any axis constructor available (e.g. Chartist.FixedScaleAxis), where all axis options should be present here.
+                    type: undefined,
+                    // This value specifies the minimum height in pixel of the scale steps
+                    scaleMinSpace: 20,
+                    // Use only integer values (whole numbers) for the scale steps
+                    onlyInteger: false
+                },
+                // Options for Y-Axis
+                axisY: {
+                    // Allows you to correct label positioning on this axis by positive or negative x and y offset.
+                    labelOffset: {
+                        x: 6,
+                        y: 8
+                    },
+                    // Interpolation function that allows you to intercept the value from the axis label
+                    labelInterpolationFnc: function (value) {
+                        return Math.floor(value*10)/10 +"€"
+                    },
+                    // Set the axis type to be used to project values on this axis. If not defined, Chartist.AutoScaleAxis will be used for the Y-Axis, where the high and low options will be set to the global high and low options. This type can be changed to any axis constructor available (e.g. Chartist.FixedScaleAxis), where all axis options should be present here.
+                    type: undefined,
+                    // This value specifies the minimum height in pixel of the scale steps
+                    scaleMinSpace: 20,
+                    // Use only integer values (whole numbers) for the scale steps
+                    onlyInteger: false
+                },
+                // Specify a fixed width for the chart as a string (i.e. '100px' or '50%')
+                width: "100%",
+                // Specify a fixed height for the chart as a string (i.e. '100px' or '50%')
+                height: "auto",
+                // If the line should be drawn or not
+                showLine: true,
+                // If dots should be drawn or not
+                showPoint: false,
+                // set area
+                showArea: true,
+                // The base for the area chart that will be used to close the area shape (is normally 0)
+                areaBase: 0,
+                // Specify if the lines should be smoothed. This value can be true or false where true will result in smoothing using the default smoothing interpolation function Chartist.Interpolation.cardinal and false results in Chartist.Interpolation.none. You can also choose other smoothing / interpolation functions available in the Chartist.Interpolation module, or write your own interpolation function. Check the examples for a brief description.
+                lineSmooth: true,
+                // Padding of the chart drawing area to the container element and labels as a number or padding object {top: 5, right: 5, bottom: 5, left: 5}
+                chartPadding: {
+                    top: 11,
+                    right: 0,
+                    bottom: 0,
+                    left: 0
+                },
+                // When set to true, the last grid line on the x-axis is not drawn and the chart elements will expand to the full available width of the chart. For the last label to be drawn correctly you might need to add chart padding or offset the last label with a draw event handler.
+                fullWidth: true,
+            }, []).on('draw', function(data) {
+                if (seq>data.maximum) seq=0;
+                if(data.type === 'bar') {
+                    data.element.animate({
+                        opacity: {
+                            begin: data.index * 60,
+                            dur: 900,
+                            from: 0,
+                            to: 1,
+                            easing: Chartist.Svg.Easing.easeOutQuint
+                        }
+                    });
+                }
+            });
+        })
+
+    }
+
+    //TODO: get finance and build with loadUI
+    //animateStop("contentView")
+</script>

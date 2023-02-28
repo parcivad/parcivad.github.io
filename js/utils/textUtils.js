@@ -2,7 +2,12 @@
  * @author Timur Stegmann
  */
 
-const months = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
+const months = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"]
+
+const currency = new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "EUR"
+})
 
 /**
  * Format time date in readable date String
@@ -71,12 +76,15 @@ function sortChildrenAttr(id, attribute, ascending) {
     })
 }
 
-function hideNoResult() {
-    $("#notFound").addClass("display-none")
+function hideNoResult(id) {
+    if (id===undefined) id="notFound"
+    $(`#${id}`).addClass("display-none")
 }
 
-function showNoResult(title, description) {
-    $("#notFound").removeClass("display-none")
-    $("#notFoundText").text(title)
-    $("#notFoundDescription").text(description)
+function showNoResult(title, description, id) {
+    if (id===undefined) id="notFound"
+
+    $(`#${id}`).removeClass("display-none")
+    $(`#${id}Text`).text(title)
+    $(`#${id}Description`).text(description)
 }
