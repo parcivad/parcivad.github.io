@@ -238,6 +238,19 @@ ion-icon {
     margin: 0;
 }
 
+.createInput {
+    background-color: var(--sys-gray6);
+    background-size: 15px;
+    color: var(--sys-black);
+    font-weight: 500;
+    font-style: var(--sys-gray6);
+    width: 100%;
+    border-radius: 6px;
+    outline: none;
+    border: 1px solid var(--sys-gray6);
+}
+
+
 .display-none {
     display: none !important;
 }
@@ -248,13 +261,22 @@ ion-icon {
     cursor: pointer;
 }
 
-.opacityFadeIn {
-    animation-name: animationFadeIn;
+@media only screen and (max-width: 720px) {
+    .sideBar {
+        position: absolute;
+        width: 100%;
+        transition: 550ms;
+    }
+}
+
+/* ANIMATIONS */
+.opacity-fadeIn {
+    animation-name: opacityFadeIn;
     animation-duration: 1400ms;
     animation-iteration-count: 1;
 }
 
-@keyframes animationFadeIn {
+@keyframes opacityFadeIn {
     from {
         opacity: 0;
     }
@@ -263,10 +285,33 @@ ion-icon {
     }
 }
 
-@media only screen and (max-width: 720px) {
-    .sideBar {
-        position: absolute;
-        width: 100%;
-        transition: 550ms;
+.top-left-flyIn {
+    transform-origin: top left;
+    animation-name: topFlyIn;
+    animation-duration: 700ms;
+    animation-iteration-count: 1;
+}
+
+@keyframes topFlyIn {
+    from {
+        transform: scale3d(0, 0, 1);
+    }
+    to {
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+.x-axis-fadeIn {
+    animation-name: xAxisFadeIn;
+    animation-duration: 1400ms;
+    animation-iteration-count: 1;
+}
+
+@keyframes xAxisFadeIn {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
     }
 }

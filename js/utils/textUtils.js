@@ -4,6 +4,14 @@
 
 const months = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"]
 
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+const percentage = new Intl.NumberFormat("de-DE", {
+    style: 'percent',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+})
+
 const currency = new Intl.NumberFormat("de-DE", {
     style: "currency",
     currency: "EUR"
@@ -23,7 +31,7 @@ function timeToString(date) {
 
         case (timestamp < 3600): return `vor ${time.getMinutes()} Minuten`;
 
-        case (timestamp < 86400): return `vor ${time.getHours()} Stunden`;
+        case (timestamp < 43200): return `vor ${time.getHours()} Stunden`;
 
         default: return `${date.getDate()}. ${months[date.getMonth()]} ${date.getFullYear()}`;
     }

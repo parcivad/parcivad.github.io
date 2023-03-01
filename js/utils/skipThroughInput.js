@@ -1,7 +1,7 @@
 /**
  * JQuery reacting to keyboard to skip through login
  */
-$(".input-group").on('keydown', 'input', function (event) {
+$(".skipThrough").on('keydown', 'input', function (event) {
     if (event.which === 13) {
         event.preventDefault();
         let $this = $(event.target);
