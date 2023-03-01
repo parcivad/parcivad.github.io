@@ -37,6 +37,10 @@
             max-width: 100% !important;
         }
     }
+    
+    .display-none-2 {
+        display: none !important;
+    }
 </style>
 <div class="h-100" style="overflow-x: hidden">
     <div class="sticky-top" style="z-index: 1; background-color: var(--bg-content)">
@@ -171,9 +175,9 @@
 
         for (let i=0; i < children.length; i++) {
             if (!selectedTypes.includes(children[i].getAttribute("data-filter-type"))) {
-                children[i].classList.add("display-none");
+                children[i].classList.add("display-none-2");
             } else {
-                children[i].classList.remove("display-none");
+                children[i].classList.remove("display-none-2");
                 found=true;
             }
         }
