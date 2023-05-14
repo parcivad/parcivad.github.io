@@ -247,7 +247,7 @@
 
     function getAccount() {
         return new Promise(function (resolve, reject) {
-            api("/student/finance/account", "GET", null)
+            api("/student/finance/transactions", "GET", null)
                 .then(value => {
                     loadUI(value)
                     animateStop("contentView")
