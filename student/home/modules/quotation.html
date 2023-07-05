@@ -151,7 +151,7 @@
 
     function getQuotation() {
         return new Promise(function (resolve, reject) {
-            api("/student/quotation/get", "GET", null)
+            api("/student/quotation", "GET", null)
                 .then(value => {
                     animateStop("contentView")
                     resolve(value)
