@@ -191,16 +191,14 @@
             api("/student/auditLog", "GET", null)
                 .then(value => {
                     // check on error key
-                    if (isset(value["error_key"])) {
-                        if (value["error_key"] === "access_denied") {
+                    if (!identity.permissions["auditlog.show"]) {
                             showNoResult("Zugriff verweigert", "Unzureichende Zugriffsrechte")
                             stopRefresh();
                             $("#auditLogContent").hide();
                             reject(value);
                         }
-                    }
 
-                    loadUI(value)
+                    loadUI(value.data)
                     resolve(value);
                 })
                 .catch(error => {
@@ -214,7 +212,7 @@
             api("/student/auditLog/delete", "POST", null)
                 .then(value => {
                     getAuditLog()
-                    resolve(value);
+                    resolve(value.data);
                 })
                 .catch(error => {
                     reject(error);

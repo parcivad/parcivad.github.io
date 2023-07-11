@@ -138,7 +138,8 @@
 <script id="moduleScript">
     var SEARCH_FILTER = "data-filter",
         INTERVAL_REFRESH = 50,
-        likeFilter = false;
+        likeFilter = false,
+        quotations = [];
 
     var intervalRefresh = window.setInterval(function(){
         getQuotation().then(value => {loadUI(value);}).catch(error => clearInterval(intervalRefresh));
@@ -153,8 +154,9 @@
         return new Promise(function (resolve, reject) {
             api("/student/quotation", "GET", null)
                 .then(value => {
+                    quotations = value.data;
                     animateStop("contentView")
-                    resolve(value)
+                    resolve(value.data)
                 })
                 .catch(error => {
                     animateError("contentView")
@@ -165,9 +167,12 @@
 
     function likeQuotation(quotationId) {
         return new Promise(function (resolve, reject) {
-            api(`/student/quotation/like?quotationId=${quotationId}`, "POST", null)
+            api(`/student/quotation/${quotationId}/like`, "POST", null)
                 .then(value => {
-                    loadUI(value)
+                    getQuotation()
+                        .then(value => {
+                            loadUI(value);
+                    });
                     resolve(value);
                 })
                 .catch(error => {
@@ -187,7 +192,7 @@
                 "from": $("#quotationCreateFrom").val(),
             }))
                 .then(value => {
-                    loadUI(value)
+                    loadUI(value.data)
 
                     toggleAddUI()
                     $("#quotationCreateText").val("")
@@ -204,10 +209,10 @@
 
     function deleteQuotation(quotationId) {
         return new Promise(function (resolve, reject) {
-            api(`/student/quotation/delete?quotationId=${quotationId}`, "POST", null)
+            api(`/student/quotation/${quotationId}/delete`, "POST", null)
                 .then(value => {
-                    loadUI(value)
-                    resolve(value);
+                    loadUI(value.data)
+                    resolve(value.data);
                 })
                 .catch(error => {
                     animateLoadByType("contentView", "100%", "dots")
@@ -222,7 +227,7 @@
             api("/student/students", "GET", null)
                 .then(value => {
                     animateStop("contentView")
-                    resolve(value)
+                    resolve(value.data)
                 })
                 .catch(error => {
                     animateError("contentView")
@@ -346,8 +351,8 @@
     function loadUI(value) {
         hideNoResult()
 
-        let data = value["data"],
-            permission = value["permission"],
+        let data = value,
+            permission = identity.permissions,
             noResult = true,
             quotationList = $("#quotationList"),
             quotationBlockRow = $("#quotationBlockRow"),

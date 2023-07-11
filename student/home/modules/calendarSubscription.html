@@ -214,8 +214,8 @@
         animateLoadByType("contentView", "100%", "dots");
         api("/student/calendar", "GET", undefined)
             .then(value => {
-                calendarData = value;
-                loadUI(value);
+                calendarData = value.data;
+                loadUI(value.data);
                 animateStop("contentView");
             })
             .catch(error => {
@@ -229,8 +229,8 @@
         console.debug(body);
         api("/student/calendar", "POST", body)
             .then(value => {
-                calendarData = value;
-                loadUI(value);
+                calendarData = value.data;
+                loadUI(value.data);
                 updating = false;
             })
             .catch(error => {

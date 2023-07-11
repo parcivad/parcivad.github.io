@@ -10,8 +10,8 @@ function loadSidebar() {
     // load student identity
     api("/student/identity", "GET", undefined)
         .then(value => {
-            identity = value;
-            $("#largeTitle").text(`${value["name"]["firstname"]} ${value["name"]["lastname"].split("")[0]}.`)
+            identity = value.data;
+            $("#largeTitle").text(`${identity["name"]["firstname"]} ${identity["name"]["lastname"].split("")[0]}.`)
 
             if (value["calendarActive"]) $("#calendarActive").removeClass("display-none");
             else $("#calendarActive").addClass("display-none");

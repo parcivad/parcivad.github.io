@@ -249,9 +249,9 @@
         return new Promise(function (resolve, reject) {
             api("/student/finance/transactions", "GET", null)
                 .then(value => {
-                    loadUI(value)
+                    loadUI(value.data)
                     animateStop("contentView")
-                    resolve(value);
+                    resolve(value.data);
                 })
                 .catch(error => {
                     console.debug(error)
@@ -266,7 +266,7 @@
             api("/student/students", "GET", null)
                 .then(value => {
                     animateStop("contentView")
-                    resolve(value)
+                    resolve(value.data)
                 })
                 .catch(error => {
                     animateError("contentView")
@@ -278,14 +278,14 @@
     function setGoal() {
         let val = parseFloat($("#goalValue").val().replaceAll(",", "."));
         return new Promise(function (resolve, reject) {
-            api(`/student/finance/goal?goal=${val}`, "POST", null)
+            api(`/student/finance/goal/${val}`, "POST", null)
                 .then(value => {
                     // hide goal set ui
                     $("#goalSet").addClass("display-none");
                     $("#goalValue").val("")
 
                     // reload UI with new data
-                    loadUI(value);
+                    loadUI(value.data);
                     resolve(value);
                 })
                 .catch(error => {
@@ -370,8 +370,8 @@
 
     function loadUI(value) {
 
-        value["permission"]["finance.set.goal"] ? $("#goalButton") : $("#goalButton").addClass("display-none");
-        value["permission"]["finance.set.goal"] ? $("#transactionButton") : $("#transactionButton").addClass("display-none");
+        identity.permissions["finance.set.goal"] ? $("#goalButton") : $("#goalButton").addClass("display-none");
+        identity.permissions["finance.set.goal"] ? $("#transactionButton") : $("#transactionButton").addClass("display-none");
 
         getStudents().then(student => {
             // reset

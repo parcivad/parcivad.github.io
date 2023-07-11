@@ -102,7 +102,7 @@
     function getStudents() {
         api("/student/students", "GET", null)
             .then(value => {
-                loadUI(value);
+                loadUI(value.data);
                 animateStop("contentView")
             })
             .catch(error => {
