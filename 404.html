@@ -1,59 +1,60 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-
-    <!--Required Meta-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Social Media Headline -->
-    <meta property="og:title" content="Parcivads SchoolTracker to check for classworks and other media"/>
-    <meta property="og:image" content="http://localhost/img/header/parcivad.png"/>
-    <!-- Standard Meta -->
-    <meta name="theme-color" content="#19191F">
-    <title>Parcivad | ERR</title>
-    <!--Favicon-->
-    <link href="/img/favicon_io/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
-    <link href="/img/favicon_io/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
-    <link href="/img/favicon_io/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16">
-    <link href="/img/favicon_io/site.webmanifest" rel="manifest">
-    <!--Bootstrap CSS-->
-    <link href="/vendor/bootstrap/bootstrap.css" rel="stylesheet" type="text/css">
-    <!--Java Script-->
-    <script src="/vendor/bootstrap/bootstrap.js"></script>
+
+    <title>Classync Not Found</title>
+    <meta property="og:title" content="Classync has no result on this page"/>
+
+    <style>
+        :root {
+            --backgroundColor: #fff;
+            --textColor: #000;
+        }
+
+        body {
+            background-color: var(--backgroundColor);
+            color: var(--textColor);
+            font-family: system-ui, Arial;
+            overflow: hidden;
+        }
+
+        body div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+        }
+
+        picture {cursor: pointer}
+
+        h2 {
+            margin-left: 20px;
+            padding: 20px 0 20px 20px;
+            border-left: 2px var(--textColor) solid;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --backgroundColor: #000;
+                --textColor: #fff;
+            }
+        }
+    </style>
 </head>
-<body style="background-color: #19191F">
+<body>
 
-<!-- Header Area module load via js -->
-<header style="background-color: #19191F" id="header"></header>
-
-<!-- Content of the page -->
-<main>
-    <div class="container-fluid" style="background-color: #19191F">
-        <!--Introduction-->
-        <div class="container px-4 pb-3 md-3 align-items-center text-center text-light" style="padding-top: 2rem;">
-            <h1>
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 19">
-                    <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
-                    <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
-                </svg>
-                404 <span>Error</span>
-            </h1>
-            <p style="font-size: 2rem">
-                Diese Seite wird momentan noch aufgebaut, also hab bitte etwas Geduld :D
-            </p>
-            <div style="display: flex" class="justify-content-center">
-                <img style="border-radius: 50px 0 0 50px" width="100%" src="/img/404page/han-solo.gif">
-                <img style="border-radius: 0 50px 50px 0" width="100%" src="/img/404page/chewbacca.gif">
-            </div>
-        </div>
-    </div>
-</main>
-
-<!-- Footer Area module load via js -->
-<footer id="footer"></footer>
-
-<script src="/vendor/jquery-3.6.0.min.js"></script>
-<script src="/js/utils/footerAndHeader.js"></script>
+<div>
+    <picture onclick="window.location.replace(window.location.origin)">
+        <source
+                srcSet="/go/img/brand/classync.label.light.svg"
+                media="(prefers-color-scheme: dark)" />
+        <img src="/go/img/brand/classync.label.dark.svg" width="160" alt="Classync Heading Logo" />
+    </picture>
+    <h2>404 ERROR</h2>
+</div>
 
 </body>
 </html>

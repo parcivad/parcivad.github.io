@@ -1,115 +1,131 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="h-100">
 <head>
-    <!--Required Meta-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Required Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <!-- Social Media Headline -->
-    <meta property="og:title" content="Parcivads Tool and Function Website"/>
-
-    <!-- Standard Meta -->
-    <meta name="theme-color" content="#19191F">
-    <title>Parcivad | Home</title>
-    
-    <!-- Google Search Console Site Verification -->
-    <meta name="google-site-verification" content="1clg0TjXbtTWKnoPEHXpknU613gInSY4fSw1394GBzg" />
+    <!--Social Media Headline-->
+    <meta property="og:local" content="de_DE">
+    <meta property="og:title" content="Classync"/>
+    <meta property="og:description" content="TODO: Beschreibung"/>
+    <meta property="og:url" content="https://www.classync.de">
+    <meta property="og:type" content="Website"/>
 
     <!--Favicon Icons-->
-    <link href="/img/favicon_io/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
-    <link href="/img/favicon_io/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
-    <link href="/img/favicon_io/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16">
-    <link href="/img/favicon_io/site.webmanifest" rel="manifest">
+    <link href="/go/img/favicon/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+    <link href="/go/img/favicon/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
+    <link href="/go/img/favicon/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16">
+    <link href="/go/img/favicon/site.webmanifest" rel="manifest">
 
-    <!--Bootstrap CSS-->
-    <link href="/vendor/bootstrap/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="/css/sites/general.css" rel="stylesheet" type="text/css">
+    <!-- Vendors -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                borderRadius: {
+                    'none': '0',
+                    'sm': '0.125rem',
+                    DEFAULT: '0.25rem',
+                    DEFAULT: '4px',
+                    'md': '1rem',
+                    'lg': '2rem',
+                    'full': '9999px',
+                    'large': '12px',
+                }
+            }
+        }
+    </script>
 
-    <!--Java Script-->
-    <script src="/vendor/bootstrap/bootstrap.js"></script>
+    <title>Classync 👋</title>
+
+
 </head>
-<body>
-
-<header class="thumbnailColor" id="header"></header>
-
-<!-- Content of the page -->
-<main>
-    <div class="thumbnail-area">
-        <div class="container">
-            <div class="row row-cols-2 w-100 pt-5 pb-3">
-                <div class="col-12 col-xl-6 container-text text-light">
-                    <h2>ALLES AN EINEM PLATZ</h2>
-                    <p>Stundenplan, Klausurplan und vieles mehr an einem Platz. Die Schulverwaltung von Parcivad bietet
-                    einen Ort an dem deine Stufe oder Klasse den Überblick behält. Startet Umfragen oder sammelt Zitate
-                    eurer Lehrer.</p>
-                    <button onclick="location.assign('/student/login')" class="button">JETZT ANMELDEN</button>
-                </div>
-                <div class="col-12 col-xl-6 align-content-end">
-
-                    <img width="100%" src="/img/home/studentThumbnail.svg">
+<body style="background-color: #f7f7f7">
+<div class="w-full h-full absolute flex justify-center align-text-center">
+    <div class="flex items-center">
+        <div class="hidden [@media(min-width:400px)]:block">
+            <a class="relative inline-flex items-center bg-blue-600 text-white justify-center gap-1.5 overflow-hidden whitespace-nowrap text-md font-medium leading-none outline-none transition-all hover:ring-4 focus-visible:ring-4 active:scale-[0.98] active:ring-2 disabled:pointer-events-none disabled:opacity-60 bg-foreground text-background h-11 rounded-md px-5" href="/go">
+                <span class="">Anmelden</span>
+            </a>
+        </div>
+    </div>
+</div>
+<header class="h-[76px] invisible">
+    <div class="flex items-center justify-between py-4 container mx-auto">
+        <a aria-label="to homepage" href="/">
+            <svg width="120" viewBox="0 0 500 123" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
+                 style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-990.03,-492.816)">
+        <g transform="matrix(0.448424,0,0,0.448424,477.383,390.575)">
+            <path d="M1620.22,448.219C1620.63,448.219 1784.04,448.217 1784.44,448.214C1798.93,448.094 1811.65,445.846 1822.59,441.469C1833.84,436.969 1842.61,430.547 1848.89,422.203C1855.17,413.859 1858.31,404.016 1858.31,392.672L1858.31,392.531C1858.31,380.531 1854.42,371.016 1846.64,363.984C1838.86,356.953 1826.58,351.844 1809.8,348.656L1781.67,343.313C1776.98,342.375 1773.33,341.367 1770.7,340.289C1768.08,339.211 1766.25,337.945 1765.22,336.492C1764.19,335.039 1763.67,333.281 1763.67,331.219L1763.67,331.078C1763.67,328.641 1764.4,326.578 1765.85,324.891C1767.31,323.203 1769.34,321.938 1771.97,321.094C1774.59,320.25 1777.64,319.828 1781.11,319.828C1787.3,319.828 1792.03,321.188 1795.31,323.906C1798.59,326.625 1800.52,329.203 1801.08,331.641L1801.36,332.906L1853.67,332.906L1853.67,331.922C1853.67,323.484 1851.07,315.492 1845.87,307.945C1840.66,300.398 1815.53,292.489 1805.59,286.219C1804.49,285.525 1774.94,281.01 1752.69,282.291C1752.39,282.309 1751.79,282.342 1751.79,282.342C1751.79,282.342 1618.73,282.281 1618.11,282.281C1603.11,282.281 1590.17,284.391 1579.3,288.609C1568.42,292.828 1560.08,298.852 1554.27,306.68C1548.45,314.508 1545.55,323.953 1545.55,335.016L1545.55,335.156C1545.55,343.313 1547.33,350.578 1550.89,356.953C1554.45,363.328 1559.75,368.672 1566.78,372.984C1573.81,377.297 1582.44,380.438 1592.66,382.406L1620.78,387.75C1627.16,388.969 1631.66,390.492 1634.28,392.32C1636.91,394.148 1638.22,396.656 1638.22,399.844L1638.22,399.984C1638.22,402.234 1637.49,404.133 1636.04,405.68C1634.59,407.227 1632.52,408.422 1629.85,409.266C1627.18,410.109 1623.97,410.531 1620.22,410.531C1613.75,410.531 1608.78,409.359 1605.31,407.016C1601.84,404.672 1599.45,401.859 1598.14,398.578L1597.72,397.453L1542.03,397.453L1542.17,398.719C1543.2,408 1549.62,444.3 1549.62,444.3C1549.62,444.3 1567.16,437.32 1578.31,441.68C1589.47,446.039 1603.44,448.219 1620.22,448.219Z"
+                  style="fill:rgb(0,141,255);fill-rule:nonzero;"/>
+            <g transform="matrix(0.888795,0,0,1,332.829,89.9622)">
+                <path d="M1484.54,297.627C1484.6,297.627 1633.66,297.627 1633.72,297.627C1642.1,297.7 1648.88,302.86 1648.88,309.204C1648.88,315.504 1642.2,320.635 1633.9,320.779C1633.78,320.781 1484.66,320.782 1484.54,320.782C1476.08,320.782 1469.21,315.594 1469.21,309.204C1469.21,302.814 1476.08,297.627 1484.54,297.627Z"
+                      style="fill:url(#_Linear1);"/>
+            </g>
+            <g transform="matrix(-0.857498,0,0,1,3014.5,21.6609)">
+                <path d="M1484.54,297.627C1484.6,297.627 1633.66,297.627 1633.72,297.627C1642.1,297.7 1648.88,302.86 1648.88,309.204C1648.88,315.504 1642.2,320.635 1633.9,320.779C1633.78,320.781 1484.66,320.782 1484.54,320.782C1476.08,320.782 1469.21,315.594 1469.21,309.204C1469.21,302.814 1476.08,297.627 1484.54,297.627Z"
+                      style="fill:url(#_Linear2);"/>
+            </g>
+            <path d="M1620.22,448.219C1620.63,448.219 1621.04,448.217 1621.44,448.214C1635.93,448.094 1648.65,445.846 1659.59,441.469C1670.84,436.969 1679.61,430.547 1685.89,422.203C1692.17,413.859 1695.31,404.016 1695.31,392.672L1695.31,392.531C1695.31,380.531 1691.42,371.016 1683.64,363.984C1675.86,356.953 1663.58,351.844 1646.8,348.656L1618.67,343.313C1613.98,342.375 1610.33,341.367 1607.7,340.289C1605.08,339.211 1603.25,337.945 1602.22,336.492C1601.19,335.039 1600.67,333.281 1600.67,331.219L1600.67,331.078C1600.67,328.641 1601.4,326.578 1602.85,324.891C1604.31,323.203 1606.34,321.938 1608.97,321.094C1611.59,320.25 1614.64,319.828 1618.11,319.828C1624.3,319.828 1629.03,321.188 1632.31,323.906C1635.59,326.625 1637.52,329.203 1638.08,331.641L1638.36,332.906L1690.67,332.906L1690.67,331.922C1690.67,323.484 1688.07,315.492 1682.87,307.945C1677.66,300.398 1669.69,294.234 1658.96,289.453C1648.79,284.921 1636.02,282.537 1620.67,282.301C1619.82,282.288 1618.97,282.281 1618.11,282.281C1603.11,282.281 1590.17,284.391 1579.3,288.609C1568.42,292.828 1560.08,298.852 1554.27,306.68C1548.45,314.508 1545.55,323.953 1545.55,335.016L1545.55,335.156C1545.55,343.313 1547.33,350.578 1550.89,356.953C1554.45,363.328 1559.75,368.672 1566.78,372.984C1573.81,377.297 1582.44,380.438 1592.66,382.406L1620.78,387.75C1627.16,388.969 1631.66,390.492 1634.28,392.32C1636.91,394.148 1638.22,396.656 1638.22,399.844L1638.22,399.984C1638.22,402.234 1637.49,404.133 1636.04,405.68C1634.59,407.227 1632.52,408.422 1629.85,409.266C1627.18,410.109 1623.97,410.531 1620.22,410.531C1613.75,410.531 1608.78,409.359 1605.31,407.016C1601.84,404.672 1599.45,401.859 1598.14,398.578L1597.72,397.453L1542.03,397.453L1542.17,398.719C1543.2,408 1549.62,444.3 1549.62,444.3C1549.62,444.3 1567.16,437.32 1578.31,441.68C1589.47,446.039 1603.44,448.219 1620.22,448.219Z"
+                  style="fill-rule:nonzero;"/>
+            <path d="M1244.05,449.906C1262.33,449.906 1278.38,446.414 1292.21,439.43C1306.04,432.445 1316.98,422.813 1325.05,410.531C1333.11,398.25 1337.52,384.141 1338.27,368.203L1338.41,365.25L1281.31,365.25L1281.03,367.359C1280.19,374.016 1278.15,379.898 1274.91,385.008C1271.68,390.117 1267.46,394.102 1262.26,396.961C1257.06,399.82 1251.03,401.25 1244.19,401.25C1235.84,401.25 1228.67,398.906 1222.67,394.219C1216.67,389.531 1212.06,382.805 1208.82,374.039C1205.59,365.273 1203.97,354.844 1203.97,342.75L1203.97,342.469C1203.97,330.375 1205.59,319.992 1208.82,311.32C1212.06,302.648 1216.67,295.992 1222.67,291.352C1228.67,286.711 1235.8,284.391 1244.05,284.391C1250.89,284.391 1256.98,285.867 1262.33,288.82C1267.67,291.773 1271.98,295.828 1275.27,300.984C1278.55,306.141 1280.47,312 1281.03,318.563L1281.17,320.109L1338.27,320.109L1338.12,316.875C1337.47,301.313 1333.04,287.414 1324.84,275.18C1316.63,262.945 1305.59,253.313 1291.72,246.281C1277.84,239.25 1261.95,235.734 1244.05,235.734C1223.14,235.734 1205.16,240.023 1190.12,248.602C1175.07,257.18 1163.49,269.461 1155.38,285.445C1147.27,301.43 1143.22,320.484 1143.22,342.609L1143.22,342.891C1143.22,365.016 1147.27,384.07 1155.38,400.055C1163.49,416.039 1175.09,428.344 1190.19,436.969C1205.28,445.594 1223.23,449.906 1244.05,449.906Z"
+                  style="fill-rule:nonzero;"/>
+            <rect x="1347.27" y="228" width="57.656" height="216.281" style="fill-rule:nonzero;"/>
+            <path d="M1447.39,446.531C1454.05,446.531 1460.26,445.664 1466.02,443.93C1471.79,442.195 1476.78,439.758 1481,436.617C1485.22,433.477 1488.31,429.844 1490.28,425.719L1493.09,425.719L1493.09,444.281L1549.62,444.281L1549.62,336.703C1549.62,325.172 1546.86,315.352 1541.33,307.242C1535.8,299.133 1527.76,292.945 1517.21,288.68C1506.66,284.414 1493.84,282.281 1478.75,282.281C1463.66,282.281 1450.56,284.367 1439.44,288.539C1428.34,292.711 1404.92,286.779 1404.92,286.779C1404.92,286.779 1403.52,322.406 1402.67,332.625L1402.53,334.453L1454,334.453L1454.28,333.75C1455.59,330.469 1457.98,327.938 1461.45,326.156C1464.92,324.375 1469.52,323.484 1475.23,323.484C1480.77,323.484 1485.12,324.656 1488.31,327C1491.5,329.344 1493.09,332.578 1493.09,336.703L1493.09,388.172C1493.09,391.828 1492.06,395.133 1490,398.086C1487.94,401.039 1485.15,403.383 1481.63,405.117C1478.12,406.852 1474.2,407.719 1469.89,407.719C1464.45,407.719 1460.12,406.477 1456.88,403.992C1453.65,401.508 1452.03,398.25 1452.03,394.219L1452.03,393.938C1452.03,390.094 1453.72,386.977 1457.09,384.586C1460.47,382.195 1465.16,380.813 1471.16,380.438L1521.36,377.203L1521.36,346.688L1461.88,350.203C1447.91,351.047 1436.09,353.438 1426.44,357.375C1416.78,361.313 1409.47,366.727 1404.5,373.617C1399.53,380.508 1397.05,388.734 1397.05,398.297L1397.05,398.578C1397.05,408.141 1399.13,416.531 1403.31,423.75C1407.48,430.969 1413.36,436.57 1420.95,440.555C1428.55,444.539 1437.36,446.531 1447.39,446.531Z"
+                  style="fill-rule:nonzero;"/>
+            <path d="M1841.14,500.25C1857.64,500.25 1871.91,498.117 1883.96,493.852C1896.01,489.586 1906.13,482.648 1914.34,473.039C1922.54,463.43 1929.12,450.656 1934.09,434.719L1980.36,286.219L1919.47,286.219L1892.05,413.484L1900.34,396.188L1887.41,396.188L1896.55,413.484L1869.12,286.219L1805.14,286.219L1857.73,444.281L1857.73,447.094C1857.64,450.375 1855.51,453.117 1851.34,455.32C1847.16,457.523 1841.23,458.625 1833.55,458.625L1822.3,458.625L1822.3,500.25L1841.14,500.25Z"
+                  style="fill-rule:nonzero;"/>
+            <path d="M1957.3,444.281L2014.95,444.281L2014.95,354.984C2014.95,349.828 2015.8,345.281 2017.48,341.344C2019.17,337.406 2021.61,334.313 2024.8,332.063C2027.98,329.813 2031.88,328.688 2036.47,328.688C2043.78,328.688 2049.15,331.008 2052.57,335.648C2055.99,340.289 2057.7,346.734 2057.7,354.984L2057.7,444.281L2115.36,444.281L2115.36,342.188C2115.36,323.156 2110.91,308.414 2102,297.961C2093.09,287.508 2079.92,282.281 2062.48,282.281C2051.52,282.281 2042.14,284.93 2034.36,290.227C2026.58,295.523 2021.05,302.531 2017.77,311.25L2014.95,311.25L2014.95,286.219L1957.3,286.219L1957.3,444.281Z"
+                  style="fill-rule:nonzero;"/>
+            <path d="M2183.42,448.219C2198.23,448.219 2211.05,445.664 2221.88,440.555C2232.71,435.445 2241.24,428.109 2247.48,418.547C2253.71,408.984 2257.25,397.547 2258.09,384.234L2257.95,383.953L2206.06,384.094L2205.78,384.094C2205.03,391.313 2202.85,396.68 2199.24,400.195C2195.63,403.711 2190.5,405.469 2183.84,405.469C2178.22,405.469 2173.65,404.063 2170.13,401.25C2166.62,398.438 2164.02,394.055 2162.33,388.102C2160.64,382.148 2159.8,374.531 2159.8,365.25L2159.8,364.969C2159.8,355.688 2160.64,348.117 2162.33,342.258C2164.02,336.398 2166.62,332.063 2170.13,329.25C2173.65,326.438 2178.22,325.031 2183.84,325.031C2190.5,325.031 2195.63,326.93 2199.24,330.727C2202.85,334.523 2205.08,340.172 2205.92,347.672L2206.06,347.813L2258.23,347.813C2257.3,333.75 2253.78,321.844 2247.69,312.094C2241.59,302.344 2233.13,294.938 2222.3,289.875C2211.48,284.813 2198.52,282.281 2183.42,282.281C2165.33,282.281 2150.19,285.375 2138,291.563C2125.81,297.75 2116.65,306.961 2110.51,319.195C2104.37,331.43 2101.3,346.688 2101.3,364.969L2101.3,365.25C2101.3,383.531 2104.37,398.836 2110.51,411.164C2116.65,423.492 2125.81,432.75 2138,438.938C2150.19,445.125 2165.33,448.219 2183.42,448.219Z"
+                  style="fill-rule:nonzero;"/>
+            <path d="M2183.42,448.219C2198.23,448.219 2211.05,445.664 2221.88,440.555C2232.71,435.445 2241.24,428.109 2247.48,418.547C2253.71,408.984 2257.25,397.547 2258.09,384.234L2257.95,383.953L2206.06,384.094L2205.78,384.094C2205.03,391.313 2202.85,396.68 2199.24,400.195C2195.63,403.711 2190.5,405.469 2183.84,405.469C2178.22,405.469 2173.65,404.063 2170.13,401.25C2166.62,398.438 2164.02,394.055 2162.33,388.102C2160.64,382.148 2159.8,374.531 2159.8,365.25L2159.8,364.969C2159.8,355.688 2160.64,348.117 2162.33,342.258C2164.02,336.398 2166.62,332.063 2170.13,329.25C2173.65,326.438 2178.22,325.031 2183.84,325.031C2190.5,325.031 2195.63,326.93 2199.24,330.727C2202.85,334.523 2205.08,340.172 2205.92,347.672L2206.06,347.813L2258.23,347.813C2257.3,333.75 2253.78,321.844 2247.69,312.094C2241.59,302.344 2233.13,294.938 2222.3,289.875C2211.48,284.813 2198.52,282.281 2183.42,282.281C2165.33,282.281 2150.19,285.375 2138,291.563C2125.81,297.75 2116.65,306.961 2110.51,319.195C2104.37,331.43 2101.3,346.688 2101.3,364.969L2101.3,365.25C2101.3,383.531 2104.37,398.836 2110.51,411.164C2116.65,423.492 2125.81,432.75 2138,438.938C2150.19,445.125 2165.33,448.219 2183.42,448.219Z"
+                  style="fill-rule:nonzero;"/>
+        </g>
+    </g>
+                <defs>
+        <linearGradient id="_Linear1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse"
+                        gradientTransform="matrix(179.672,0,0,179.672,1469.21,309.204)"><stop offset="0" style="stop-color:rgb(0,141,255);stop-opacity:1"/>
+            <stop offset="0.6" style="stop-color:rgb(44,161,255);stop-opacity:1"/>
+            <stop offset="0.81" style="stop-color:rgb(147,207,255);stop-opacity:1"/>
+            <stop offset="1" style="stop-color:white;stop-opacity:1"/></linearGradient>
+                    <linearGradient id="_Linear2" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse"
+                                    gradientTransform="matrix(179.672,0,0,179.672,1469.21,309.204)"><stop offset="0" style="stop-color:rgb(0,141,255);stop-opacity:1"/>
+                        <stop offset="0.6" style="stop-color:rgb(44,161,255);stop-opacity:1"/>
+                        <stop offset="0.81" style="stop-color:rgb(147,207,255);stop-opacity:1"/>
+                        <stop offset="1" style="stop-color:white;stop-opacity:1"/></linearGradient>
+    </defs>
+</svg>
+        </a>
+        <div class="flex items-center gap-6">
+            <div class="hidden items-center gap-6 text-base font-medium leading-relaxed md:flex">
+                <a class="bg-gradient-to-r from-[var(--link-underline-color)] to-[var(--link-underline-color)] bg-[size:0_var(--link-underline-width)] bg-[100%_100%] bg-no-repeat outline-none transition-[background-size] delay-100 duration-300 ease-smooth hover:bg-[size:100%_var(--link-underline-width)] hover:bg-[0_100%] focus-visible:opacity-60 svelte-16zjusf"
+                   href="/pricing">
+                    Produkt
+                </a>
+                <a class="bg-gradient-to-r from-[var(--link-underline-color)] to-[var(--link-underline-color)] bg-[size:0_var(--link-underline-width)] bg-[100%_100%] bg-no-repeat outline-none transition-[background-size] delay-100 duration-300 ease-smooth hover:bg-[size:100%_var(--link-underline-width)] hover:bg-[0_100%] focus-visible:opacity-60 svelte-16zjusf"
+                   href="/services">
+                    Support
+                </a>
+            </div>
+            <div class="flex items-center">
+                <div class="hidden [@media(min-width:400px)]:block">
+                    <a class="relative inline-flex items-center bg-blue-600 text-white justify-center gap-1.5 overflow-hidden whitespace-nowrap text-md font-medium leading-none outline-none transition-all hover:ring-4 focus-visible:ring-4 active:scale-[0.98] active:ring-2 disabled:pointer-events-none disabled:opacity-60 bg-foreground text-background h-11 rounded-md px-5" href="/go">
+                        <span class="">Anmelden</span>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="container pt-5 pb-5">
-        <div class="row row-cols-2 w-100 pt-5">
-            <div class="col-12 col-xl-7">
-                <img width="100%" src="/img/home/dashboardThumbnail.svg">
-            </div>
-            <div class="col-12 col-xl-5 container-text text-end align-self-center">
-                <h2>IMMER DEN DIREKTEN ÜBERBLICK HABEN</h2>
-                <p>Über das Server Dashboard hast du immer Zugriff auf deine MC Daten. Zudem kannst du Online- und Afkzeiten einsehen.</p>
-                <button onclick="location.assign('/minecraft/')" class="button">DASHBOARD</button>
-            </div>
+</header>
+<div class="container  mx-auto mt-4 invisible">
+    <div class="h-400 flex justify-center align-center">
+        <div class="text-5xl font-bold">
+            <div><span class="bg-yellow-300">Die Lösung</span> für deinen Jahrgang.</div>
         </div>
     </div>
-
-    <div class="pt-5 pb-5" style="background-color: #ebfaff">
-        <div class="container">
-            <div class="container-text text-center align-self-center pt-5">
-                <h3>NOCH MEHR AUF EINEM FLECK</h3>
-                <p>Nutzte PHP Module um deiner Hausautomation den letzten Schliff zu geben!</p>
-
-                <div class="container pt-2 pb-3 text-center text-light">
-                    <div class="row row-cols-3 g-3">
-                        <div class="col-12 col-xl">
-                            <div class="p-3 container-module">
-                                <div class="pb-1">
-                                    <img height="80px" src="/img/home/module/homeConnect.png">
-                                </div>
-                                <h5>Bosch HomeConnect</h5>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xl">
-                            <div class="p-3 container-module">
-                                <div class="pb-1">
-                                    <img height="80px" src="/img/home/module/reolink.png">
-                                </div>
-                                <h5>REOLINK®</h5>
-                            </div>
-                        </div>
-                        <div class="col-12 col-xl">
-                            <div class="p-3 container-module">
-                                <div class="pb-1">
-                                    <img height="80px" src="/img/home/module/magicHome.png">
-                                </div>
-                                <h5>MagicHome</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <button onclick="location.assign('/module/')" class="button" style="background-color: #8bb3ff">ZU DEN MODULEN</button>
-            </div>
-        </div>
-    </div>
-</main>
-
-<footer id="footer"></footer>
-
-
-<script src="/vendor/jquery-3.6.0.min.js"></script>
-<script src="/js/utils/footerAndHeader.js"></script>
+</div>
 </body>
 </html>
