@@ -171,7 +171,7 @@ class ItemPopupCards extends React.Component {
         super(props);
 
         this.state = {
-            closed: false
+            closed: new Date(new Date(getDH("identity").lastAccess).getTime() + 7200).getTime() > 1695070900700
         }
     }
 
@@ -213,7 +213,14 @@ class ItemPopupCards extends React.Component {
                             <div className="carousel-item active" >
                                 <div className="text-center">
                                     <div className="col-12 py-4">
-                                        <img src="/img/classyncLogo.png" width="68" ></img>
+                                        <div className="align-items-center ps-3">
+                                            <picture>
+                                                <source
+                                                    srcSet="/go/img/brand/classync.label.light.svg"
+                                                    media="(prefers-color-scheme: dark)" />
+                                                <img src="/go/img/brand/classync.label.dark.svg" width="160" alt="Classync Heading Logo" />
+                                            </picture>
+                                        </div>
                                     </div>
                                     <h3 style={{fontWeight: 650, fontSize: "20pt"}}>Willkommen bei Classync</h3>
                                     <p style={{fontSize: "10pt"}}>Eure Lösung für eine übersichtliche und benutzerfreundliche Stufenverwaltung. Hier kannst du mit deiner Stufe Zitate sammeln, Umfragen starten und Kommentare teilen.</p>
@@ -231,8 +238,8 @@ class ItemPopupCards extends React.Component {
                                     <h3 style={{fontWeight: 650, fontSize: "20pt"}}>Umfragen</h3>
                                     <p style={{fontSize: "11pt", color: "var(--sys-gray)"}}>
                                         Bei Umfragen kann die ganze Stufe über eine Frage abstimmen, dabei bietet
-                                        Classync verschiedene Einstellungen mithilfe eine Umfrage interessanter und
-                                        nützlicher gestaltet werden kann
+                                        Classync verschiedene Einstellungen. Mithilfe sich eine Umfrage interessanter und
+                                        nützlicher gestalten lässt.
                                     </p>
                                     <div className="col-12 row row-cols-2 pt-2">
                                         <p className="col-1">👋</p>
@@ -254,14 +261,36 @@ class ItemPopupCards extends React.Component {
                                     </div>
                                     <h3 style={{fontWeight: 650, fontSize: "20pt"}}>Rankings</h3>
                                     <p style={{fontSize: "11pt", color: "var(--sys-gray)"}}>
-                                        Durch Rankings könnt ihr Anonyme Fragen über Personen erstellen. So kann jeder
-                                        berechtigte Schüler ein Ranking starten und andere können für eine Person abstimmen.
+                                        In Rankings könnt ihr Fragen stellen und darunter anonymisierte für eine Person
+                                        abstimmen. Alle können sich Live das Ergebnis und eine Tabellenliste anschauen.
                                     </p>
                                     <div className="col-12 row row-cols-2 pt-2">
                                         <p className="col-1">🙈</p>
                                         <p className="col-11 text-start" style={{fontSize: "10pt"}}>
-                                            Bei <strong>Interaktiven</strong> Umfragen kann jeder
-                                            berechtigte Schüler eine weitere Option hinzufügen.</p>
+                                            Bei jedem Ranking kannst du selber deine <strong>Teilnahme beenden</strong> und
+                                            wirst von dem Ergebnis ausgeschlossen.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="carousel-item">
+                                <div className="text-center">
+                                    <div className="col-12 py-4">
+                                        <p className="m-0" style={{fontSize: "60pt"}}>🍿</p>
+                                    </div>
+                                    <h3 style={{fontWeight: 650, fontSize: "20pt"}}>Profile</h3>
+                                    <p style={{fontSize: "11pt", color: "var(--sys-gray)"}}>
+                                        Suche in den Profilen nach Schülern oder Lehrer und interagiere mit deren Profil.
+                                    </p>
+                                    <div className="col-12 row row-cols-2 pt-2">
+                                        <p className="col-1">🙋‍</p>
+                                        <p className="col-11 text-start" style={{fontSize: "10pt"}}>
+                                            Unter deinem eigenen Profil kannst du Fragen deiner Stufe direkt beantworten.
+                                        </p>
+                                        <p className="col-1">💭</p>
+                                        <p className="col-11 text-start" style={{fontSize: "10pt"}}>
+                                            <strong>Kommentiere</strong> unter einem beliebigen Profil deine Bemerkung.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -270,38 +299,13 @@ class ItemPopupCards extends React.Component {
                                     <div className="col-12 py-4">
                                         <ion-icon name="hammer" style={{fontSize: "50pt", color: "#54c3ff"}} />
                                     </div>
-                                    <h3 style={{fontWeight: 650, fontSize: "20pt"}}>Einstellungen und Datenschutz</h3>
-                                    <p style={{fontSize: "10pt"}}>Eure Lösung für eine übersichtliche und benutzerfreundliche Stufenverwaltung. Hier kannst du mit deiner Stufe Zitate sammeln, Umfragen starten und Rundnachrichten teilen.</p>
+                                    <h3 style={{fontWeight: 650, fontSize: "20pt"}}>Version 1.0</h3>
+                                    <p style={{fontSize: "10pt"}}>Ende der Beta 😮</p>
                                     <div className="col-12 pt-3">
-                                        <ion-icon name="hand-left" style={{fontSize: "20pt", color: "var(--sys-gray3)"}}/>
-                                        <p style={{fontSize: "10pt", color: "var(--sys-gray)"}}>Deine persönlichen Daten werden nur minimal gesammelt und verwendet. Du kannst eine Löschung, deiner Daten, jederzeit <span onClick={() => loadModule("account")} className="actionText">in den Kontoeinstellungen</span> anfordern. Desweiteren nutzt diese Website Cookies, damit du über einen längeren Zeitraum angemeldet bleibst.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="carousel-item" >
-                                <div className="text-center">
-                                    <div className="col-12 py-4">
-                                        <ion-icon name="calendar" style={{fontSize: "50pt", color: "#68da9a"}} />
-                                    </div>
-                                    <h3 style={{fontWeight: 650, fontSize: "20pt"}}>Kalender Erweiterung</h3>
-                                    <p style={{fontSize: "10pt"}}>Eure Lösung für eine übersichtliche und benutzerfreundliche Stufenverwaltung. Hier kannst du mit deiner Stufe Zitate sammeln, Umfragen starten und Rundnachrichten teilen.</p>
-                                    <div className="col-12 pt-3">
-                                        <ion-icon name="hand-left" style={{fontSize: "20pt", color: "var(--sys-gray3)"}}/>
-                                        <p style={{fontSize: "10pt", color: "var(--sys-gray)"}}>Deine persönlichen Daten werden nur minimal gesammelt und verwendet. Du kannst eine Löschung, deiner Daten, jederzeit <span onClick={() => loadModule("account")} className="actionText">in den Kontoeinstellungen</span> anfordern. Desweiteren nutzt diese Website Cookies, damit du über einen längeren Zeitraum angemeldet bleibst.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="carousel-item" >
-                                <div className="text-center">
-                                    <div className="col-12 py-4">
-                                        <ion-icon name="telescope-outline" style={{fontSize: "50pt", color: "rgba(145,83,255,0.57)"}} />
-                                    </div>
-                                    <h3 style={{fontWeight: 650, fontSize: "20pt"}}>Classsync <span style={{background: "linear-gradient(135deg, rgba(255,177,0,1) 0%, rgba(255,144,20,1) 71%, rgba(255,194,0,1) 100%)", WebkitBackgroundClip: "text",
-                                        WebkitTextFillColor: "transparent", fontWeight: "bolder"}} >PLUS</span></h3>
-                                    <p style={{fontSize: "10pt"}}>Eure Lösung für eine übersichtliche und benutzerfreundliche Stufenverwaltung. Hier kannst du mit deiner Stufe Zitate sammeln, Umfragen starten und Rundnachrichten teilen.</p>
-                                    <div className="col-12 pt-3">
-                                        <ion-icon name="hand-left" style={{fontSize: "20pt", color: "var(--sys-gray3)"}}/>
-                                        <p style={{fontSize: "10pt", color: "var(--sys-gray)"}}>Deine persönlichen Daten werden nur minimal gesammelt und verwendet. Du kannst eine Löschung, deiner Daten, jederzeit <span onClick={() => loadModule("account")} className="actionText">in den Kontoeinstellungen</span> anfordern. Desweiteren nutzt diese Website Cookies, damit du über einen längeren Zeitraum angemeldet bleibst.</p>
+                                        <ion-icon name="bulb-outline" style={{fontSize: "20pt", color: "var(--sys-gray3)"}}/>
+                                        <p style={{fontSize: "10pt", color: "var(--sys-gray)"}}>
+                                            Bugs- und Fehlerbehebung // Neue Features und Design // Verschiedene Funktionen freigeschaltet
+                                        </p>
                                     </div>
                                 </div>
                             </div>

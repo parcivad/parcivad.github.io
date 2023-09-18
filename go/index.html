@@ -242,7 +242,10 @@
     }
 
     // render application after first bootUp or Display error
-    bootUp().then(() => root.render(<Classync />))
+    bootUp().then(() => root.render(<>
+        <Classync />
+        <ItemPopupCards />
+    </>))
         .catch(error => {
             if (error["error_key"] === "authentication_required" || error["error_key"] === "token_expired") return
             if (error["error_key"] === "user_not_found") { OAuthProcessRequired(); return }

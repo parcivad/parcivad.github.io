@@ -6,7 +6,7 @@ class Classync extends React.Component {
             content = params.get("c");
 
         this.state = {
-            content: content ? content : "r",
+            content: content ? content : "p",
             canvas: false
         }
 
@@ -218,7 +218,7 @@ class Classync extends React.Component {
                                                 {getDH("identity").name.firstname} {getDH("identity").name.lastname}
                                             </p>
                                             <p className="m-0" style={{fontSize: "9pt", color: "var(--sys-gray)"}}>
-                                                TODO: Build in instances
+                                                Löwenrot Abi2024
                                             </p>
                                         </div>
                                     </div>
