@@ -170,7 +170,7 @@ class ContainerCalendarAbo extends React.Component {
             alert("google and outlook calendar not supported")
         } else {
             // open with apple calendar
-            window.location.assign(`webcal://api.classync.de/ical?calendarId=${getDH("calendar").calendarId}`)
+            window.location.assign(`webcal://api.classync.de/student/ical?calendarId=${getDH("calendar").calendarId}`)
         }
     }
 
