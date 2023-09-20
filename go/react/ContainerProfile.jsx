@@ -55,7 +55,7 @@ class ContainerProfileSearch extends React.Component {
         super(props);
 
         this.state = {
-            searchPreview: "students",
+            searchPreview: "all",
             search: ""
         }
     }
@@ -72,6 +72,29 @@ class ContainerProfileSearch extends React.Component {
                         getDH("students").concat(getDH("teachers"))
                             .filter(p => p.name.firstname.toLowerCase().includes(this.state.search.toLowerCase()) ||
                                 p.name.lastname.toLowerCase().includes(this.state.search.toLowerCase()))
+                            .slice(0,5)
+                            .map(p => {
+                                let id = p.studentId ? p.studentId : p.teacherId,
+                                    comments = getDH("comments").filter(f => f.personId === id);
+                                return <ContainerProfileSearchItem
+                                    key={id}
+                                    name={`${p.name.firstname} ${p.name.lastname}`}
+                                    description={`${comments.length} Kommentare`}
+                                    color={this.getTrendColor(comments)}
+                                    trigger={()=> setParam("p", id)}
+                                />
+                            })
+                    }
+                </ContainerProfileSearchItemList>
+            case "all":
+                return <ContainerProfileSearchItemList key="all">
+                    {
+                        getDH("students").concat(getDH("teachers"))
+                            .sort((a, b) => {
+                                let aId = a.studentId === undefined ? a.teacherId : a.studentId,
+                                    bId = b.studentId === undefined ? b.teacherId : b.studentId;
+                                return getDH("comments").filter(f => f.personId === bId).length - getDH("comments").filter(f => f.personId === aId).length
+                            })
                             .slice(0,5)
                             .map(p => {
                                 let id = p.studentId ? p.studentId : p.teacherId,
@@ -151,6 +174,7 @@ class ContainerProfileSearch extends React.Component {
                             <select className="py-1 align-text-bottom contentHeaderSorting" value={this.state.searchPreview}
                                     style={{fontSize: "11pt", fontWeight: "bold", color: "var(--sys-gray)"}}
                                     onChange={e => this.setState({searchPreview: e.target.value})}>
+                                <option value="all">▼ Im Trend</option>
                                 <option value="teachers">▼ Lehrer im Trend</option>
                                 <option value="students">▼ Schüler im Trend</option>
                                 <option value="suggestions" disabled={true}>Vorschläge</option>
@@ -525,22 +549,24 @@ class ContainerProfileInspect extends React.Component {
                             </div>
                         </div>
                         <div className="row row-cols-2 mt-3">
-                            <div className="col-12 col-md-5">
-                                {this.props.questions.length > 0 ?
-                                    this.props.questions.map(question =>
-                                        <ContainerProfileQuestion key={question.questionId} question={question}/>
-                                    )
-                                    :
-                                    <ContainerInformationBanner
-                                        icon="help"
-                                        color="var(--sys-gray)"
-                                        title="Keine Fragen"
-                                        description={`Es wurden noch keine Fragen erstellt.`}
-                                    />
-                                }
-                                {hasPermission("question.add") && (<ContainerProfileQuestionAddPopup />)}
-                            </div>
-                            <div className="col-12 col-md-7">
+                            {this.props.person.studentId !== undefined && (
+                                <div className="col-12 col-md-5">
+                                    {this.props.questions.length > 0 ?
+                                        this.props.questions.map(question =>
+                                            <ContainerProfileQuestion key={question.questionId} question={question}/>
+                                        )
+                                        :
+                                        <ContainerInformationBanner
+                                            icon="help"
+                                            color="var(--sys-gray)"
+                                            title="Keine Fragen"
+                                            description={`Es wurden noch keine Fragen erstellt.`}
+                                        />
+                                    }
+                                    {hasPermission("question.add") && (<ContainerProfileQuestionAddPopup />)}
+                                </div>
+                            )}
+                            <div className={`col-12 col-md-7 pt-4 pt-sm-0 ${this.props.person.studentId === undefined && ("col-md-12")}`}>
                                 <div className="mx-2 mx-md-0"
                                      style={{padding: "1rem", border: "2px var(--sys-gray4) dashed", borderRadius: "12px"}}>
                                     <div className="d-flex justify-content-between">

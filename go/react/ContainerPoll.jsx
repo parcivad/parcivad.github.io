@@ -370,7 +370,7 @@ class ContainerPollElement extends React.Component {
                     : null
                 }
                 {this.state.deletePollOptionId ?
-                    <Popup toggle={() => this.setState({deletionPopup: false})}>
+                    <Popup toggle={() => this.setState({deletePollOptionId: false})}>
                         <PPContent>
                             <PPHeadingIcon icon={"trash-outline"} color={"var(--sys-red)"} />
                             <PPHeading>Umfrage Option Löschen</PPHeading>
@@ -522,27 +522,36 @@ class ContainerPollElement extends React.Component {
                                     exit={{height: 0, opacity: 0}}
                                     className="col-12 row justify-content-between m-0">
                                     <div className="col-12 col-md-5">
-                                        <div className="roundContainer">
-                                            <div className="roundContainerInner" style={{backgroundColor: "var(--sys-gray5)"}}>
-
-                                                <div className="d-flex justify-content-center">
-                                                    <div id={`chart${this.props.poll.title}`} style={{width: "240px", height: "240px"}} />
-                                                </div>
+                                        <div className="roundContainer h-100 w-100">
+                                            <div className="roundContainerInner h-100 w-100"
+                                                 style={{backgroundColor: "var(--sys-gray5)"}}
+                                            >
+                                                <div id={`chart${this.props.poll.title}`}
+                                                     style={{width: "100%", height: "100%",
+                                                         minHeight: "230px", minWidth: "230px"}}
+                                                />
                                             </div>
                                         </div>
                                     </div>
                                     <div className="col-12 col-md-7">
                                         <div className="roundContainer pe-0">
-                                            <div className="overflow-scroll" style={{maxHeight: "265px"}}>
+                                            <div className="overflow-scroll pollOptions">
                                                 <div className="mb-4 ps-1">
-                                                    {this.props.poll.pollOptions.map(pollOption => {
+                                                    {this.props.poll.pollOptions.sort((a, b) => b.votes.length - a.votes.length).map(pollOption => {
                                                         let voted = pollOption.votes.find(v => v.studentId === getDH("identity").studentId) !== undefined;
+
+                                                        let bulb = <div className="me-2 fw-bold d-flex justify-content-center align-items-center"
+                                                                        style={{width: "20px", height: "20px", borderRadius: "100%", backgroundColor: pollOption.hexColor, fontSize: "9pt", color: "#fff", mixBlendMode: "difference"}}>
+                                                            {pollOption.votes.length}
+                                                        </div>
+                                                        if (pollOption.votes.length === 0)
+                                                            bulb = <div className="me-2" style={{width: "15px", height: "15px", borderRadius: "100%", backgroundColor: pollOption.hexColor}}/>
 
                                                         return <div key={pollOption.pollOptionId}
                                                                     className="d-flex align-items-center justify-content-between px-2 py-1 mb-2 w-100"
-                                                                    style={{borderRadius: voted ? "6px" : "4px", border: voted ? "2px solid var(--sys-blue)" : "1px solid var(--sys-gray4)"}} >
+                                                                    style={{borderRadius: voted ? "6px" : "4px", border: voted ? "2px solid var(--sys-blue)" : "1px solid var(--sys-gray4)"}}>
                                                             <div className="d-flex align-items-center cursor-pointer" onClick={() => this.voteOption(pollOption.pollOptionId)}>
-                                                                <div className="me-2" style={{width: "15px", height: "15px", borderRadius: "100%", backgroundColor: pollOption.hexColor}}/>
+                                                                {bulb}
                                                                 <div>
                                                                     <p className="m-0 fw-bold">{pollOption.title}</p>
                                                                     <p className="m-0" style={{fontSize: "10pt", color: "var(--sys-gray0)"}}>{pollOption.description}</p>

@@ -487,7 +487,7 @@ class ContentRanking extends React.Component {
             color: "var(--sys-orange)",
             addRanking: false,
             searchText: "",
-            sorting: "date-descending",
+            sorting: "votes-descending",
             onlyLike: false,
             pieChart: true,
             age: 0
@@ -538,6 +538,16 @@ class ContentRanking extends React.Component {
                         bVal = b.likes.length
                         break;
 
+                    case "votes-ascending":
+                        aVal = b.votes.length
+                        bVal = a.votes.length
+                        break;
+
+                    case "votes-descending":
+                        aVal = a.votes.length
+                        bVal = b.votes.length
+                        break;
+
                     default:
                         return 0;
                 }
@@ -571,7 +581,9 @@ class ContentRanking extends React.Component {
                                       "date-ascending": '▲ Hinzugefügt',
                                       "date-descending": '▼ Hinzugefügt',
                                       "like-ascending": '▲ Likes',
-                                      "like-descending": '▼ Likes'
+                                      "like-descending": '▼ Likes',
+                                      "votes-ascending": '▲ Votes',
+                                      "votes-descending": '▼ Votes'
                                   }}
                         />
                     </Header>

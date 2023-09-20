@@ -280,11 +280,6 @@ class ContainerAuditLogRecordsTimeline extends React.Component {
                     return [pt[0], '10%'];
                 }
             },
-            legend: {
-                textStyle: {
-                    color: textColor
-                }
-            },
             toolbox: {
                 feature: {
                     saveAsImage: {}

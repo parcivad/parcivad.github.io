@@ -22,7 +22,7 @@ async function api(endpoint, method, body) {
 
                     if (value["error_key"] === "token_expired") {
 
-                        call("/go/refreshToken", "POST", undefined, getCookie("refresh_token"))
+                        call("/student/refreshToken", "POST", undefined, getCookie("refresh_token"))
                             .then(value => {
                                 // on error quit
                                 if (isset(value["error_key"])) {
