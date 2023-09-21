@@ -541,7 +541,7 @@ class ContainerPollElement extends React.Component {
                                                         let voted = pollOption.votes.find(v => v.studentId === getDH("identity").studentId) !== undefined;
 
                                                         let bulb = <div className="me-2 fw-bold d-flex justify-content-center align-items-center"
-                                                                        style={{width: "20px", height: "20px", borderRadius: "100%", backgroundColor: pollOption.hexColor, fontSize: "9pt", color: "#fff", mixBlendMode: "difference"}}>
+                                                                        style={{width: "20px", height: "20px", borderRadius: "100%", backgroundColor: pollOption.hexColor, fontSize: "9pt", color: "#fff"}}>
                                                             {pollOption.votes.length}
                                                         </div>
                                                         if (pollOption.votes.length === 0)
