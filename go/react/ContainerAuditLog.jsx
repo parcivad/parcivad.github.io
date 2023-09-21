@@ -161,22 +161,20 @@ class ContainerAuditLogList extends React.Component {
                                     transition={{
                                         delay: 0.1 * delayCounter
                                     }}
-
-                                    className="row pb-2 mb-2" style={{borderBottom: "1px solid var(--sys-gray4)"}}>
-                                    <div className="col d-flex align-items-center justify-content-center">
-                                        <ion-icon name={auditLog.icon} style={{color: `var(--sys-${auditLog.color}`}}/>
-                                    </div>
-                                    <div className="col-8 text-start">
-                                        <h5 className="m-0" style={{fontSize: "12pt"}}>{auditLog.title}</h5>
-                                        <p className="m-0" style={{fontSize: "11pt", color: "var(--sys-gray)"}}>
-                                            {auditLog.description}
-                                        </p>
-                                    </div>
-                                    <div className="col-3 text-end">
+                                    className="auditLogList-item"
+                                >
+                                    <div className="d-flex justify-content-between">
+                                        <div className="d-flex">
+                                            <ion-icon name={auditLog.icon} style={{color: `var(--sys-${auditLog.color}`, fontSize: "13pt"}}/>
+                                            <h5 className="m-0 ms-2" style={{fontSize: "11pt"}}>{auditLog.title}</h5>
+                                        </div>
                                         <p className="m-0" style={{fontSize: "10pt", color: "var(--sys-gray)"}}>
                                             {new Date(auditLog.date).toLocaleString()}
                                         </p>
                                     </div>
+                                    <p className="m-0" style={{fontSize: "9pt", color: "var(--sys-gray)"}}>
+                                        {auditLog.description}
+                                    </p>
                                 </Motion.motion.div>
                             })
                             :
@@ -286,7 +284,7 @@ class ContainerAuditLogRecordsTimeline extends React.Component {
                 }
             },
             grid: {
-                top: "70px",
+                top: "20px",
                 bottom: "60px",
                 left: "30px",
                 right: "15px"
@@ -308,14 +306,14 @@ class ContainerAuditLogRecordsTimeline extends React.Component {
                 {
                     show: true,
                     realtime: true,
-                    start: 0,
+                    start: 80,
                     end: 100,
                     xAxisIndex: [0, 1]
                 },
                 {
                     type: 'inside',
                     realtime: true,
-                    start: 0,
+                    start: 80,
                     end: 100,
                     xAxisIndex: [0, 1]
                 }

@@ -211,7 +211,7 @@ class ContainerRankingElement extends React.Component {
                                 value: votes,
                                 name: name
                             }
-                        }).slice(0, 5)
+                        }).slice(0, 6)
                     }
                 ]
             };
@@ -487,7 +487,7 @@ class ContentRanking extends React.Component {
             color: "var(--sys-orange)",
             addRanking: false,
             searchText: "",
-            sorting: "date-descending",
+            sorting: "votes-descending",
             onlyLike: false,
             pieChart: true,
             age: 0

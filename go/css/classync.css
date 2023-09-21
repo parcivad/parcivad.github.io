@@ -323,6 +323,11 @@ html, body {
     text-align: end;
 }
 
+.auditLogList-item:nth-child(even) {
+    background-color: var(--sys-gray5);
+    padding: 5px 0 5px 0;
+}
+
 /* PROFILE STYLING ==================================================================================================*/
 .profileBadge {
     display: block;
