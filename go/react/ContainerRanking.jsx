@@ -487,7 +487,7 @@ class ContentRanking extends React.Component {
             color: "var(--sys-orange)",
             addRanking: false,
             searchText: "",
-            sorting: "votes-descending",
+            sorting: "date-descending",
             onlyLike: false,
             pieChart: true,
             age: 0
