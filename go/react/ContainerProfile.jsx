@@ -165,7 +165,7 @@ class ContainerProfileSearch extends React.Component {
                                onInput={event => {
                                    this.setState({
                                        search: event.currentTarget.value,
-                                       searchPreview: event.currentTarget.value.length === 0 ? "students" : "suggestions"
+                                       searchPreview: event.currentTarget.value.length === 0 ? "all" : "suggestions"
                                    })
                                }}/>
                     </div>

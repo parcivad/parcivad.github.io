@@ -15,7 +15,7 @@ class ContainerModerationRoleAddElement extends React.Component {
         // course has to be set
         if (this.state.name === "" || this.state.powerLvl === 0 || this.state.permissions === "") return;
 
-        api("/go/role/add", "POST", JSON.stringify({
+        api("/student/role/add", "POST", JSON.stringify({
             "name": this.state.name,
             "hexColor": "#037bfc",
             "powerLvl": this.getLowestPowerLevel()
@@ -34,7 +34,7 @@ class ContainerModerationRoleAddElement extends React.Component {
                 {this.state.addRolePopup ?
                     <Popup toggle={() => this.setState({addRolePopup: !this.state.addRolePopup})}>
                         <PPContent>
-                            <PPHeadingIcon icon={"hammer-outline"} color="var(--sys-green)"/>
+                            <PPHeadingIcon icon={"hammer-outline"} color="var(--sys-gray)"/>
                             <PPHeading>Rolle erstellen</PPHeading>
                             <PPInputText
                                 placeholder="Name"

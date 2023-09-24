@@ -42,8 +42,13 @@ class ContainerQuotationElement extends React.Component {
 
     publisherElement() {
         let publisher = {firstname: "anonym", lastname: "anonym"};
-        if (hasPermission(Permission.QUOTATION_SHOW_PUBLISHER))
-            publisher = getDH("students").find(s => s.studentId === this.props.quotation.quotePublish.studentId).name
+        if (hasPermission(Permission.QUOTATION_SHOW_PUBLISHER)) {
+            try {
+                publisher = getDH("students").find(s => s.studentId === this.props.quotation.quotePublish.studentId).name
+            } catch (exception) {
+                publisher = {"firstname": "not", "lastname": "found"}
+            }
+        }
         let publishedBy = `${publisher["firstname"]} ${publisher["lastname"]}`
 
         if (this.props.quotation.quotePublish.studentId === getDH("identity").studentId)
@@ -60,8 +65,13 @@ class ContainerQuotationElement extends React.Component {
 
     render()  {
         let publisher = {firstname: "anonym", lastname: "anonym"};
-        if (hasPermission(Permission.QUOTATION_SHOW_PUBLISHER))
-            publisher = getDH("students").find(s => s.studentId === this.props.quotation.quotePublish.studentId).name
+        if (hasPermission(Permission.QUOTATION_SHOW_PUBLISHER)) {
+            try {
+                publisher = getDH("students").find(s => s.studentId === this.props.quotation.quotePublish.studentId).name
+            } catch (exception) {
+                publisher = {"firstname": "not", "lastname": "found"}
+            }
+        }
         let publishedBy = `${publisher["firstname"]} ${publisher["lastname"]}`,
             liked = this.props.quotation.likes.find(like => like["studentId"] === getDH("identity")["studentId"]) !== undefined,
             date = timeToString(new Date(this.props.quotation.quotePublish.date))

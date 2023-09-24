@@ -213,7 +213,7 @@ class ContainerAccount extends React.Component {
                             <ion-icon name="refresh-outline" />
                         </Motion.motion.div>
                         <input className="createInput mt-2" placeholder="Spitzname" type="text" style={{backgroundColor: "var(--sys-gray5)"}}
-                               value={this.state.nickname}
+                               value={this.state.nickname === null ? "" : this.state.nickname}
                                onKeyDown={e => { if (e.keyCode === 13) this.setNickname(this.state.nickname)}}
                                onInput={e=> this.setState({nickname: e.currentTarget.value})}
                         />

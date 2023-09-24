@@ -3,7 +3,8 @@
  * @author Timur Stegmann
  */
 
-const apiUrl = "https://api.classync.de";
+//const apiUrl = "https://api.classync.de";
+const apiUrl = "http://127.0.0.1:3000";
 
 /**
  * Send request via call function and handles token
