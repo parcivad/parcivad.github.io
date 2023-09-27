@@ -502,7 +502,7 @@ class ContainerPollElement extends React.Component {
                         <div className="d-flex align-items-start justify-content-between">
                             <div className="d-flex align-items-center">
                                 <div>
-                                    <h5 className="mb-1">{this.props.poll.title}</h5>
+                                    <h5 className="mb-1">{this.props.poll.title} <span style={{color: "var(--sys-gray)"}}>• {votes}<span style={{fontSize: "13pt"}}>/{getDH("students").length}</span></span></h5>
                                     <p style={{fontSize: "11pt", color: "var(--sys-gray)"}}>
                                         {this.props.poll.description}
                                     </p>
