@@ -11,6 +11,7 @@ class Classync extends React.Component {
         }
 
         this.contentMap = {
+            "h": <ContentHome />,
             "r": <ContentRanking />,
             "q": <ContentQuotation />,
             "s": <ContentStudents />,
@@ -153,7 +154,9 @@ class Classync extends React.Component {
                                 </picture>
                             </div>
                             <div className="ps-3 pe-4 pt-4 overflow-scroll">
-                                <div className="d-flex justify-content-start cursor-pointer pb-3">
+                                <div className="d-flex justify-content-start cursor-pointer pb-3"
+                                     role="button" data-bs-dismiss="offcanvas" aria-label="Close"
+                                     onClick={() => {}}>
                                     <div className="d-flex align-items-center">
                                         <div className="pe-2">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -178,7 +181,7 @@ class Classync extends React.Component {
                                     <SBSubPoint title="🗳️ Umfragen" trigger={() => this.openContent("p")}/>
                                     <SBSubPoint title="🚀 Rankings" trigger={() => this.openContent("r")}/>
                                     <SBSubPoint title="🍿 Profile" trigger={() => this.openContent("pr")}/>
-                                    <SBSubPoint title="💭 Zitate" trigger={() => this.openContent("q")}/>
+                                    <SBSubPoint title="💬 Zitate" trigger={() => this.openContent("q")}/>
                                 </Sidebar>
                                 <Sidebar title="Verwaltung" opened={true}>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -193,18 +196,12 @@ class Classync extends React.Component {
                                         : null
                                     }
                                 </Sidebar>
-                                <div className="d-flex justify-content-start cursor-pointer pb-3"
-                                     role="button" data-bs-dismiss="offcanvas" aria-label="Close"
-                                     onClick={() => this.openContent("c")}>
-                                    <div className="d-flex align-items-center">
-                                        <div className="pe-2">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M21 10H3M16 2V6M8 2V6M7.8 22H16.2C17.8802 22 18.7202 22 19.362 21.673C19.9265 21.3854 20.3854 20.9265 20.673 20.362C21 19.7202 21 18.8802 21 17.2V8.8C21 7.11984 21 6.27976 20.673 5.63803C20.3854 5.07354 19.9265 4.6146 19.362 4.32698C18.7202 4 17.8802 4 16.2 4H7.8C6.11984 4 5.27976 4 4.63803 4.32698C4.07354 4.6146 3.6146 5.07354 3.32698 5.63803C3 6.27976 3 7.11984 3 8.8V17.2C3 18.8802 3 19.7202 3.32698 20.362C3.6146 20.9265 4.07354 21.3854 4.63803 21.673C5.27976 22 6.11984 22 7.8 22Z" stroke="var(--sys-black)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                            </svg>
-                                        </div>
-                                        <p className="m-0" style={{fontWeight: 500, fontSize: "12pt"}}>Kalender</p>
-                                    </div>
-                                </div>
+                                <Sidebar title="Kalender" opened={true}>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 10H3M16 2V6M8 2V6M7.8 22H16.2C17.8802 22 18.7202 22 19.362 21.673C19.9265 21.3854 20.3854 20.9265 20.673 20.362C21 19.7202 21 18.8802 21 17.2V8.8C21 7.11984 21 6.27976 20.673 5.63803C20.3854 5.07354 19.9265 4.6146 19.362 4.32698C18.7202 4 17.8802 4 16.2 4H7.8C6.11984 4 5.27976 4 4.63803 4.32698C4.07354 4.6146 3.6146 5.07354 3.32698 5.63803C3 6.27976 3 7.11984 3 8.8V17.2C3 18.8802 3 19.7202 3.32698 20.362C3.6146 20.9265 4.07354 21.3854 4.63803 21.673C5.27976 22 6.11984 22 7.8 22Z" stroke="var(--sys-black)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    </svg>
+                                    <SBSubPoint title="🎓 Stundenplan" trigger={() => this.openContent("c")}/>
+                                </Sidebar>
                             </div>
                             <div style={{flexGrow: 1}}/>
                             <div>

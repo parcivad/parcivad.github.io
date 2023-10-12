@@ -235,16 +235,22 @@ class ContainerStudentsElement extends React.Component {
                     <div className="col-12 student">
                         <div className="row row-cols-2 cursor-pointer"
                              onClick={() => this.setState({detailsPopup: !this.state.detailsPopup})}>
-                            <div className="col-8 col-md-9 d-flex">
+                            <div className="col-8 col-md-7 d-flex align-items-center">
                                 <div className="pe-2">
                                     <ItemAvatar size="34px" />
                                 </div>
-                                <p className="m-0" style={{fontSize: "12pt", fontWeight: "bold",
-                                    whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>
-                                    {this.props.student.name.firstname} {this.props.student.name.lastname}
-                                </p>
+                                <div>
+                                    <p className="m-0" style={{fontSize: "12pt", fontWeight: "bold",
+                                        whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>
+                                        {this.props.student.name.firstname} {this.props.student.name.lastname}
+                                    </p>
+                                    <p className="m-0" style={{fontSize: "11pt", color: "var(--sys-gray)",
+                                        whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>
+                                        {this.props.student.nickname}
+                                    </p>
+                                </div>
                             </div>
-                            <div className="col-4 col-md-3 d-flex overflow-scroll" style={{maxHeight: "25px"}}>
+                            <div className="col-4 col-md-5 d-flex overflow-scroll" style={{maxHeight: "25px"}}>
                                 {
                                     this.props.student.roles.map(roleId => {
                                         let role = getDH("roles").find(role => role.roleId === roleId);
@@ -285,7 +291,7 @@ class ContainerStudents extends React.Component {
         getDH("students").filter(student =>
             (student.name.firstname + student.name.lastname).toUpperCase().includes(this.props.search.toUpperCase())
             || student.roles.includes(this.props.search))
-            .sort((a, b) => a.name.lastname.localeCompare(b.name.lastname)).forEach(student => {
+            .sort((a, b) => a.name.firstname.localeCompare(b.name.firstname)).forEach(student => {
             studentElements.push(
                 <ContainerStudentsElement
                     delay={delay}

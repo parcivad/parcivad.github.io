@@ -19,43 +19,54 @@
     <link href="/go/img/favicon/site.webmanifest" rel="manifest">
 
     <!-- Vendors -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                borderRadius: {
-                    'none': '0',
-                    'sm': '0.125rem',
-                    DEFAULT: '0.25rem',
-                    DEFAULT: '4px',
-                    'md': '1rem',
-                    'lg': '2rem',
-                    'full': '9999px',
-                    'large': '12px',
-                }
-            }
-        }
-    </script>
+    <link href="/vendor/bootstrap/bootstrap.css" rel="stylesheet" type="text/css">
+    <script src="/vendor/bootstrap/bootstrap.js"></script>
 
     <title>Classync 👋</title>
 
+    <style>
+        :root {
+            --main-color: rgba(0, 141, 255, 1);
+            --secondary-color: rgba(46, 62, 92, 1);
 
+            --heading-color: rgba(30, 31, 75, 1);
+            --text-color: rgba(46, 62, 92, 0.8);
+
+            --main-radius: 12px;
+            --secondary-radius: 8px;
+        }
+
+        @font-face {
+            font-family: "Poppins";
+            src: url("/font/Poppins-Regular.ttf") format("ttf"),
+            url("/font/Poppins-Regular.woff") format("woff"),
+            url("/font/Poppins-Regular.woff2") format("woff2");
+        }
+
+        @font-face {
+            font-family: "Poppins";
+            font-weight: bold;
+            src: url("/font/Poppins-Bold.ttf") format("ttf"),
+            url("/font/Poppins-Bold.woff") format("woff"),
+            url("/font/Poppins-Bold.woff2") format("woff2");
+        }
+
+        button {
+            background-color: var(--main-color);
+            border-radius: var(--main-radius);
+            padding: 10px 40px;
+            border: none;
+            font-weight: bold;
+            color: #fff;
+        }
+
+    </style>
 </head>
-<body style="background-color: #f7f7f7">
-<div class="w-full h-full absolute flex justify-center align-text-center">
-    <div class="flex items-center">
-        <div class="hidden [@media(min-width:400px)]:block">
-            <a class="relative inline-flex items-center bg-blue-600 text-white justify-center gap-1.5 overflow-hidden whitespace-nowrap text-md font-medium leading-none outline-none transition-all hover:ring-4 focus-visible:ring-4 active:scale-[0.98] active:ring-2 disabled:pointer-events-none disabled:opacity-60 bg-foreground text-background h-11 rounded-md px-5" href="/go">
-                <span class="">Anmelden</span>
-            </a>
-        </div>
-    </div>
-</div>
-<header class="h-[76px] invisible">
-    <div class="flex items-center justify-between py-4 container mx-auto">
-        <a aria-label="to homepage" href="/">
-            <svg width="120" viewBox="0 0 500 123" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
-                 style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+<body style="background-color: #fff">
+<!--header class="container d-flex justify-content-between align-items-center" style="height: 60px">
+    <a aria-label="to homepage" href="/">
+        <svg width="140" viewBox="0 0 500 123" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
+             style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(1,0,0,1,-990.03,-492.816)">
         <g transform="matrix(0.448424,0,0,0.448424,477.383,390.575)">
             <path d="M1620.22,448.219C1620.63,448.219 1784.04,448.217 1784.44,448.214C1798.93,448.094 1811.65,445.846 1822.59,441.469C1833.84,436.969 1842.61,430.547 1848.89,422.203C1855.17,413.859 1858.31,404.016 1858.31,392.672L1858.31,392.531C1858.31,380.531 1854.42,371.016 1846.64,363.984C1838.86,356.953 1826.58,351.844 1809.8,348.656L1781.67,343.313C1776.98,342.375 1773.33,341.367 1770.7,340.289C1768.08,339.211 1766.25,337.945 1765.22,336.492C1764.19,335.039 1763.67,333.281 1763.67,331.219L1763.67,331.078C1763.67,328.641 1764.4,326.578 1765.85,324.891C1767.31,323.203 1769.34,321.938 1771.97,321.094C1774.59,320.25 1777.64,319.828 1781.11,319.828C1787.3,319.828 1792.03,321.188 1795.31,323.906C1798.59,326.625 1800.52,329.203 1801.08,331.641L1801.36,332.906L1853.67,332.906L1853.67,331.922C1853.67,323.484 1851.07,315.492 1845.87,307.945C1840.66,300.398 1815.53,292.489 1805.59,286.219C1804.49,285.525 1774.94,281.01 1752.69,282.291C1752.39,282.309 1751.79,282.342 1751.79,282.342C1751.79,282.342 1618.73,282.281 1618.11,282.281C1603.11,282.281 1590.17,284.391 1579.3,288.609C1568.42,292.828 1560.08,298.852 1554.27,306.68C1548.45,314.508 1545.55,323.953 1545.55,335.016L1545.55,335.156C1545.55,343.313 1547.33,350.578 1550.89,356.953C1554.45,363.328 1559.75,368.672 1566.78,372.984C1573.81,377.297 1582.44,380.438 1592.66,382.406L1620.78,387.75C1627.16,388.969 1631.66,390.492 1634.28,392.32C1636.91,394.148 1638.22,396.656 1638.22,399.844L1638.22,399.984C1638.22,402.234 1637.49,404.133 1636.04,405.68C1634.59,407.227 1632.52,408.422 1629.85,409.266C1627.18,410.109 1623.97,410.531 1620.22,410.531C1613.75,410.531 1608.78,409.359 1605.31,407.016C1601.84,404.672 1599.45,401.859 1598.14,398.578L1597.72,397.453L1542.03,397.453L1542.17,398.719C1543.2,408 1549.62,444.3 1549.62,444.3C1549.62,444.3 1567.16,437.32 1578.31,441.68C1589.47,446.039 1603.44,448.219 1620.22,448.219Z"
@@ -85,47 +96,54 @@
                   style="fill-rule:nonzero;"/>
         </g>
     </g>
-                <defs>
+            <defs>
         <linearGradient id="_Linear1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse"
                         gradientTransform="matrix(179.672,0,0,179.672,1469.21,309.204)"><stop offset="0" style="stop-color:rgb(0,141,255);stop-opacity:1"/>
             <stop offset="0.6" style="stop-color:rgb(44,161,255);stop-opacity:1"/>
             <stop offset="0.81" style="stop-color:rgb(147,207,255);stop-opacity:1"/>
             <stop offset="1" style="stop-color:white;stop-opacity:1"/></linearGradient>
-                    <linearGradient id="_Linear2" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse"
-                                    gradientTransform="matrix(179.672,0,0,179.672,1469.21,309.204)"><stop offset="0" style="stop-color:rgb(0,141,255);stop-opacity:1"/>
-                        <stop offset="0.6" style="stop-color:rgb(44,161,255);stop-opacity:1"/>
-                        <stop offset="0.81" style="stop-color:rgb(147,207,255);stop-opacity:1"/>
-                        <stop offset="1" style="stop-color:white;stop-opacity:1"/></linearGradient>
+                <linearGradient id="_Linear2" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse"
+                                gradientTransform="matrix(179.672,0,0,179.672,1469.21,309.204)"><stop offset="0" style="stop-color:rgb(0,141,255);stop-opacity:1"/>
+                    <stop offset="0.6" style="stop-color:rgb(44,161,255);stop-opacity:1"/>
+                    <stop offset="0.81" style="stop-color:rgb(147,207,255);stop-opacity:1"/>
+                    <stop offset="1" style="stop-color:white;stop-opacity:1"/></linearGradient>
     </defs>
 </svg>
-        </a>
-        <div class="flex items-center gap-6">
-            <div class="hidden items-center gap-6 text-base font-medium leading-relaxed md:flex">
-                <a class="bg-gradient-to-r from-[var(--link-underline-color)] to-[var(--link-underline-color)] bg-[size:0_var(--link-underline-width)] bg-[100%_100%] bg-no-repeat outline-none transition-[background-size] delay-100 duration-300 ease-smooth hover:bg-[size:100%_var(--link-underline-width)] hover:bg-[0_100%] focus-visible:opacity-60 svelte-16zjusf"
-                   href="/pricing">
-                    Produkt
-                </a>
-                <a class="bg-gradient-to-r from-[var(--link-underline-color)] to-[var(--link-underline-color)] bg-[size:0_var(--link-underline-width)] bg-[100%_100%] bg-no-repeat outline-none transition-[background-size] delay-100 duration-300 ease-smooth hover:bg-[size:100%_var(--link-underline-width)] hover:bg-[0_100%] focus-visible:opacity-60 svelte-16zjusf"
-                   href="/services">
-                    Support
-                </a>
-            </div>
-            <div class="flex items-center">
-                <div class="hidden [@media(min-width:400px)]:block">
-                    <a class="relative inline-flex items-center bg-blue-600 text-white justify-center gap-1.5 overflow-hidden whitespace-nowrap text-md font-medium leading-none outline-none transition-all hover:ring-4 focus-visible:ring-4 active:scale-[0.98] active:ring-2 disabled:pointer-events-none disabled:opacity-60 bg-foreground text-background h-11 rounded-md px-5" href="/go">
-                        <span class="">Anmelden</span>
-                    </a>
-                </div>
-            </div>
-        </div>
+    </a>
+    <div class="d-flex gap-5">
+        <a>Home</a>
+        <a>About Us</a>
+        <a>Features</a>
+        <a>Products</a>
     </div>
+    <div style="width: 140px"></div>
 </header>
-<div class="container  mx-auto mt-4 invisible">
-    <div class="h-400 flex justify-center align-center">
-        <div class="text-5xl font-bold">
-            <div><span class="bg-yellow-300">Die Lösung</span> für deinen Jahrgang.</div>
+<main>
+    <div class="container">
+        <div class="row row-cols-2">
+            <div class="col-6">
+                <h1 style="color: var(--heading-color); font-family: Poppins;font-size: 60px;font-style: normal;font-weight: 700;line-height: 110px; /* 183.333% */letter-spacing: 0.2px;">Eure eigene Lösung für <span style="color: var(--main-color)">das Abitur</span></h1>
+                <p style="color: var(--text-color);
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: 36px; /* 180% */">
+                    Ihr wolltet schon immer eure eigene Stufenapp haben.
+                    Mit Classync habt ihr die Lösung für eure Oberstufe.
+                    Erstellt Umfragen, Zitate, Rankings und viel mehr!
+                </p>
+                <button>Registrieren</button>
+                <button style="margin-left: 0.8rem; background-color: var(--secondary-color)">Anmelden</button>
+            </div>
+            <div>
+
+            </div>
         </div>
     </div>
-</div>
+</main-->
 </body>
+<script>
+    location.assign("/go")
+</script>
 </html>

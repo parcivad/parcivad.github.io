@@ -52,7 +52,7 @@ class ContainerRankingElement extends React.Component {
 
     selectionElementList() {
         return getDH("students")
-            .sort((a, b) => a.name.lastname.localeCompare(b.name.lastname))
+            .sort((a, b) => a.name.firstname.localeCompare(b.name.firstname))
             .map(student => {
                 return <option key={student.studentId} value={student.studentId}>
                     {student.name.firstname} {student.name.lastname}
@@ -409,12 +409,11 @@ class ContainerRanking extends React.Component {
         }
     }
 
-
     render() {
         if (this.state.error) return <ContainerLoader height="100%" message="Etwas ist schiefgelaufen!" />
 
         let rankingElements = [];
-        let id = 0;
+        let delay = 0;
         this.props.rankings.forEach(
             ranking => {
                 rankingElements.push(
@@ -422,7 +421,7 @@ class ContainerRanking extends React.Component {
                         pieChart={this.props.pieChart}
                         key={ranking.rankingId}
                         ranking={ranking}
-                        delay={id++ * 0.1}
+                        delay={delay >= 10 ? 0 : delay++ * 0.1}
                     />)
             })
 

@@ -175,7 +175,7 @@ class ContainerAddQuotation extends React.Component {
     }
 
     addQuotation = async () => {
-        api(`/student/quotation/create`, "POST", JSON.stringify({
+        return api(`/student/quotation/create`, "POST", JSON.stringify({
             "text": this.state.text,
             "from": this.state.from,
         }))

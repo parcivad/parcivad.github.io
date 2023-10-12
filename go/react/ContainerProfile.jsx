@@ -72,7 +72,6 @@ class ContainerProfileSearch extends React.Component {
                         getDH("students").concat(getDH("teachers"))
                             .filter(p => p.name.firstname.toLowerCase().includes(this.state.search.toLowerCase()) ||
                                 p.name.lastname.toLowerCase().includes(this.state.search.toLowerCase()))
-                            .slice(0,5)
                             .map(p => {
                                 let id = p.studentId ? p.studentId : p.teacherId,
                                     comments = getDH("comments").filter(f => f.personId === id);
@@ -156,11 +155,52 @@ class ContainerProfileSearch extends React.Component {
     }
 
     render() {
+        let latestComment = getDH("comments")
+                .sort((a, b) => new Date(b.published.date).getTime() - new Date(a.published.date).getTime())[0],
+            topComment = getDH("comments").sort((a, b) => b.likes.length - a.likes.length)[0];
+
         return (
-            <div className="d-flex justify-content-center align-items-center w-100 h-100 overflow-hidden">
-                <div className="col-12 col-md-6 roundContainer">
-                    <div className="roundContainerInner shadow" style={{borderRadius: "8px 8px 0 0"}}>
-                        <input className="createInput" placeholder="🍿 Suchen" type="text" style={{fontSize: "14pt"}}
+            <div className="d-sm-flex justify-content-sm-center align-items-center w-100 h-100">
+                <div className="col-12 col-sm-6 roundContainer">
+                    <div className="roundContainerInner" style={{borderRadius: "8px 8px 0 0"}}>
+                        <div className="d-flex align-items-center justify-content-between">
+                            <p className="mb-2" style={{fontWeight: "550"}}>Top Kommentar</p>
+                            <ItemLikeButton
+                                trigger={this.like}
+                                liked={topComment.likes.find(f => f.studentId === getDH("identity").studentId) !== undefined}
+                                count={topComment.likes.length}
+                                horizontal={true}
+                            />
+                        </div>
+
+                        <p className="mb-1" style={{fontSize: "11pt"}}>{topComment.comment}</p>
+                        <div className="d-flex justify-content-between align-items-center me-1"
+                             onClick={() => setParam("p",topComment.personId)}>
+                            <p className="mb-0" style={{fontSize: "10pt", fontWeight: "bold", color: "var(--sys-gray)"}}>
+                                {findPerson(topComment.personId).name.firstname} {findPerson(topComment.personId).name.lastname}️
+                            </p>
+                            <div className="cursor-pointer" style={{rotate: "45deg"}}>
+                                <ion-icon name="arrow-up-outline" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="roundContainerInner pb-1 pt-2" style={{backgroundColor: "var(--sys-gray5)", borderRadius: "0 0 8px 8px"}}>
+                        <p className="mb-2" style={{fontSize: "11pt", fontWeight: "550"}}>Zuletzt hinzugefügt</p>
+
+                        <p className="mb-1" style={{fontSize: "11pt"}}>{latestComment.comment}</p>
+                        <div className="d-flex justify-content-between align-items-center me-1"
+                             onClick={() => setParam("p", latestComment.personId)}>
+                            <p className="mb-0" style={{fontSize: "10pt", fontWeight: "bold", color: "var(--sys-gray)"}}>
+                                {findPerson(latestComment.personId).name.firstname} {findPerson(latestComment.personId).name.lastname}
+                            </p>
+                            <div className="cursor-pointer" style={{rotate: "45deg"}}>
+                                <ion-icon name="arrow-up-outline" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="roundContainerInner shadow-sm mt-4" style={{borderRadius: "8px 8px 0 0"}}>
+                        <input className="createInput" placeholder="🔍 Suchen" type="text" style={{fontSize: "14pt"}}
                                onKeyDown={e => { if (e.keyCode === 13) this.props.onEnter()}}
                                onInput={event => {
                                    this.setState({
@@ -169,7 +209,7 @@ class ContainerProfileSearch extends React.Component {
                                    })
                                }}/>
                     </div>
-                    <div className="roundContainerInner shadow" style={{borderRadius: "0 0 8px 8px", backgroundColor: "var(--sys-gray5)"}}>
+                    <div className="roundContainerInner shadow-sm" style={{borderRadius: "0 0 8px 8px", backgroundColor: "var(--sys-gray5)"}}>
                         <label>
                             <select className="py-1 align-text-bottom contentHeaderSorting" value={this.state.searchPreview}
                                     style={{fontSize: "11pt", fontWeight: "bold", color: "var(--sys-gray)"}}
@@ -183,6 +223,30 @@ class ContainerProfileSearch extends React.Component {
                         <Motion.AnimatePresence>
                             {this.getSearchResults()}
                         </Motion.AnimatePresence>
+                    </div>
+                </div>
+                <div className="col-12 col-sm-5 ms-sm-4 my-4 my-sm-0">
+                    <div className="roundContainerInner overflow-hidden">
+                        <div className="d-flex">
+                            <h5>Alle Profile</h5>
+                        </div>
+                        <div className="userListContainer">
+                            {
+                                getDH("students").concat(getDH("teachers"))
+                                    .sort((a, b) => a.name.firstname.localeCompare(b.name.firstname))
+                                    .map(p => {
+                                        let id = p.studentId ? p.studentId : p.teacherId,
+                                            comments = getDH("comments").filter(f => f.personId === id);
+                                        return <ContainerProfileSearchItem
+                                            key={id}
+                                            name={`${p.name.firstname} ${p.name.lastname}`}
+                                            description={`${comments.length} Kommentare`}
+                                            color={this.getTrendColor(comments)}
+                                            trigger={()=> setParam("p", id)}
+                                        />
+                                    })
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
@@ -625,6 +689,10 @@ class ContainerProfile extends React.Component {
             return f.teacherId === this.props.personId
         })
 
+        let latestComment = getDH("comments")
+            .sort((a, b) => new Date(b.published.date).getTime() - new Date(a.published.date).getTime())[0],
+            topComment = getDH("comments").sort((a, b) => b.likes.length - a.likes.length)[0];
+
         return (
             <>
                 {
@@ -635,7 +703,150 @@ class ContainerProfile extends React.Component {
                             questions={getDH("questions")}
                         />
                         :
-                        <ContainerProfileSearch />
+                        /*<div className="px-2">
+                            <div className="row row-cols-2">
+                                <div className="col-7 roundContainer h-100">
+                                    <div className="roundContainerInner h-100" style={{backgroundColor: "var(--bg-content)", border: "3px dashed var(--sys-gray6)"}}>
+                                        <div className="d-flex align-items-center justify-content-between">
+                                            <h5>Profile im Trend</h5>
+                                        </div>
+                                        <div className="container row justify-content-between w-100" style={{overflowX: "auto", whiteSpace: "nowrap"}}>
+                                            <div className="col-4 roundContainerInner d-flex flex-column align-items-center" style={{width: "auto"}}>
+                                                <ItemAvatar size="48px"/>
+                                                <p className="mb-0" style={{fontSize: "11pt", fontWeight: "550"}}>Herr Indris</p>
+                                                <div className="d-flex align-items-center justify-content-between w-75">
+                                                    <div className="text-center">
+                                                        <ion-icon name="chatbox" style={{color: "var(--sys-gray4)", fontSize: "15pt"}} />
+                                                        <p className="mb-0" style={{fontSize: "9pt", fontWeight: "bold", color: "var(--sys-gray)"}}>5</p>
+                                                    </div>
+                                                    <div className="text-center">
+                                                        <ion-icon name="heart"
+                                                                  style={{color: "var(--sys-gray4)", fontSize: "15pt"}} />
+                                                        <p className="mb-0" style={{fontSize: "9pt", fontWeight: "bold", color: "var(--sys-gray)"}}>20</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-4 roundContainerInner d-flex flex-column align-items-center" style={{width: "auto"}}>
+                                                <ItemAvatar size="48px"/>
+                                                <p className="mb-0" style={{fontSize: "11pt", fontWeight: "550"}}>Herr Indris</p>
+                                                <div className="d-flex align-items-center justify-content-between w-75">
+                                                    <div className="text-center">
+                                                        <ion-icon name="chatbox" style={{color: "var(--sys-gray4)", fontSize: "15pt"}} />
+                                                        <p className="mb-0" style={{fontSize: "9pt", fontWeight: "bold", color: "var(--sys-gray)"}}>5</p>
+                                                    </div>
+                                                    <div className="text-center">
+                                                        <ion-icon name="heart"
+                                                                  style={{color: "var(--sys-gray4)", fontSize: "15pt"}} />
+                                                        <p className="mb-0" style={{fontSize: "9pt", fontWeight: "bold", color: "var(--sys-gray)"}}>20</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-4 roundContainerInner d-flex flex-column align-items-center" style={{width: "auto"}}>
+                                                <ItemAvatar size="48px"/>
+                                                <p className="mb-0" style={{fontSize: "11pt", fontWeight: "550"}}>Herr Indris</p>
+                                                <div className="d-flex align-items-center justify-content-between w-75">
+                                                    <div className="text-center">
+                                                        <ion-icon name="chatbox" style={{color: "var(--sys-gray4)", fontSize: "15pt"}} />
+                                                        <p className="mb-0" style={{fontSize: "9pt", fontWeight: "bold", color: "var(--sys-gray)"}}>5</p>
+                                                    </div>
+                                                    <div className="text-center">
+                                                        <ion-icon name="heart"
+                                                                  style={{color: "var(--sys-gray4)", fontSize: "15pt"}} />
+                                                        <p className="mb-0" style={{fontSize: "9pt", fontWeight: "bold", color: "var(--sys-gray)"}}>20</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-4 roundContainerInner d-flex flex-column align-items-center" style={{width: "auto"}}>
+                                                <ItemAvatar size="48px"/>
+                                                <p className="mb-0" style={{fontSize: "11pt", fontWeight: "550"}}>Herr Indris</p>
+                                                <div className="d-flex align-items-center justify-content-between w-75">
+                                                    <div className="text-center">
+                                                        <ion-icon name="chatbox" style={{color: "var(--sys-gray4)", fontSize: "15pt"}} />
+                                                        <p className="mb-0" style={{fontSize: "9pt", fontWeight: "bold", color: "var(--sys-gray)"}}>5</p>
+                                                    </div>
+                                                    <div className="text-center">
+                                                        <ion-icon name="heart"
+                                                                  style={{color: "var(--sys-gray4)", fontSize: "15pt"}} />
+                                                        <p className="mb-0" style={{fontSize: "9pt", fontWeight: "bold", color: "var(--sys-gray)"}}>20</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-4 roundContainerInner d-flex flex-column align-items-center" style={{width: "auto"}}>
+                                                <ItemAvatar size="48px"/>
+                                                <p className="mb-0" style={{fontSize: "11pt", fontWeight: "550"}}>Herr Indris</p>
+                                                <div className="d-flex align-items-center justify-content-between w-75">
+                                                    <div className="text-center">
+                                                        <ion-icon name="chatbox" style={{color: "var(--sys-gray4)", fontSize: "15pt"}} />
+                                                        <p className="mb-0" style={{fontSize: "9pt", fontWeight: "bold", color: "var(--sys-gray)"}}>5</p>
+                                                    </div>
+                                                    <div className="text-center">
+                                                        <ion-icon name="heart"
+                                                                  style={{color: "var(--sys-gray4)", fontSize: "15pt"}} />
+                                                        <p className="mb-0" style={{fontSize: "9pt", fontWeight: "bold", color: "var(--sys-gray)"}}>20</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-4 roundContainerInner d-flex flex-column align-items-center" style={{width: "auto"}}>
+                                                <ItemAvatar size="48px"/>
+                                                <p className="mb-0" style={{fontSize: "11pt", fontWeight: "550"}}>Herr Indris</p>
+                                                <div className="d-flex align-items-center justify-content-between w-75">
+                                                    <div className="text-center">
+                                                        <ion-icon name="chatbox" style={{color: "var(--sys-gray4)", fontSize: "15pt"}} />
+                                                        <p className="mb-0" style={{fontSize: "9pt", fontWeight: "bold", color: "var(--sys-gray)"}}>5</p>
+                                                    </div>
+                                                    <div className="text-center">
+                                                        <ion-icon name="heart"
+                                                                  style={{color: "var(--sys-gray4)", fontSize: "15pt"}} />
+                                                        <p className="mb-0" style={{fontSize: "9pt", fontWeight: "bold", color: "var(--sys-gray)"}}>20</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-12 col-sm-5 roundContainer h-100">
+                                    <div className="roundContainerInner" style={{borderRadius: "8px 8px 0 0"}}>
+                                        <div className="d-flex align-items-center justify-content-between">
+                                            <p className="mb-2" style={{fontWeight: "550"}}>Top Kommentar</p>
+                                            <ItemLikeButton
+                                                trigger={this.like}
+                                                liked={topComment.likes.find(f => f.studentId === getDH("identity").studentId) !== undefined}
+                                                count={topComment.likes.length}
+                                                horizontal={true}
+                                            />
+                                        </div>
+
+                                        <p className="mb-1" style={{fontSize: "11pt"}}>{topComment.comment}</p>
+                                        <div className="d-flex justify-content-between align-items-center me-1"
+                                             onClick={() => setParam("p",topComment.personId)}>
+                                            <p className="mb-0" style={{fontSize: "10pt", fontWeight: "bold", color: "var(--sys-gray)"}}>
+                                                {findPerson(topComment.personId).name.firstname} {findPerson(topComment.personId).name.lastname}️
+                                            </p>
+                                            <div className="cursor-pointer" style={{rotate: "45deg"}}>
+                                                <ion-icon name="arrow-up-outline" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="roundContainerInner pb-1 pt-2" style={{backgroundColor: "var(--sys-gray5)", borderRadius: "0 0 8px 8px"}}>
+                                        <p className="mb-2" style={{fontSize: "11pt", fontWeight: "550"}}>Zuletzt hinzugefügt</p>
+
+                                        <p className="mb-1" style={{fontSize: "11pt"}}>{latestComment.comment}</p>
+                                        <div className="d-flex justify-content-between align-items-center me-1"
+                                             onClick={() => setParam("p", latestComment.personId)}>
+                                            <p className="mb-0" style={{fontSize: "10pt", fontWeight: "bold", color: "var(--sys-gray)"}}>
+                                                {findPerson(latestComment.personId).name.firstname} {findPerson(latestComment.personId).name.lastname}
+                                            </p>
+                                            <div className="cursor-pointer" style={{rotate: "45deg"}}>
+                                                <ion-icon name="arrow-up-outline" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*/
+                        <>
+                            <ContainerProfileSearch />
+                        </>
                 }
             </>
         );
@@ -660,7 +871,7 @@ class ContentProfile extends React.Component {
             <ContentHolder>
                 <CHHeading>
                     <ActionBar>
-                        <ABButton key="1" trigger={() => removeParam("p")} icon="search-outline" />
+                        <ABButton key="1" trigger={() => removeParam("p")} icon="apps-outline" />
                     </ActionBar>
 
                     <Header title="Profile" color="#00C9A7" />

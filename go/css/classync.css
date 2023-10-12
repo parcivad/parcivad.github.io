@@ -355,6 +355,14 @@ html, body {
     margin: 0;
 }
 
+.userListContainer {
+    height: 550px;
+    overflow-y: scroll;
+}
+
+@media only screen and (max-width: 744px) {
+    .userListContainer {height: auto}
+}
 /* RANKING STYLING ===================================================================================================*/
 .ranking {
     min-width: 300px;
