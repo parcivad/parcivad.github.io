@@ -65,100 +65,45 @@ class ContainerProfileSearch extends React.Component {
     }
 
     getSearchResults() {
-        switch (this.state.searchPreview) {
-            case "suggestions":
-                return <ContainerProfileSearchItemList key="suggestions">
-                    {
-                        getDH("students").concat(getDH("teachers"))
-                            .filter(p => p.name.firstname.toLowerCase().includes(this.state.search.toLowerCase()) ||
-                                p.name.lastname.toLowerCase().includes(this.state.search.toLowerCase()))
-                            .slice(0,5)
-                            .map(p => {
-                                let id = p.studentId ? p.studentId : p.teacherId,
-                                    comments = getDH("comments").filter(f => f.personId === id);
-                                return <ContainerProfileSearchItem
-                                    key={id}
-                                    name={`${p.name.firstname} ${p.name.lastname}`}
-                                    description={`${comments.length} Kommentare`}
-                                    color={this.getTrendColor(comments)}
-                                    trigger={()=> setParam("p", id)}
-                                />
-                            })
-                    }
-                </ContainerProfileSearchItemList>
-            case "all":
-                return <ContainerProfileSearchItemList key="all">
-                    {
-                        getDH("students").concat(getDH("teachers"))
-                            .sort((a, b) => {
-                                let aId = a.studentId === undefined ? a.teacherId : a.studentId,
-                                    bId = b.studentId === undefined ? b.teacherId : b.studentId;
-                                return getDH("comments").filter(f => f.personId === bId).length - getDH("comments").filter(f => f.personId === aId).length
-                            })
-                            .slice(0,5)
-                            .map(p => {
-                                let id = p.studentId ? p.studentId : p.teacherId,
-                                    comments = getDH("comments").filter(f => f.personId === id);
-                                return <ContainerProfileSearchItem
-                                    key={id}
-                                    name={`${p.name.firstname} ${p.name.lastname}`}
-                                    description={`${comments.length} Kommentare`}
-                                    color={this.getTrendColor(comments)}
-                                    trigger={()=> setParam("p", id)}
-                                />
-                            })
-                    }
-                </ContainerProfileSearchItemList>
-            case "students":
-                return <ContainerProfileSearchItemList key="students">
-                    {
-                        getDH("students")
-                            .sort((a, b) => getDH("comments").filter(f => f.personId === b.studentId).length - getDH("comments").filter(f => f.personId === a.studentId).length)
-                            .slice(0, 5)
-                            .map(s => {
-                                let comments = getDH("comments").filter(f => f.personId === s.studentId);
-                                return <ContainerProfileSearchItem
-                                    key={s.studentId}
-                                    name={`${s.name.firstname} ${s.name.lastname}`}
-                                    description={`${comments.length} Kommentare`}
-                                    color={comments.length > 1 ? comments.length > 4 ? comments.length > 9 ? comments.length > 14 ? "red" : "yellow" : "orange" : "blue" : "gray"}
-                                    trigger={() => setParam("p", s.studentId)}
-                                />
-                            })
-                    }
-                </ContainerProfileSearchItemList>
-            case "teachers":
-                return <ContainerProfileSearchItemList key="teachers">
-                    {
-                        getDH("teachers")
-                            .sort((a, b) => getDH("comments").filter(f => f.personId === b.teacherId).length - getDH("comments").filter(f => f.personId === a.teacherId).length)
-                            .slice(0, 5)
-                            .map(t => {
-                                let comments = getDH("comments").filter(f => f.personId === t.teacherId);
-                                return <ContainerProfileSearchItem
-                                    key={t.teacherId}
-                                    name={`${t.name.firstname} ${t.name.lastname}`}
-                                    description={`${comments.length} Kommentare`}
-                                    color={comments.length > 1 ? comments.length > 4 ? comments.length > 9 ? comments.length > 14 ? "red" : "yellow" : "orange" : "blue" : "gray"}
-                                    trigger={() => setParam("p", t.teacherId)}
-                                />
-                            })
-                    }
-                </ContainerProfileSearchItemList>
-            default:
-                return <ContainerInformationBanner
-                    icon="search-outline"
-                    color="var(--sys-gray)"
-                    title="Kein Suchergebniss"
-                    description="Ändere Kategorie oder Eingabe, um ein passendes Ergebniss zu erzielen."
-                />
+        if (this.state.searchPreview === "suggestions") {
+            return getDH("students").concat(getDH("teachers"))
+                    .filter(p =>
+                        (p.name.firstname.toLowerCase() +" "+ p.name.lastname.toLowerCase())
+                            .includes(this.state.search.toLowerCase()))
+                    .slice(0,5)
         }
+
+        let persons = [];
+        switch (this.state.searchPreview) {
+            case "all": persons = getDH("students").concat(getDH("teachers")); break;
+            case "students": persons = getDH("students"); break;
+            case "teachers": persons = getDH("teachers"); break;
+        }
+
+        return persons.sort((a, b) => {
+                    let aId = a.studentId === undefined ? a.teacherId : a.studentId,
+                        bId = b.studentId === undefined ? b.teacherId : b.studentId,
+                        aTime = 0,
+                        bTime = 0;
+                    getDH("comments").filter(f => f.personId === aId).forEach(c => {
+                        let time = new Date(c.published.date).getTime()
+                        if (time > aTime) aTime = time
+                    })
+                    getDH("comments").filter(f => f.personId === bId).forEach(c => {
+                        let time = new Date(c.published.date).getTime()
+                        if (time > bTime) bTime = time
+                    })
+
+                    return bTime - aTime;
+                })
+                .slice(0,5)
     }
 
     render() {
         let latestComment = getDH("comments")
                 .sort((a, b) => new Date(b.published.date).getTime() - new Date(a.published.date).getTime())[0],
-            topComment = getDH("comments").sort((a, b) => b.likes.length - a.likes.length)[0];
+            topComment = getDH("comments").sort((a, b) => b.likes.length - a.likes.length)[0],
+            searchResults = this.getSearchResults();
 
         return (
             <div className="d-sm-flex justify-content-sm-center align-items-center w-100 h-100">
@@ -208,13 +153,16 @@ class ContainerProfileSearch extends React.Component {
                                        search: event.currentTarget.value,
                                        searchPreview: event.currentTarget.value.length === 0 ? "all" : "suggestions"
                                    })
+                                   this.getSearchResults()
                                }}/>
                     </div>
                     <div className="roundContainerInner shadow-sm" style={{borderRadius: "0 0 8px 8px", backgroundColor: "var(--sys-gray5)"}}>
                         <label>
                             <select className="py-1 align-text-bottom contentHeaderSorting" value={this.state.searchPreview}
                                     style={{fontSize: "11pt", fontWeight: "bold", color: "var(--sys-gray)"}}
-                                    onChange={e => this.setState({searchPreview: e.target.value})}>
+                                    onChange={e => {
+                                        this.setState({searchPreview: e.target.value}); this.getSearchResults()
+                                    }}>
                                 <option value="all">▼ Im Trend</option>
                                 <option value="teachers">▼ Lehrer im Trend</option>
                                 <option value="students">▼ Schüler im Trend</option>
@@ -222,7 +170,19 @@ class ContainerProfileSearch extends React.Component {
                             </select>
                         </label>
                         <Motion.AnimatePresence>
-                            {this.getSearchResults()}
+                            <ContainerProfileSearchItemList key="suggestions">
+                                {searchResults.map(p => {
+                                    let id = p.studentId ? p.studentId : p.teacherId,
+                                        comments = getDH("comments").filter(f => f.personId === id);
+                                    return <ContainerProfileSearchItem
+                                        key={id}
+                                        name={`${p.name.firstname} ${p.name.lastname}`}
+                                        description={`${comments.length} Kommentare`}
+                                        color={this.getTrendColor(comments)}
+                                        trigger={()=> setParam("p", id)}
+                                    />
+                                })}
+                            </ContainerProfileSearchItemList>
                         </Motion.AnimatePresence>
                     </div>
                 </div>
@@ -234,7 +194,11 @@ class ContainerProfileSearch extends React.Component {
                         <div className="userListContainer">
                             {
                                 getDH("students").concat(getDH("teachers"))
-                                    .sort((a, b) => a.name.firstname.localeCompare(b.name.firstname))
+                                    .sort((a, b) => {
+                                        let aId = a.studentId === undefined ? a.teacherId : a.studentId,
+                                            bId = b.studentId === undefined ? b.teacherId : b.studentId;
+                                        return getDH("comments").filter(f => f.personId === bId).length - getDH("comments").filter(f => f.personId === aId).length
+                                    })
                                     .map(p => {
                                         let id = p.studentId ? p.studentId : p.teacherId,
                                             comments = getDH("comments").filter(f => f.personId === id);
