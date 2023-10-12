@@ -72,6 +72,7 @@ class ContainerProfileSearch extends React.Component {
                         getDH("students").concat(getDH("teachers"))
                             .filter(p => p.name.firstname.toLowerCase().includes(this.state.search.toLowerCase()) ||
                                 p.name.lastname.toLowerCase().includes(this.state.search.toLowerCase()))
+                            .slice(0,5)
                             .map(p => {
                                 let id = p.studentId ? p.studentId : p.teacherId,
                                     comments = getDH("comments").filter(f => f.personId === id);
