@@ -247,8 +247,11 @@
 
     // render application after first bootUp or Display error
     bootUp().then(() => root.render(<>
-        <Classync />
-        <ItemPopupCards />
+        <ContainerInformationBanner
+                    color="red" icon="planet-outline" title="App pausiert"
+                    description={`Die Ansicht von Daten ist nicht möglich.`} />
+        //<Classync />        App root
+        //<ItemPopupCards />    App popup root
     </>))
         .catch(error => {
             if (error["error_key"] === "authentication_required" || error["error_key"] === "token_expired") return
@@ -257,8 +260,8 @@
             // render information loader
             root.render(
                 <ContainerInformationBanner
-                    color="red" icon="planet-outline" title="Sorry!"
-                    description={`Etwas ist schiefgelaufen. Überprüfe deine Internet Verbindung oder versuche es zu einem späteren Zeitpunkt.`} />
+                    color="red" icon="planet-outline" title="App pausiert"
+                    description={`Die Ansicht von Daten ist nicht möglich.`} />
             )
         })
 </script>
