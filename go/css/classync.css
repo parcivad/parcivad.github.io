@@ -110,11 +110,25 @@ html, body {
 }
 
 /* CLASSYNC LOGIN REGISTER STYLING ===================================================================================*/
+.contentAuthCodeInput {
+    background: var(--sys-gray6) !important;
+    color: var(--sys-black) !important;
+    display: block !important;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+.contentAuthCodeInput[data-error = true] {
+    border: 2px solid var(--sys-red)
+}
+
 .contentAuthInput {
     background: var(--sys-gray6) !important;
     color: var(--sys-black) !important;
     display: block !important;
-    border: 0;
+    border: 0 !important;
     border-radius: 15px;
 }
 
@@ -125,6 +139,7 @@ html, body {
 .contentAuthInput[data-error = true] {
     border: 2px solid var(--sys-red)
 }
+
 .contentAuthButton {
     min-height: 35px;
     border-radius: 8px;
@@ -363,6 +378,24 @@ html, body {
 @media only screen and (max-width: 744px) {
     .userListContainer {height: auto}
 }
+
+/* PROFILE STYLING ==================================================================================================*/
+.profileSaveButton {
+    background-color: var(--sys-blue);
+    color: white;
+    cursor: pointer;
+    min-height: 30px;
+    min-width: 100px;
+    border-radius: 8px;
+    border: 1px solid var(--sys-gray5);
+    font-size: 10pt;
+    font-weight: 550;
+}
+
+.profileSaveButton:disabled {
+    filter: grayscale(0.5);
+    cursor: not-allowed;
+}
 /* RANKING STYLING ===================================================================================================*/
 .ranking {
     min-width: 300px;
@@ -527,6 +560,10 @@ ion-icon {
 .icon-validate {
     --ionicon-stroke-width: 35px;
     font-size: 1.6rem;
+}
+
+.icon-bold ion-icon {
+    --ionicon-stroke-width: 50px;
 }
 
 .icon-group {

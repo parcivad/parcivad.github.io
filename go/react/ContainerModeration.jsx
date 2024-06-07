@@ -256,17 +256,37 @@ class ContainerModeration extends React.Component {
         return <div className="d-md-flex h-100">
             <div className="col-12 col-md-3">
                 <div className="roundContainer">
+                    <div className="roundContainerInner p-0" style={{backgroundColor: "var(--sys-blue)", border: "5px solid var(--sys-blue)"}}>
+                        <div className="roundContainerInner">
+                            <p className="m-0" style={{fontSize: "13pt", fontWeight: "550"}}>Registrierungsvorgang</p>
+                            <p style={{fontSize: "11pt", color: "var(--sys-gray)"}}>Schüler können sich mit dem Code registrieren.</p>
+                            <p className="p-2 text-center shadow-sm" style={{fontWeight: "bold", fontSize: "14pt", borderRadius: "12px", border: "1px solid var(--sys-gray)"}}>
+                                Code: 449
+                            </p>
+                            <div className="d-flex align-items-center justify-content-between">
+                                <p className="m-0" style={{fontSize: "12pt", fontWeight: "550"}}>Aktiv</p>
+                                <ItemSwitch checked={true} trigger={() => {}} disabled={false} />
+                            </div>
+                        </div>
+                        <p className="text-center my-2 fw-bold cursor-pointer" style={{color: "var(--sys-white)"}}>
+                            Einladung teilen
+                        </p>
+                    </div>
+                </div>
+                <div className="roundContainer">
                     <div className="roundContainerInner">
+                        <p className="mb-0" style={{fontSize: "13pt", fontWeight: "550"}}>Rollen</p>
+                        <p style={{fontSize: "10pt", color: "var(--sys-gray)"}}>Durch festhalten verschieben</p>
                         {this.props.roles.sort((a, b) => b.powerLvl - a.powerLvl).map(role => {
                             return  <Motion.motion.div
                                 key={role.roleId}
                                 onClick={() => {this.setState({selectedRoleId: role.roleId})}}
-                                whileHover={{backgroundColor: "var(--sys-gray4)", color: "var(--sys-gray)"}}
-                                className="mb-2 p-2 cursor-pointer d-flex justify-content-between"
+                                whileHover={{backgroundColor: "var(--sys-gray4)"}}
+                                className="mb-2 p-2 cursor-pointer d-flex justify-content-between align-items-center"
                                 style={{backgroundColor: "var(--sys-gray5)", color: "var(--sys-gray5)", borderRadius: "8px"}}>
 
                                 <p className="m-0" style={{fontWeight: "550", color: "var(--sys-black)"}}>{role.name}</p>
-                                <ion-icon name="menu-outline" style={{color: "currentColor"}} />
+                                <div style={{height: "12px", width: "12px", borderRadius: "100%", backgroundColor: role.hexColor}} />
                             </Motion.motion.div>
                         })
                         }
@@ -278,7 +298,7 @@ class ContainerModeration extends React.Component {
                     </div>
                 </div>
             </div>
-            <div className={`col-12 col-md-9 overflow-scroll ${window.innerWidth > 710 ? "h-100" : ""}`}>
+            <div className="col-12 col-md-9 h-100">
                 <ContainerModerationRole role={this.props.roles.find(r => r.roleId === this.state.selectedRoleId)} />
             </div>
         </div>

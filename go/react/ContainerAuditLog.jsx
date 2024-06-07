@@ -1,3 +1,4 @@
+// at the moment not used
 class ContainerAuditLogRecordsOverview extends React.Component {
 
     componentDidMount() {
@@ -126,12 +127,12 @@ class ContainerAuditLogList extends React.Component {
         let delayCounter = 0;
 
         return (
-            <div className="col-12 col-xl-8 roundContainer">
-                <div className="w-100 h-100 roundContainerInner">
-                    <div className="d-flex justify-content-between">
+            <div className="roundContainer h-100">
+                <div className="roundContainerInner h-100">
+                    <div className="d-flex justify-content-between align-items-center">
                         <h5>Log</h5>
-                        <div className="d-flex justify-content-center align-items-start">
-                            <select className="limit-select" value={this.state.limit}
+                        <div className="d-flex justify-content-center align-items-start mb-1">
+                            <select className="limit-select me-2" value={this.state.limit}
                                     onChange={e => {this.setState({limit: e.value})}} >
                                 <option disabled={true}>Anzeigemenge</option>
                                 <option value={50}>50 Einträge</option>
@@ -143,7 +144,7 @@ class ContainerAuditLogList extends React.Component {
                             <ion-icon name="albums-outline" />
                         </div>
                     </div>
-                    <div className="px-2" style={{width: "100%", height: "270px", overflowY: "scroll", overflowX: "hidden"}}>
+                    <div className="h-100 overflow-scroll px-1 pb-4">
                         {this.props.auditLogs.length !== 0 ?
                             this.props.auditLogs.sort((a, b) => {
                                 let aDate = new Date(b.date).getTime(),
@@ -161,18 +162,21 @@ class ContainerAuditLogList extends React.Component {
                                     transition={{
                                         delay: 0.1 * delayCounter
                                     }}
-                                    className="auditLogList-item"
+                                    className="roundContainerInner my-2 py-2"
+                                    style={{backgroundColor: "var(--sys-gray5)", border: `2px solid var(--sys-${auditLog.color.replace("gray", "gray5")})`}}
                                 >
                                     <div className="d-flex justify-content-between">
-                                        <div className="d-flex">
-                                            <ion-icon name={auditLog.icon} style={{color: `var(--sys-${auditLog.color}`, fontSize: "13pt"}}/>
+                                        <div className="d-flex icon-bold">
+                                            <ion-icon name={auditLog.icon}
+                                                      style={{color: `var(--sys-${auditLog.color}`, fontSize: "13pt"}}
+                                            />
                                             <h5 className="m-0 ms-2" style={{fontSize: "11pt"}}>{auditLog.title}</h5>
                                         </div>
                                         <p className="m-0" style={{fontSize: "10pt", color: "var(--sys-gray)"}}>
                                             {new Date(auditLog.date).toLocaleString()}
                                         </p>
                                     </div>
-                                    <p className="m-0" style={{fontSize: "9pt", color: "var(--sys-gray)"}}>
+                                    <p className="m-0" style={{fontSize: "10pt", fontWeight: "bold", color: "var(--sys-gray)"}}>
                                         {auditLog.description}
                                     </p>
                                 </Motion.motion.div>
@@ -306,14 +310,14 @@ class ContainerAuditLogRecordsTimeline extends React.Component {
                 {
                     show: true,
                     realtime: true,
-                    start: 80,
+                    start: 90,
                     end: 100,
                     xAxisIndex: [0, 1]
                 },
                 {
                     type: 'inside',
                     realtime: true,
-                    start: 80,
+                    start: 90,
                     end: 100,
                     xAxisIndex: [0, 1]
                 }
@@ -337,10 +341,10 @@ class ContainerAuditLogRecordsTimeline extends React.Component {
 
     render() {
         return (
-            <div className="col-12 roundContainer">
-                <div className="w-100 h-100 roundContainerInner">
+            <div className="roundContainer h-100">
+                <div className="roundContainerInner w-100 h-100">
                     <h5>Häufigkeit ausgeführter Aktionen</h5>
-                    <div id={"echartRecordsActionsTimeline"} style={{width: "100%", height: "470px"}} />
+                    <div id={"echartRecordsActionsTimeline"} style={{width: "100%", height: "95%"}} />
                 </div>
             </div>
         );
@@ -355,7 +359,7 @@ class ContainerAuditLog extends React.Component {
     }
 
     deleteAuditLogs = async () => {
-        api("/go/auditlog/delete", "POST", null)
+        api("/student/auditlog/delete", "POST", null)
             .then(value => this.setState({auditLogs: []}));
     }
 
@@ -396,23 +400,27 @@ class ContainerAuditLog extends React.Component {
                     </Popup>
                     : null
                 }
-                <div className="row row-cols-auto pb-3">
-                    <ContainerAuditLogRecordsOverview auditLogs={this.props.auditLogs} />
-                    <ContainerAuditLogList auditLogs={this.props.auditLogs} />
-                    <ContainerAuditLogRecordsTimeline auditLogs={this.props.auditLogs} />
+                <div className="row row-cols-2 h-100 px-2 px-sm-0">
+                    <div className="col-12 col-xl-6 h-100 p-0">
+                        <ContainerAuditLogList auditLogs={this.props.auditLogs} />
+                    </div>
+                    <div className="col-12 col-xl-6 h-100 p-0">
+                        <ContainerAuditLogRecordsTimeline auditLogs={this.props.auditLogs} />
+                    </div>
+                    {hasPermission(Permission.AUDITLOG_DELETE) ?
+                        <div className="col-12">
+                            <DangerZone>
+                                <DZTitle>💣 Achtung explosiv</DZTitle>
+                                <DZItems>
+                                    <DZItem title="AuditLog Dateien löschen"
+                                            description="Lösche alle AuditLog Aufzeichnung endgültig!" buttonText="Löschen"
+                                            trigger={() => this.setState({deletionPopup: !this.state.deletionPopup})} />
+                                </DZItems>
+                            </DangerZone>
+                        </div>
+                        : null
+                    }
                 </div>
-
-                {hasPermission(Permission.AUDITLOG_DELETE) ?
-                    <DangerZone>
-                        <DZTitle>💣 Achtung explosiv</DZTitle>
-                        <DZItems>
-                            <DZItem title="AuditLog Dateien löschen"
-                                    description="Lösche alle AuditLog Aufzeichnung endgültig!" buttonText="Löschen"
-                                    trigger={() => this.setState({deletionPopup: !this.state.deletionPopup})} />
-                        </DZItems>
-                    </DangerZone>
-                    : null
-                }
             </>);
     }
 }
@@ -435,7 +443,8 @@ class ContentAuditLog extends React.Component {
     render() {
         let auditLogs = getDH("auditLogs").filter(auditLog =>
             auditLog.title.toUpperCase().includes(this.state.filter.toUpperCase())
-            || auditLog.description.toUpperCase().includes(this.state.filter.toUpperCase()));
+            || auditLog.description.toUpperCase().includes(this.state.filter.toUpperCase())),
+            postTitle = `• ${auditLogs.length} Einträge`;
 
         return (
             <ContentHolder>
@@ -444,7 +453,8 @@ class ContentAuditLog extends React.Component {
                         <ABSearchBar key="0" placeholder="Filter" trigger={this.setFilter} />
                     </ActionBar>
 
-                    <Header title={`${this.state.searchText ? "AuditLog gefiltert" : "AuditLog"}`}
+                    <Header title={`${this.state.searchText 
+                        ? `AuditLog gefiltert ${postTitle}` : `AuditLog ${postTitle}`}`}
                             color={this.state.color}>
                     </Header>
                 </CHHeading>

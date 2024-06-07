@@ -180,7 +180,7 @@ class ContainerAddQuotation extends React.Component {
             "from": this.state.from,
         }))
             .then(value => {
-                modifyDataDH("quotation", value.data)
+                modifyDataDH("quotations", value.data)
                 this.props.toggle()
             })
             .catch(error => {return error})
@@ -196,7 +196,7 @@ class ContainerAddQuotation extends React.Component {
                         <PPDescription>Erstelle ein Zitat von einem Schüler oder Lehrer und lasse andere Schüler dein Zitat liken.</PPDescription>
                         <PPInputText
                             placeholder="Zitat"
-                            onValid={v => validateLength(v, 5, 150)}
+                            onValid={v => validateLength(v, 5, 300)}
                             onInput={v => this.setState({text: v})}
                             onEnter={() => $("#qc2").focus()}
                         />
@@ -210,7 +210,7 @@ class ContainerAddQuotation extends React.Component {
                     </PPContent>
 
                     <PPButton trigger={this.addQuotation}
-                              disabled={validateLength(this.state.text, 5, 150)
+                              disabled={validateLength(this.state.text, 5, 300)
                                   || validateLength(this.state.from, 5, 150)}
                               color="#fff" bgColor="var(--sys-blue)">Hinzufügen</PPButton>
                 </Popup>

@@ -448,26 +448,14 @@ class ContainerFinanceGoal extends React.Component {
                     <h5>Ziel</h5>
                     <div className="d-flex justify-content-between w-100">
                         <div style={{fontSize: "11pt", color: "var(--sys-gray)"}}>
-                            {moneyNeeded <= 0 ? "Erreicht!" : currency.format(moneyNeeded / 100)}
+                            {moneyNeeded <= 0 ? "Erreicht!" : `noch ${currency.format(moneyNeeded / 100)}`}
                         </div>
                         <div>
                             <strong>{currency.format(this.props.goalMoney / 100)}</strong>
                         </div>
                     </div>
                     <div style={{width: "100%", height: "15px", lineHeight: "18px", fontSize: "22pt", textAlign: "end", border: "1px solid var(--sys-gray5)", background: "linear-gradient(to left, rgba(255, 255, 255, 0) "+ Math.round(100 - (this.props.totalMoney / this.props.goalMoney) * 100) +"%, #7f7fd5, #86a8e7, #91eae4)", borderRadius: "12px"}}>
-                        <Motion.motion.div
-                            animate={{
-                                y: [0, -3, 1, 2, 1, 0],
-                                x: [0, 3, 2, 1, -1, 0]
-                            }}
-                            transition={{
-                                ease: "easeOut",
-                                duration: 6,
-                                repeat: Infinity
-                            }}
-                        >
-                            🚀
-                        </Motion.motion.div>
+                        🚀
                     </div>
                 </div>
             </div>
@@ -483,7 +471,7 @@ class ContainerFinance extends React.Component {
             error: false,
             transactions: [],
 
-            colorPallet: ["#af52de","#5856d6","#007aff","#32ade6","#30b0c7","#00c7be","#34c759","#ffcc00","#ff9500","#ff3b30"],
+            colorPallet: ["#af52de","#5856d6","#007aff","#32ade6","#30b0c7","#00c7be","#34c759","#ffcc00","#ff9500","#ff3b30", "#219ebc", "#ffb703", "#606c38"],
             tags: {},
             totalMoney: 0,
             goalMoney: 0

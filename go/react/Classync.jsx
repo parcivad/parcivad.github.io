@@ -156,7 +156,7 @@ class Classync extends React.Component {
                             <div className="ps-3 pe-4 pt-4 overflow-scroll">
                                 <div className="d-flex justify-content-start cursor-pointer pb-3"
                                      role="button" data-bs-dismiss="offcanvas" aria-label="Close"
-                                     onClick={() => {}}>
+                                     onClick={() => this.openContent("h")}>
                                     <div className="d-flex align-items-center">
                                         <div className="pe-2">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -189,12 +189,12 @@ class Classync extends React.Component {
                                     </svg>
                                     <SBSubPoint title="💸 Finanzübersicht" trigger={() => this.openContent("f")}/>
                                     <SBSubPoint title="🛡️ Moderation" trigger={() => this.openContent("m")}/>
-                                    <SBSubPoint title="🏫 Kollegium" trigger={() => this.openContent("t")}/>
-                                    <SBSubPoint title="👨‍🎓‍ Schüler" trigger={() => this.openContent("s")}/>
                                     {hasPermission(Permission.AUDITLOG_SHOW) ?
-                                        <SBSubPoint title="🔍 AuditLog" trigger={() => this.openContent("au")}/>
+                                        <SBSubPoint title="👁️ AuditLog" trigger={() => this.openContent("au")}/>
                                         : null
                                     }
+                                    <SBSubPoint title="🏫 Kollegium" trigger={() => this.openContent("t")}/>
+                                    <SBSubPoint title="👨‍🎓‍ Schüler" trigger={() => this.openContent("s")}/>
                                 </Sidebar>
                                 <Sidebar title="Kalender" opened={true}>
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -244,6 +244,7 @@ class ClassyncOAuthProcess extends React.Component {
     constructor(props) {
         super(props);
 
+        let ic = getParam("ic") !== null ? getParam("ic") : "";
         this.state = {
             helpPopup: false,
             register: false,
@@ -251,7 +252,10 @@ class ClassyncOAuthProcess extends React.Component {
             loginPassword: "",
             loginState: "",
 
-            regInstance: "",
+            regInstance: getParam("i") !== null ? getParam("i") : "",
+            regCodeSlot1: ic.charAt(0),
+            regCodeSlot2: ic.charAt(1),
+            regCodeSlot3: ic.charAt(2),
             regCourses: [],
             regFirstname: "",
             regLastname: "",
@@ -259,6 +263,11 @@ class ClassyncOAuthProcess extends React.Component {
             regPassword: "",
             regState: ""
         }
+    }
+
+    validCodeSlot(value) {
+        if (isNaN(value)) return "Keine Buchstaben oder Sonderzeichen eingeben"
+        return false
     }
 
     validLoginUsername(value) {
@@ -513,108 +522,198 @@ class ClassyncOAuthProcess extends React.Component {
                                     </div>
 
                                     <div>
-                                        <div className="mb-3" style={{border: 0, borderRadius: "15px"}}>
-                                            <select className="form-select selector" value="LRGYM">
-                                                <option value="LRGYM">Löwenrot Abi2024</option>
+                                        <div className="mb-3" style={{border: 0, borderRadius: "15px", backgroundColor: "var(--sys-gray6)"}}>
+                                            <select className="form-select selector" placeholder="Instanz wählen"
+                                                    value={this.state.regInstance}
+                                                    onChange={e => this.setState({regInstance: e.currentTarget.value})}
+                                                    style={{border: "1px solid var(--sys-gray4)", zIndex: 1}}>
+                                                <option value="" disabled={true}>Instanz wählen</option>
+                                                <option value="gymlr2024">Löwenrot Abi2024</option>
+                                                <option value="gymw2024">Gymnasium Walldorf Abi2024</option>
                                             </select>
+                                            <Motion.AnimatePresence>
+                                                {this.state.regInstance !== "" && (
+                                                    <Motion.motion.div
+                                                        initial={{opacity: 0, height: 0}}
+                                                        animate={{opacity: 1, height: "auto"}}
+                                                        exit={{opacity: 0, height: 0}}
+                                                    >
+                                                        <div className="roundContainerInner d-flex justify-content-evenly align-items-center overflow-hidden">
+                                                            <div className="col-4">
+                                                                <p className="m-0" style={{fontWeight: 550, color: "var(--sys-gray)"}}>Euer Stufen Code: </p>
+                                                            </div>
+                                                            <div className="col-2 shadow-sm" style={{border: "1px solid var(--sys-gray3)", borderRadius: "8px"}}>
+                                                                <input id="codeSlot1" className="contentAuthCodeInput form-control" type="text"
+                                                                       placeholder="-" value={this.state.regCodeSlot1}
+                                                                       data-error={this.state.regState === "bad_credentials"}
+                                                                       onInput={e => {
+                                                                           if (this.validCodeSlot(e.currentTarget.value)) {
+                                                                               e.currentTarget.setCustomValidity(this.validCodeSlot(e.currentTarget.value))
+                                                                               e.currentTarget.reportValidity()
+                                                                               e.preventDefault()
+                                                                               return
+                                                                           }
+                                                                           e.currentTarget.setCustomValidity("")
+                                                                       }}
+                                                                       onChange={e => {
+                                                                           this.setState({regCodeSlot1: e.target.value.slice(-1), regState: ""})
+                                                                           if (e.currentTarget.value.length !== 0)  $("#codeSlot2").focus()
+                                                                       }}/>
+                                                            </div>
+                                                            <div className="col-2 shadow-sm" style={{border: "1px solid var(--sys-gray3)", borderRadius: "8px"}}>
+                                                                <input id="codeSlot2" className="contentAuthCodeInput form-control" type="text"
+                                                                       placeholder="-" value={this.state.regCodeSlot2}
+                                                                       data-error={this.state.regState === "bad_credentials"}
+                                                                       onInput={e => {
+                                                                           if (this.validCodeSlot(e.currentTarget.value)) {
+                                                                               e.currentTarget.setCustomValidity(this.validCodeSlot(e.currentTarget.value))
+                                                                               e.currentTarget.reportValidity()
+                                                                               e.preventDefault()
+                                                                               return
+                                                                           }
+                                                                           e.currentTarget.setCustomValidity("")
+                                                                       }}
+                                                                       onChange={e => {
+                                                                           this.setState({regCodeSlot2: e.currentTarget.value.slice(-1), regState: ""})
+                                                                           if (e.currentTarget.value.length !== 0) $("#codeSlot3").focus()
+                                                                       }}/>
+                                                            </div>
+                                                            <div className="col-2 shadow-sm" style={{border: "1px solid var(--sys-gray3)", borderRadius: "8px"}}>
+                                                                <input id="codeSlot3" className="contentAuthCodeInput form-control" type="text"
+                                                                       placeholder="-" value={this.state.regCodeSlot3}
+                                                                       data-error={this.state.regState === "bad_credentials"}
+                                                                       onInput={e => {
+                                                                           if (this.validCodeSlot(e.currentTarget.value)) {
+                                                                               e.currentTarget.setCustomValidity(this.validCodeSlot(e.currentTarget.value))
+                                                                               e.currentTarget.reportValidity()
+                                                                               e.preventDefault()
+                                                                               return
+                                                                           }
+                                                                           e.currentTarget.setCustomValidity("")
+                                                                       }}
+                                                                       onChange={e => {
+                                                                           this.setState({regCodeSlot3: e.currentTarget.value.slice(-1), regState: ""})
+                                                                       }}/>
+                                                            </div>
+                                                        </div>
+                                                    </Motion.motion.div>
+                                                )}
+                                            </Motion.AnimatePresence>
                                         </div>
                                     </div>
 
-                                    <div className="input-group selector mb-3">
-                                        <ItemMultiSelect topic="Kurse"
-                                                         options={getDH("courses")
-                                                             .sort((a, b) => a.courseName.localeCompare(b.courseName))
-                                                             .map(course => {return {value: course.courseId, name: course.courseName}})}
-                                                         callback={(value) => {
-                                                             this.setState({regCourses: value, regState: ""})
-                                                         }}/>
+                                    <div className="roundContainer display-none">
+                                        <div className="roundContainerInner d-flex justify-content-center align-items-center" style={{border: "3px dashed var(--sys-red)"}}>
+                                            <ContainerInformationBanner color="var(--sys-gray)" title="Registrierung beendet" description="Diese Stufe hat den Registrierungsvorgang deaktiviert." icon="hand-left-outline" />
+                                        </div>
                                     </div>
 
-                                    <div>
-                                        <div className="input-group" data-index="1">
-                                            <input id="regFirstname" className="contentAuthInput form-control" type="text"
-                                                   placeholder="Vorname" aria-label="name"
-                                                   data-error={this.state.regState === "bad_credentials"}
-                                                   onInput={e => {
-                                                       if (this.validRegisterName(e.currentTarget.value)) {
-                                                           e.currentTarget.setCustomValidity(this.validRegisterName(e.currentTarget.value))
-                                                           e.currentTarget.reportValidity()
-                                                           e.preventDefault()
-                                                           return
-                                                       }
-                                                       e.currentTarget.setCustomValidity("")
-                                                   }}
-                                                   onChange={e => {
-                                                       this.setState({
-                                                           regFirstname: e.target.value,
-                                                           regState: ""
-                                                       })
-                                                   }}
-                                                   onKeyDown={e => { if (e.keyCode === 13) $("#regLastname").focus()}} />
-                                            <input id="regLastname" className="contentAuthInput form-control" type="text"
-                                                   placeholder="Nachname" aria-label="name"
-                                                   data-error={this.state.loginState === "bad_credentials"}
-                                                   onInput={e => {
-                                                       if (this.validRegisterName(e.currentTarget.value)) {
-                                                           e.currentTarget.setCustomValidity(this.validRegisterName(e.currentTarget.value))
-                                                           e.currentTarget.reportValidity()
-                                                           e.preventDefault()
-                                                           return
-                                                       }
-                                                       e.currentTarget.setCustomValidity("")
-                                                   }}
-                                                   onChange={e => {
-                                                       this.setState({
-                                                           regLastname: e.target.value,
-                                                           regState: ""
-                                                       })
-                                                   }}
-                                                   onKeyDown={e => { if (e.keyCode === 13) $("#regEmail").focus()}} />
-                                        </div>
-
-                                        <div className="mt-3">
-                                            <input id="regEmail"  className="contentAuthInput form-control"
-                                                   type="email" placeholder="E-Mail" aria-label="password"
-                                                   required
-                                                   data-error={this.state.regState === "bad_credentials"}
-                                                   onChange={e => this.setState({
-                                                       regEmail: e.target.value,
-                                                       regState: ""
-                                                   })}
-                                                   onKeyDown={e => { if (e.keyCode === 13) $("#regPass").focus()}} />
-                                            <p className="ms-2 mt-1 pb-1" style={{color: "var(--sys-gray0)", fontWeight: "bold", fontSize: "9pt"}}>Schul- oder Privataddresse</p>
-                                        </div>
-
-                                        <div className="mt-3">
-                                            <input id="regPass"  className="contentAuthInput form-control"
-                                                   type="password" placeholder="Passwort" aria-label="password"
-                                                   data-error={this.state.regState === "bad_credentials"}
-                                                   onInput={e => {
-                                                       if (e.currentTarget.value.length < 6) {
-                                                           e.currentTarget.setCustomValidity(`noch ${6-e.currentTarget.value.length} Zeichen`)
-                                                           e.currentTarget.reportValidity()
-                                                           e.preventDefault()
-                                                           return
-                                                       }
-                                                       e.currentTarget.setCustomValidity("")
-                                                   }}
-                                                   onChange={e => this.setState({
-                                                       regPassword: e.target.value,
-                                                       regState: ""
-                                                   })}
-                                                   onKeyDown={e => { if (e.keyCode === 13) this.register()}} />
-                                            <div className="d-flex align-items-center justify-content-between ms-2 me-1 mt-1 pb-1">
-                                                <p className="m-0" style={{color: "var(--sys-gray0)", fontWeight: "bold", fontSize: "9pt"}}>
-                                                    Mindestens 6 Zeichen lang
-                                                </p>
-                                                <div className="d-flex align-items-start">
-                                                    <div style={{height: "12px", width: "25px", backgroundColor: regPassStrength > 0 ? "var(--sys-red)" : "var(--sys-gray6)", borderRadius: "8px 0 0 8px"}} />
-                                                    <div className="mx-1" style={{height: "12px", width: "25px", backgroundColor: regPassStrength > 1 ? "var(--sys-orange)" : "var(--sys-gray6)"}} />
-                                                    <div style={{height: "12px", width: "25px", backgroundColor: regPassStrength > 3 ? "var(--sys-green)" : "var(--sys-gray6)", borderRadius: "0 8px 8px 0"}} />
+                                    <Motion.AnimatePresence>
+                                        {this.state.regInstance !== "" && this.state.regCodeSlot1 && this.state.regCodeSlot2 && this.state.regCodeSlot3 && (
+                                            <Motion.motion.div
+                                                initial={{opacity: 0, height: 0}}
+                                                animate={{opacity: 1, height: "auto"}}
+                                                exit={{opacity: 0, height: 0}}
+                                            >
+                                                <div className="input-group selector mb-3">
+                                                    <ItemMultiSelect topic="Kurse"
+                                                                     options={getDH("courses")
+                                                                         .sort((a, b) => a.courseName.localeCompare(b.courseName))
+                                                                         .map(course => {return {value: course.courseId, name: course.courseName}})}
+                                                                     callback={(value) => {
+                                                                         this.setState({regCourses: value, regState: ""})
+                                                                     }}/>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
+                                                <div>
+                                                    <div className="input-group" data-index="1">
+                                                        <input id="regFirstname" className="contentAuthInput form-control" type="text"
+                                                               placeholder="Vorname" aria-label="name"
+                                                               data-error={this.state.regState === "bad_credentials"}
+                                                               onInput={e => {
+                                                                   if (this.validRegisterName(e.currentTarget.value)) {
+                                                                       e.currentTarget.setCustomValidity(this.validRegisterName(e.currentTarget.value))
+                                                                       e.currentTarget.reportValidity()
+                                                                       e.preventDefault()
+                                                                       return
+                                                                   }
+                                                                   e.currentTarget.setCustomValidity("")
+                                                               }}
+                                                               onChange={e => {
+                                                                   this.setState({
+                                                                       regFirstname: e.target.value,
+                                                                       regState: ""
+                                                                   })
+                                                               }}
+                                                               onKeyDown={e => { if (e.keyCode === 13) $("#regLastname").focus()}} />
+                                                        <input id="regLastname" className="contentAuthInput form-control" type="text"
+                                                               placeholder="Nachname" aria-label="name"
+                                                               data-error={this.state.loginState === "bad_credentials"}
+                                                               onInput={e => {
+                                                                   if (this.validRegisterName(e.currentTarget.value)) {
+                                                                       e.currentTarget.setCustomValidity(this.validRegisterName(e.currentTarget.value))
+                                                                       e.currentTarget.reportValidity()
+                                                                       e.preventDefault()
+                                                                       return
+                                                                   }
+                                                                   e.currentTarget.setCustomValidity("")
+                                                               }}
+                                                               onChange={e => {
+                                                                   this.setState({
+                                                                       regLastname: e.target.value,
+                                                                       regState: ""
+                                                                   })
+                                                               }}
+                                                               onKeyDown={e => { if (e.keyCode === 13) $("#regEmail").focus()}} />
+                                                    </div>
+                                                    <p className="ms-2 mt-1 pb-1" style={{color: "var(--sys-gray0)", fontWeight: "bold", fontSize: "9pt"}}>Kann später nicht geändert werden</p>
+
+                                                    <div className="mt-3">
+                                                        <input id="regEmail"  className="contentAuthInput form-control"
+                                                               type="email" placeholder="E-Mail" aria-label="password"
+                                                               required
+                                                               data-error={this.state.regState === "bad_credentials"}
+                                                               onChange={e => this.setState({
+                                                                   regEmail: e.target.value,
+                                                                   regState: ""
+                                                               })}
+                                                               onKeyDown={e => { if (e.keyCode === 13) $("#regPass").focus()}} />
+                                                        <p className="ms-2 mt-1 pb-1" style={{color: "var(--sys-gray0)", fontWeight: "bold", fontSize: "9pt"}}>Schul- oder Privataddresse</p>
+                                                    </div>
+
+                                                    <div className="mt-3">
+                                                        <input id="regPass"  className="contentAuthInput form-control"
+                                                               type="password" placeholder="Passwort" aria-label="password"
+                                                               data-error={this.state.regState === "bad_credentials"}
+                                                               onInput={e => {
+                                                                   if (e.currentTarget.value.length < 6) {
+                                                                       e.currentTarget.setCustomValidity(`noch ${6-e.currentTarget.value.length} Zeichen`)
+                                                                       e.currentTarget.reportValidity()
+                                                                       e.preventDefault()
+                                                                       return
+                                                                   }
+                                                                   e.currentTarget.setCustomValidity("")
+                                                               }}
+                                                               onChange={e => this.setState({
+                                                                   regPassword: e.target.value,
+                                                                   regState: ""
+                                                               })}
+                                                               onKeyDown={e => { if (e.keyCode === 13) this.register()}} />
+                                                        <div className="d-flex align-items-center justify-content-between ms-2 me-1 mt-1 pb-1">
+                                                            <p className="m-0" style={{color: "var(--sys-gray0)", fontWeight: "bold", fontSize: "9pt"}}>
+                                                                Mindestens 6 Zeichen lang
+                                                            </p>
+                                                            <div className="d-flex align-items-start">
+                                                                <div style={{height: "12px", width: "25px", backgroundColor: regPassStrength > 0 ? "var(--sys-red)" : "var(--sys-gray6)", borderRadius: "8px 0 0 8px"}} />
+                                                                <div className="mx-1" style={{height: "12px", width: "25px", backgroundColor: regPassStrength > 1 ? "var(--sys-orange)" : "var(--sys-gray6)"}} />
+                                                                <div style={{height: "12px", width: "25px", backgroundColor: regPassStrength > 3 ? "var(--sys-green)" : "var(--sys-gray6)", borderRadius: "0 8px 8px 0"}} />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </Motion.motion.div>
+                                        )}
+                                    </Motion.AnimatePresence>
 
                                     <div className="d-flex align-items-center justify-content-between pt-4">
                                         <button className="contentAuthButton" type="submit" onClick={() => this.setState({register: false})}

@@ -215,7 +215,6 @@ class ContainerStudentsElement extends React.Component {
                             </div>
                         </PPContent>
 
-                        <PPButton trigger={() => {}} color="#fff" bgColor="var(--sys-blue)">Kommentare öffnen</PPButton>
                         {hasPermission(Permission.STUDENT_DELETE_OTHER) ?
                             <PPButton trigger={this.delete} color="#fff" bgColor="var(--sys-red)">Konto Löschen</PPButton>
                             : null

@@ -29,7 +29,7 @@ class ContainerProfileSearchItem extends React.Component {
                     show: {opacity: 1, y: 0},
                     exit: {opacity: 0, y: 20}
                 }}
-                className="d-flex justify-content-between align-items-center mb-2">
+                className="d-flex justify-content-between align-items-center mb-2" onClick={this.props.trigger}>
                 <div className="d-flex align-items-center">
                     <ItemAvatar size="40px" />
                     <div className="ms-2">
@@ -42,7 +42,7 @@ class ContainerProfileSearchItem extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="cursor-pointer" style={{rotate: "320deg"}} onClick={this.props.trigger}>
+                <div className="cursor-pointer" style={{rotate: "320deg"}}>
                     <ion-icon name="arrow-forward-outline" />
                 </div>
             </Motion.motion.div>
@@ -312,10 +312,10 @@ class ContainerProfileQuestion extends React.Component {
             </>
         }
 
-        return <>
+        return <div className="d-flex justify-content-center align-items-center w-100">
             <ion-icon name="hourglass-outline"/>
             <p className="ps-2 m-0" style={{color: "var(--sys-gray)", fontSize: "11pt", fontWeight: "bold"}}>Nicht beantwortet</p>
-        </>
+        </div>
     }
 
     setAnswer = async () => {
@@ -380,7 +380,7 @@ class ContainerProfileQuestion extends React.Component {
                             </Motion.motion.div>
                         )}
                     </div>
-                    <div className={`roundContainerInner d-flex align-items-center ${getParam("p") === getDH("identity").studentId && this.props.question.answers[getParam("p")] !== undefined ? "justify-content-between" : "justify-content-center"}`} style={{borderRadius: "0 0 10px 10px"}}>
+                    <div className={`roundContainerInner d-flex align-items-center justify-content-between`} style={{borderRadius: "0 0 10px 10px"}}>
                         {this.getAnswerElement()}
                     </div>
                 </div>
